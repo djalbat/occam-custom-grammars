@@ -1,12 +1,11 @@
 # Custom Grammars
 
-Occam's custom grammar utilities and default BNF.
+Occam's custom grammars.
 
 ### Contents
 
 - [Introduction](#introduction)
 - [Installation](#installation)
-- [Example](#example)
 - [Building](#building)
 - [Contact](#contact)
 
@@ -27,12 +26,6 @@ You can also clone the repository with [Git](https://git-scm.com/)...
 ...and then install the necessary modules with npm from within the project's root directory:
 
     npm install
-
-You will need to do this if you want to look at the example.
-
-## Example
-
-To come.
 
 ## Building
 
