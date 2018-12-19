@@ -4,7 +4,7 @@
   "version": "1.0.2",
   "license": "MIT",
   "homepage": "https://github.com/jecs-imperial/occam-custom-grammars",
-  "description": "Occam's custom grammar utilities and default BNF.",
+  "description": "Occam's custom grammars.",
   "repository": {
     "type": "git",
     "url": "https://github.com/jecs-imperial/occam-custom-grammars"
