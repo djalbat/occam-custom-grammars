@@ -1,6 +1,6 @@
 # Custom Grammars
 
-Occam's custom grammars.
+[Occam](https://github.com/jecs-imperial/occam)'s custom grammars.
 
 ### Contents
 
