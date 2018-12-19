@@ -4,17 +4,13 @@ const parsers = require('occam-parsers'),
       necessary = require('necessary'),
       grammarUtilities = require('occam-grammar-utilities');
 
-const ruleUtilities = require('./utilities/rule'),
-      termDefaultBNF = require('./defaultBNF/term'),
-      statementDefaultBNF = require('./defaultBNF/statement'),
-      expressionDefaultBNF = require('./defaultBNF/expression'),
-      metastatementDefaultBNF = require('./defaultBNF/metastatement');
+const ruleUtilities = require('./utilities/rule');
 
 const { arrayUtilities } = necessary,
-      { BasicParser } = parsers,
       { unshift } = arrayUtilities,
       { findRuleByName } = ruleUtilities,
-      { eliminateCycles, eliminateLeftRecursion } = grammarUtilities;
+      { eliminateCycles, eliminateLeftRecursion } = grammarUtilities,
+      { BasicParser, termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
 
 class CombinedCustomGrammars {
   constructor(lexicalPattern, rules) {
@@ -31,17 +27,8 @@ class CombinedCustomGrammars {
   }
 
   static fromCustomGrammars(customGrammars) {
-    const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars),
-          termBNFs = bnfsFromCustomGrammars('term', customGrammars),
-          expressionBNFs = bnfsFromCustomGrammars('expression', customGrammars),
-          statementBNFs = bnfsFromCustomGrammars('statement', customGrammars),
-          metastatementBNFs = bnfsFromCustomGrammars('metastatement', customGrammars),
-          termRules = rulesFromBNFs('term', termDefaultBNF, termBNFs),
-          expressionRules = rulesFromBNFs('expression', expressionDefaultBNF, expressionBNFs),
-          statementRules = rulesFromBNFs('statement', statementDefaultBNF, statementBNFs),
-          metastatementRules = rulesFromBNFs('metastatement', metastatementDefaultBNF, metastatementBNFs),
-          combinedLexicalPattern = lexicalPatterns.reverse().join('|'), ///
-          combinedRules = [].concat(termRules).concat(expressionRules).concat(statementRules).concat(metastatementRules), ///
+    const combinedLexicalPattern = combinedLexicalPatternFromCustomGrammars(customGrammars),
+          combinedRules = combinedRulesFromCustomGrammars(customGrammars),
           lexicalPattern = combinedLexicalPattern,  ///
           rules = combinedRules,  ///
           combinedCustomGrammars = new CombinedCustomGrammars(lexicalPattern, rules);
@@ -51,6 +38,31 @@ class CombinedCustomGrammars {
 }
 
 module.exports = CombinedCustomGrammars;
+
+function combinedLexicalPatternFromCustomGrammars(customGrammars) {
+  const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars),
+        combinedLexicalPattern = lexicalPatterns.reverse().join('|'); ///
+
+  return combinedLexicalPattern;
+}
+
+function combinedRulesFromCustomGrammars(customGrammars) {
+  const termDefaultBNF = termDefaultCustomGrammarBNF, ///
+        statementDefaultBNF = statementDefaultCustomGrammarBNF, ///
+        expressionDefaultBNF = expressionDefaultCustomGrammarBNF, ///
+        metastatementDefaultBNF = metastatementDefaultCustomGrammarBNF, ///
+        termBNFs = bnfsFromCustomGrammars('term', customGrammars),
+        statementBNFs = bnfsFromCustomGrammars('statement', customGrammars),
+        expressionBNFs = bnfsFromCustomGrammars('expression', customGrammars),
+        metastatementBNFs = bnfsFromCustomGrammars('metastatement', customGrammars),
+        termRules = rulesFromBNFs('term', termDefaultBNF, termBNFs),
+        statementRules = rulesFromBNFs('statement', statementDefaultBNF, statementBNFs),
+        expressionRules = rulesFromBNFs('expression', expressionDefaultBNF, expressionBNFs),
+        metastatementRules = rulesFromBNFs('metastatement', metastatementDefaultBNF, metastatementBNFs),
+        combinedRules = [].concat(termRules).concat(expressionRules).concat(statementRules).concat(metastatementRules); ///
+
+  return combinedRules;
+}
 
 function lexicalPatternsFromCustomGrammars(customGrammars) {
   const lexicalPatterns = customGrammars.reduce(function(lexicalPatterns, customGrammar) {

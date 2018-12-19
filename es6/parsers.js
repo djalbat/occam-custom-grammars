@@ -1,6 +1,7 @@
 'use strict';
 
-const parsers = require('occam-parsers'),
+const lexers = require('occam-lexers'),
+      parsers = require('occam-parsers'),
       necessary = require('necessary');
 
 const { arrayUtilities } = necessary,
@@ -13,14 +14,12 @@ const bnfLexer = BNFLexer.fromNothing(),
 
 function florenceParserFromCombinedCustomGrammarsRules(combinedCustomGrammarsRules) {
   const { bnf } = FlorenceParser,
-        florenceParser = FlorenceParser.fromBNF(bnf, combinedCustomGrammarsRules);
+        florenceParser = florenceParserFromBNFAndCombinedCustomGrammarsRules(bnf, combinedCustomGrammarsRules);
 
   return florenceParser;
 }
 
 function florenceParserFromBNFAndCombinedCustomGrammarsRules(bnf, combinedCustomGrammarsRules) {
-  combinedCustomGrammarsRules = addQualifiedAndUnqualifiedStatementAndMetastatementRules(combinedCustomGrammarsRules);  ///
-
   const tokens = bnfLexer.tokensFromBNF(bnf),
         rulesNode = bnfParser.rulesNodeFromTokens(tokens),
         rules = BNFParser.generateRules(rulesNode);

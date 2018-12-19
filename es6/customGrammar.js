@@ -1,9 +1,8 @@
 'use strict';
 
-const termDefaultBNF = require('./defaultBNF/term'),
-      statementDefaultBNF = require('./defaultBNF/statement'),
-      expressionDefaultBNF = require('./defaultBNF/expression'),
-      metastatementDefaultBNF = require('./defaultBNF/metastatement');
+const parsers = require('occam-parsers');
+
+const { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
 
 const defaultCustomGrammarProjectName = 'default', ///
       defaultCustomGrammarLexicalPattern = '';
@@ -134,10 +133,10 @@ class CustomGrammar {
   static fromDefaults() {
     const projectName = defaultCustomGrammarProjectName, ///
           lexicalPattern = defaultCustomGrammarLexicalPattern,  ///
-          termBNF = termDefaultBNF,  ///
-          expressionBNF = expressionDefaultBNF,  ///
-          statementBNF = statementDefaultBNF,  ///
-          metastatementBNF = metastatementDefaultBNF,  ///
+          termBNF = termDefaultCustomGrammarBNF,  ///
+          expressionBNF = expressionDefaultCustomGrammarBNF,  ///
+          statementBNF = statementDefaultCustomGrammarBNF,  ///
+          metastatementBNF = metastatementDefaultCustomGrammarBNF,  ///
           customGrammar = new CustomGrammar(projectName, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
     
     return customGrammar;
