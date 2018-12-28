@@ -12,7 +12,7 @@
 
 ## Introduction
 
-In Occam parlance, a grammar is a combination of a series of regular expressions for a lexer and BNF for a parser. A custom grammar is a single regular expression together with four BNF snippets for terms, expressions, statements and metastatements. Custom grammars augment the Florence grammar, allowing for custom terms, expressions, statements and metastatements to be defined. This package exports a class that encapsulates custom grammars plus the means to combine them. It also supplies factory methods to create Florence lexers and parsers that make use of them. Further details, including an outline of how custom grammars are combined and merged with the Florence grammar, are given in the description of the example below.
+In Occam parlance, a grammar is a combination of a series of regular expressions for a lexer and BNF for a parser. A custom grammar is a single regular expression plus four BNF snippets for terms, expressions, statements and metastatements. Custom grammars augment the Florence grammar, allowing for custom terms, expressions, statements and metastatements to be defined. This package exports a class that encapsulates custom grammars plus the means to combine them. It also supplies factory methods to create Florence lexers and parsers that make use of them. Further details, including an outline of how custom grammars are combined and merged with the Florence grammar, are given in the description of the example below.
 
 ## Installation
 
