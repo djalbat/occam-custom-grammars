@@ -32,7 +32,7 @@ You will need to do this if you want to look at the example.
 
 ## Example
 
-There is one example to enable you to alter and single custom grammar and see it combined with the default Florence grammars and merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
+There is one example to enable you to alter a single custom grammar, see it combined with the default Florence grammars and merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
 
 ## Building
 
