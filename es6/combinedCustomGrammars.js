@@ -9,7 +9,7 @@ const ruleUtilities = require('./utilities/rule');
 const { arrayUtilities } = necessary,
       { unshift } = arrayUtilities,
       { findRuleByName } = ruleUtilities,
-      { eliminateCycles, eliminateLeftRecursion } = grammarUtilities,
+      { eliminateLeftRecursion } = grammarUtilities,
       { BasicParser, termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
 
 class CombinedCustomGrammars {
@@ -65,29 +65,29 @@ function combinedRulesFromCustomGrammars(customGrammars) {
 }
 
 function lexicalPatternsFromCustomGrammars(customGrammars) {
-  const lexicalPatterns = customGrammars.reduce(function(lexicalPatterns, customGrammar) {
+  const lexicalPatterns = [];
+
+  customGrammars.forEach(function(customGrammar) {
     const lexicalPattern = customGrammar.getLexicalPattern();
 
     if (lexicalPattern !== null) {
       lexicalPatterns.push(lexicalPattern);
     }
-
-    return lexicalPatterns;
-  }, []);
+  });
 
   return lexicalPatterns;
 }
 
 function bnfsFromCustomGrammars(ruleName, customGrammars) {
-  const bnfs = customGrammars.reduce(function(bnfs, customGrammar) {
+  const bnfs = [];
+
+  customGrammars.forEach(function(customGrammar) {
     const bnf = customGrammar.getBNF(ruleName);
 
     if (bnf !== null) {
       bnfs.push(bnf);
     }
-
-    return bnfs;
-  }, []);
+  });
 
   return bnfs;
 }
@@ -95,28 +95,26 @@ function bnfsFromCustomGrammars(ruleName, customGrammars) {
 function rulesFromBNFs(ruleName, defaultBNF, bnfs) {
   const defaultRules = rulesFromBNF(defaultBNF),
         defaultMainRule = mainRuleFromRulesAndRuleName(defaultRules, ruleName),
-        defaultOtherRules = otherRulesFromRulesAndMainRule(defaultRules, defaultMainRule),
+        defaultRemainingRules = remainingRulesFromRulesAndMainRule(defaultRules, defaultMainRule),
         defaultMainRuleDefinitions = defaultMainRule.getDefinitions();
 
   bnfs.forEach(function(bnf) {
     const rules = rulesFromBNF(bnf),
           mainRule = mainRuleFromRulesAndRuleName(rules, ruleName),
-          otherRules = otherRulesFromRulesAndMainRule(rules, mainRule),
+          remainingRules = remainingRulesFromRulesAndMainRule(rules, mainRule),
           mainRuleDefinitions = (mainRule !== null) ?
                                   mainRule.getDefinitions() :
                                     [];
 
-    unshift(defaultOtherRules, otherRules);
+    unshift(defaultRemainingRules, remainingRules);
 
     unshift(defaultMainRuleDefinitions, mainRuleDefinitions);
   });
 
   const mainRule = defaultMainRule, ///
-        otherRules = defaultOtherRules; ///
+        remainingRules = defaultRemainingRules; ///
 
-  let rules = [].concat(otherRules).concat(mainRule);
-
-  rules = eliminateCycles(rules); ///
+  let rules = [].concat(mainRule).concat(remainingRules);
 
   rules = eliminateLeftRecursion(rules);  ///
 
@@ -137,12 +135,12 @@ function mainRuleFromRulesAndRuleName(rules, ruleName) {
   return mainRule;
 }
 
-function otherRulesFromRulesAndMainRule(rules, mainRule) {
-  const otherRules = rules.filter(function(rule) {
-    const ruleNotMainRule = (rule !== mainRule);
-
-    return ruleNotMainRule;
+function remainingRulesFromRulesAndMainRule(rules, mainRule) {
+  const remainingRules = rules.filter(function(rule) {
+    if (rule !== mainRule) {
+      return true;
+    }
   });
 
-  return otherRules;
+  return remainingRules;
 }

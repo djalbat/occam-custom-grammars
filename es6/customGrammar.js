@@ -1,15 +1,8 @@
 'use strict';
 
-const parsers = require('occam-parsers');
-
-const { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
-
-const defaultCustomGrammarProjectName = 'default', ///
-      defaultCustomGrammarLexicalPattern = '';
-
 class CustomGrammar {
-  constructor(projectName, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
-    this.projectName = projectName;
+  constructor(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
+    this.name = name;
     this.lexicalPattern = lexicalPattern;
     this.termBNF = termBNF;
     this.expressionBNF = expressionBNF;
@@ -17,8 +10,8 @@ class CustomGrammar {
     this.metastatementBNF = metastatementBNF;
   }
   
-  getProjectName() {
-    return this.projectName;
+  getName() {
+    return this.name;
   }
 
   getLexicalPattern() {
@@ -49,8 +42,8 @@ class CustomGrammar {
     return bnf;
   }
 
-  setProjectName(projectName) {
-    this.projectName = projectName;
+  setName(name) {
+    this.name = name;
   }
 
   setLexicalPattern(lexicalPattern) {
@@ -96,7 +89,7 @@ class CustomGrammar {
 
   toJSON() {
     const json = {
-      "projectName": this.projectName,
+      "name": this.name,
       "lexicalPattern": this.lexicalPattern,
       "termBNF": this.termBNF,
       "expressionBNF": this.expressionBNF,
@@ -108,37 +101,25 @@ class CustomGrammar {
   }
 
   static fromJSON(json) {
-    const projectName = json["projectName"],
+    const name = json["name"],
           lexicalPattern = json["lexicalPattern"],
           termBNF = json["termBNF"],
           expressionBNF = json["expressionBNF"],
           statementBNF = json["statementBNF"],
           metastatementBNF = json["metastatementBNF"],
-          customGrammar = new CustomGrammar(projectName, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
+          customGrammar = new CustomGrammar(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
     return customGrammar;
   }
 
-  static fromProjectName(projectName) {
+  static fromName(name) {
     const lexicalPattern = null,
           termBNF = null,
           expressionBNF = null,
           statementBNF = null,
           metastatementBNF = null,
-          customGrammar = new CustomGrammar(projectName, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
+          customGrammar = new CustomGrammar(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
-    return customGrammar;
-  }
-  
-  static fromDefaults() {
-    const projectName = defaultCustomGrammarProjectName, ///
-          lexicalPattern = defaultCustomGrammarLexicalPattern,  ///
-          termBNF = termDefaultCustomGrammarBNF,  ///
-          expressionBNF = expressionDefaultCustomGrammarBNF,  ///
-          statementBNF = statementDefaultCustomGrammarBNF,  ///
-          metastatementBNF = metastatementDefaultCustomGrammarBNF,  ///
-          customGrammar = new CustomGrammar(projectName, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
-    
     return customGrammar;
   }
 }

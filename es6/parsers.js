@@ -12,15 +12,16 @@ const { arrayUtilities } = necessary,
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
-function florenceParserFromCombinedCustomGrammarsRules(combinedCustomGrammarsRules) {
+function florenceParserFromCombinedCustomGrammars(combinedCustomGrammars) {
   const { bnf } = FlorenceParser,
-        florenceParser = florenceParserFromBNFAndCombinedCustomGrammarsRules(bnf, combinedCustomGrammarsRules);
+        florenceParser = florenceParserFromBNFAndCombinedCustomGrammars(bnf, combinedCustomGrammars);
 
   return florenceParser;
 }
 
-function florenceParserFromBNFAndCombinedCustomGrammarsRules(bnf, combinedCustomGrammarsRules) {
-  const tokens = bnfLexer.tokensFromBNF(bnf),
+function florenceParserFromBNFAndCombinedCustomGrammars(bnf, combinedCustomGrammars) {
+  const combinedCustomGrammarsRules = combinedCustomGrammars.getRules(),
+        tokens = bnfLexer.tokensFromBNF(bnf),
         rulesNode = bnfParser.rulesNodeFromTokens(tokens),
         rules = BNFParser.generateRules(rulesNode);
 
@@ -32,6 +33,6 @@ function florenceParserFromBNFAndCombinedCustomGrammarsRules(bnf, combinedCustom
 }
 
 module.exports = {
-  florenceParserFromCombinedCustomGrammarsRules,
-  florenceParserFromBNFAndCombinedCustomGrammarsRules
+  florenceParserFromCombinedCustomGrammars,
+  florenceParserFromBNFAndCombinedCustomGrammars
 };
