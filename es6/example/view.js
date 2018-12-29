@@ -22,8 +22,9 @@ const { Element } = easy,
       { florenceLexerFromCombinedCustomGrammars } = lexers,
       { florenceParserFromCombinedCustomGrammars } = parsers,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
-      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF  } = parsers,
-      name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
+      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF  } = parsers;
+
+const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
       userDefinedCustomGrammar = CustomGrammar.fromName(name),
       customGrammars = [
         userDefinedCustomGrammar

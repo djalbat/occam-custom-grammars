@@ -36,6 +36,16 @@ You will need to do this if you want to look at the example.
 
 There is one example to enable you to alter a single custom grammar, see it combined with the default Florence grammars and merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
 
+```
+  expression ::= expression operator expression
+
+               | "(" expression ")"
+
+               ;
+
+  operator   ::= "+" | "-" | "/" | "*" ;
+```
+
 ## Building
 
 Automation is done with [npm scripts](https://docs.npmjs.com/misc/scripts), have a look at the `package.json` file. The pertinent commands are:

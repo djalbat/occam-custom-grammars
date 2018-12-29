@@ -30,7 +30,7 @@ class CombinedCustomGrammars {
     const combinedLexicalPattern = combinedLexicalPatternFromCustomGrammars(customGrammars),
           combinedRules = combinedRulesFromCustomGrammars(customGrammars),
           lexicalPattern = combinedLexicalPattern,  ///
-          rules = combinedRules,  ///
+          rules = eliminateLeftRecursion(combinedRules),  ///
           combinedCustomGrammars = new CombinedCustomGrammars(lexicalPattern, rules);
     
     return combinedCustomGrammars;
@@ -114,9 +114,7 @@ function rulesFromBNFs(ruleName, defaultBNF, bnfs) {
   const mainRule = defaultMainRule, ///
         remainingRules = defaultRemainingRules; ///
 
-  let rules = [].concat(mainRule).concat(remainingRules);
-
-  rules = eliminateLeftRecursion(rules);  ///
+  const rules = [].concat(mainRule).concat(remainingRules);
 
   return rules;
 }
