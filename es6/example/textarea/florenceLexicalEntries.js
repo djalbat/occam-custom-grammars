@@ -11,19 +11,11 @@ class FlorenceLexicalEntriesTextarea extends InputElement {
     this.setValue(value);
   }
 
-  clearFlorenceLexicalEntries() {
-    const value = '';
-
-    this.setValue(value);
-  }
-
   parentContext() {
-    const setFlorenceLexicalEntries = this.setFlorenceLexicalEntries.bind(this),
-          clearFlorenceLexicalEntries = this.clearFlorenceLexicalEntries.bind(this);
+    const setFlorenceLexicalEntries = this.setFlorenceLexicalEntries.bind(this);
 
     return ({
-      setFlorenceLexicalEntries,
-      clearFlorenceLexicalEntries
+      setFlorenceLexicalEntries
     });
   }
 

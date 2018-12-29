@@ -11,19 +11,11 @@ class FlorenceBNFTextarea extends InputElement {
     this.setValue(value);
   }
 
-  clearFlorenceBNF() {
-    const value = '';
-
-    this.setValue(value);
-  }
-
   parentContext() {
-    const setFlorenceBNF = this.setFlorenceBNF.bind(this),
-          clearFlorenceBNF = this.clearFlorenceBNF.bind(this);
+    const setFlorenceBNF = this.setFlorenceBNF.bind(this);
 
     return ({
-      setFlorenceBNF,
-      clearFlorenceBNF
+      setFlorenceBNF
     });
   }
 

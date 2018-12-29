@@ -11,17 +11,18 @@ const lexers = require('../lexers'),
       rulesUtilities = require('../utilities/rules'),
       RuleNameSelect = require('./select/ruleName'),
       FlorenceBNFTextarea = require('./textarea/florenceBNF'),
-      CustomGrammarSelect = require('./select/customGrammar'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
       CombinedCustomGrammars = require('../combinedCustomGrammars'),
+      CustomGrammarNameSelect = require('./select/customGrammarName'),
       FlorenceLexicalEntriesTextarea = require('./textarea/florenceLexicalEntries');
 
 const { Element } = easy,
       { SizeableElement } = easyLayout,
       { rulesAsString, rulesAsEntries } = rulesUtilities,
-      { USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
       { florenceLexerFromCombinedCustomGrammars } = lexers,
       { florenceParserFromCombinedCustomGrammars } = parsers,
+      { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
+      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF  } = parsers,
       name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
       userDefinedCustomGrammar = CustomGrammar.fromName(name),
       customGrammars = [
@@ -30,7 +31,8 @@ const { Element } = easy,
 
 class View extends Element {
   update() {
-    const combinedCustomGrammars = CombinedCustomGrammars.fromCustomGrammars(customGrammars),
+    const customGrammarName = this.getCustomGrammarName(),
+          combinedCustomGrammars = CombinedCustomGrammars.fromCustomGrammars(customGrammars),
           florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
           florenceParser = florenceParserFromCombinedCustomGrammars(combinedCustomGrammars),
           florenceLexerRules = florenceLexer.getRules(),
@@ -40,20 +42,42 @@ class View extends Element {
           florenceLexicalEntries = florenceLexerEntries,  ///
           florenceBNF = florenceParserRulesString;  ///
 
+    if (customGrammarName === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+      const bnf = this.getBNF(),
+            ruleName = this.getRuleName();
+
+      userDefinedCustomGrammar.setBNF(ruleName, bnf);
+    }
+
     this.setFlorenceLexicalEntries(florenceLexicalEntries);
 
     this.setFlorenceBNF(florenceBNF);
   }
 
   changeHandler() {
-    // const ruleName = this.getRuleName(),
-    //       customGrammar = this.findCustomGrammar(),
-    //       bnf = customGrammar.getBNF(ruleName) || '', ///
-    //       lexicalPattern = customGrammar.getLexicalPattern() || ''; ///
-    //
-    // this.setBNF(bnf);
-    //
-    // this.setLexicalPattern(lexicalPattern);
+    const ruleName = this.getRuleName(),
+          customGrammarName = this.getCustomGrammarName();
+
+    let bnf, readOnly;
+
+    if (customGrammarName === DEFAULT_CUSTOM_GRAMMAR_NAME) {
+      switch (ruleName) {
+        case 'term' : bnf = termDefaultCustomGrammarBNF; break;
+        case 'statement' : bnf = statementDefaultCustomGrammarBNF; break;
+        case 'expression' : bnf = expressionDefaultCustomGrammarBNF; break;
+        case 'metastatement' : bnf = metastatementDefaultCustomGrammarBNF; break;
+      }
+
+      readOnly = true;
+    } else {
+      bnf = userDefinedCustomGrammar.getBNF(ruleName);
+
+      readOnly = false;
+    }
+
+    this.setBNF(bnf);
+
+    this.setBNFReadOnly(readOnly);
   }
 
   keyUpHandler() {
@@ -71,7 +95,7 @@ class View extends Element {
           <h2>
             Custom grammar
           </h2>
-          <CustomGrammarSelect onChange={changeHandler} />
+          <CustomGrammarNameSelect onChange={changeHandler} />
           <h2>
             Rule name
           </h2>
@@ -99,6 +123,8 @@ class View extends Element {
 
   initialise() {
     this.assignContext();
+
+    this.changeHandler(); ///
 
     this.update();
   }

@@ -13,7 +13,7 @@ class BNFTextarea extends InputElement {
   }
 
   setBNF(bnf) {
-    const value = bnf;  ///
+    const value = bnf || '';  ///
 
     this.setValue(value);
   }
@@ -30,13 +30,15 @@ class BNFTextarea extends InputElement {
     const getBNF = this.getBNF.bind(this),
           setBNF = this.setBNF.bind(this),
           showError = this.showError.bind(this),
-          hideError = this.hideError.bind(this);
+          hideError = this.hideError.bind(this),
+          setBNFReadOnly = this.setReadOnly.bind(this); ///
 
     return ({
       getBNF,
       setBNF,
       showError,
-      hideError
+      hideError,
+      setBNFReadOnly
     });
   }
 

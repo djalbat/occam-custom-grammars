@@ -7,7 +7,8 @@ const lexers = require('occam-lexers'),
 const { arrayUtilities } = necessary,
       { push } = arrayUtilities,
       { BNFLexer } = lexers,
-      { BNFParser, FlorenceParser } = parsers;
+      { BNFParser, FlorenceParser } = parsers,
+      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
 
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
@@ -33,6 +34,10 @@ function florenceParserFromBNFAndCombinedCustomGrammars(bnf, combinedCustomGramm
 }
 
 module.exports = {
+  termDefaultCustomGrammarBNF,
+  statementDefaultCustomGrammarBNF,
+  expressionDefaultCustomGrammarBNF,
+  metastatementDefaultCustomGrammarBNF,
   florenceParserFromCombinedCustomGrammars,
   florenceParserFromBNFAndCombinedCustomGrammars
 };

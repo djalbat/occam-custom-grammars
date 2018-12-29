@@ -15,10 +15,10 @@ class RuleNameSelect extends InputElement {
   childElements(properties) {
     return ([
 
-      <option value="metastatement" selected>metastatement</option>,
-      <option value="statement">statement</option>,
+      <option value="term" selected >term</option>,
       <option value="expression">expression</option>,
-      <option value="term">term</option>
+      <option value="statement">statement</option>,
+      <option value="metastatement">metastatement</option>
 
     ]);
   }
