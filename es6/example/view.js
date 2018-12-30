@@ -10,6 +10,7 @@ const lexers = require('../lexers'),
       CustomGrammar = require('../customGrammar'),
       rulesUtilities = require('../utilities/rules'),
       RuleNameSelect = require('./select/ruleName'),
+      LexicalPatternInput = require('./input/lexicalPattern'),
       FlorenceBNFTextarea = require('./textarea/florenceBNF'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
       CombinedCustomGrammars = require('../combinedCustomGrammars'),
@@ -31,7 +32,7 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
       ];
 
 class View extends Element {
-  update() {
+  keyUpHandler() {
     const customGrammarName = this.getCustomGrammarName(),
           combinedCustomGrammars = CombinedCustomGrammars.fromCustomGrammars(customGrammars),
           florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
@@ -45,9 +46,12 @@ class View extends Element {
 
     if (customGrammarName === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
       const bnf = this.getBNF(),
-            ruleName = this.getRuleName();
+            ruleName = this.getRuleName(),
+            lexicalPattern = this.getLexicalPattern();
 
       userDefinedCustomGrammar.setBNF(ruleName, bnf);
+
+      userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
     }
 
     this.setFlorenceLexicalEntries(florenceLexicalEntries);
@@ -59,7 +63,9 @@ class View extends Element {
     const ruleName = this.getRuleName(),
           customGrammarName = this.getCustomGrammarName();
 
-    let bnf, readOnly;
+    let bnf,
+        readOnly,
+        lexicalPattern;
 
     if (customGrammarName === DEFAULT_CUSTOM_GRAMMAR_NAME) {
       switch (ruleName) {
@@ -69,9 +75,13 @@ class View extends Element {
         case 'metastatement' : bnf = metastatementDefaultCustomGrammarBNF; break;
       }
 
+      lexicalPattern = null;
+
       readOnly = true;
     } else {
       bnf = userDefinedCustomGrammar.getBNF(ruleName);
+
+      lexicalPattern = userDefinedCustomGrammar.getLexicalPattern();
 
       readOnly = false;
     }
@@ -79,10 +89,10 @@ class View extends Element {
     this.setBNF(bnf);
 
     this.setBNFReadOnly(readOnly);
-  }
 
-  keyUpHandler() {
-    this.update();
+    this.setLexicalPattern(lexicalPattern);
+
+    this.setLexicalPatternReadOnly(readOnly);
   }
 
   childElements(properties) {
@@ -101,6 +111,10 @@ class View extends Element {
             Rule name
           </h2>
           <RuleNameSelect onChange={changeHandler} />
+          <h2>
+            Lexical pattern
+          </h2>
+          <LexicalPatternInput onKeyUp={keyUpHandler} />
           <h2>
             BNF
           </h2>
@@ -127,7 +141,7 @@ class View extends Element {
 
     this.changeHandler(); ///
 
-    this.update();
+    this.keyUpHandler();  ///
   }
 
   static fromProperties(properties) {
