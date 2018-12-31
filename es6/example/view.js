@@ -33,30 +33,43 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
 
 class View extends Element {
   keyUpHandler() {
-    const customGrammarName = this.getCustomGrammarName(),
-          combinedCustomGrammars = CombinedCustomGrammars.fromCustomGrammars(customGrammars),
-          florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
-          florenceParser = florenceParserFromCombinedCustomGrammars(combinedCustomGrammars),
-          florenceLexerRules = florenceLexer.getRules(),
-          florenceParserRules = florenceParser.getRules(),
-          florenceLexerEntries = rulesAsEntries(florenceLexerRules),
-          florenceParserRulesString = rulesAsString(florenceParserRules),
-          florenceLexicalEntries = florenceLexerEntries,  ///
-          florenceBNF = florenceParserRulesString;  ///
+    try {
+      const customGrammarName = this.getCustomGrammarName();
 
-    if (customGrammarName === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
-      const bnf = this.getBNF(),
-            ruleName = this.getRuleName(),
-            lexicalPattern = this.getLexicalPattern();
+      if (customGrammarName === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+        const bnf = this.getBNF(),
+              ruleName = this.getRuleName(),
+              lexicalPattern = this.getLexicalPattern();
 
-      userDefinedCustomGrammar.setBNF(ruleName, bnf);
+        userDefinedCustomGrammar.setBNF(ruleName, bnf);
 
-      userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
+        userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
+      }
+
+      const combinedCustomGrammars = CombinedCustomGrammars.fromCustomGrammars(customGrammars),
+            florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
+            florenceParser = florenceParserFromCombinedCustomGrammars(combinedCustomGrammars),
+            florenceLexerRules = florenceLexer.getRules(),
+            florenceParserRules = florenceParser.getRules(),
+            florenceLexerEntries = rulesAsEntries(florenceLexerRules),
+            florenceParserRulesString = rulesAsString(florenceParserRules),
+            florenceLexicalEntries = florenceLexerEntries,  ///
+            florenceBNF = florenceParserRulesString;  ///
+
+      this.setFlorenceBNF(florenceBNF);
+
+      this.setFlorenceLexicalEntries(florenceLexicalEntries);
+
+      this.hideBNFError();
+
+      this.hideLexicalPatternError();
+    } catch (error) {
+      const { message } = error;
+
+      message.includes('regular expression') ? ///
+        this.showLexicalPatternError() :
+          this.showBNFError();
     }
-
-    this.setFlorenceLexicalEntries(florenceLexicalEntries);
-
-    this.setFlorenceBNF(florenceBNF);
   }
 
   changeHandler() {

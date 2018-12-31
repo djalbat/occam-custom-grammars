@@ -70,7 +70,7 @@ function lexicalPatternsFromCustomGrammars(customGrammars) {
   customGrammars.forEach(function(customGrammar) {
     const lexicalPattern = customGrammar.getLexicalPattern();
 
-    if (lexicalPattern !== null) {
+    if (lexicalPattern) { ///
       lexicalPatterns.push(lexicalPattern);
     }
   });
@@ -84,7 +84,7 @@ function bnfsFromCustomGrammars(ruleName, customGrammars) {
   customGrammars.forEach(function(customGrammar) {
     const bnf = customGrammar.getBNF(ruleName);
 
-    if (bnf !== null) {
+    if (bnf) {  ///
       bnfs.push(bnf);
     }
   });

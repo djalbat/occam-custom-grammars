@@ -23,8 +23,7 @@ function florenceParserFromCombinedCustomGrammars(combinedCustomGrammars) {
 function florenceParserFromBNFAndCombinedCustomGrammars(bnf, combinedCustomGrammars) {
   const combinedCustomGrammarsRules = combinedCustomGrammars.getRules(),
         tokens = bnfLexer.tokensFromBNF(bnf),
-        rulesNode = bnfParser.rulesNodeFromTokens(tokens),
-        rules = BNFParser.generateRules(rulesNode);
+        rules = bnfParser.rulesFromTokens(tokens);
 
   push(rules, combinedCustomGrammarsRules);
 

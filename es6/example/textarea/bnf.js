@@ -29,15 +29,15 @@ class BNFTextarea extends InputElement {
   parentContext() {
     const getBNF = this.getBNF.bind(this),
           setBNF = this.setBNF.bind(this),
-          showError = this.showError.bind(this),
-          hideError = this.hideError.bind(this),
+          showBNFError = this.showError.bind(this), ///
+          hideBNFError = this.hideError.bind(this), ///
           setBNFReadOnly = this.setReadOnly.bind(this); ///
 
     return ({
       getBNF,
       setBNF,
-      showError,
-      hideError,
+      showBNFError,
+      hideBNFError,
       setBNFReadOnly
     });
   }
