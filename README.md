@@ -14,7 +14,7 @@
 
 In Occam parlance, a grammar is a combination of a series of regular expression entries for a lexer and BNF for a parser. A custom grammar on the other hand is a single regular expression entry plus four BNF snippets for terms, expressions, statements and metastatements.
 
-Custom grammars augment the Florence grammar, specifically its lexer regular expression [entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and parser [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports custom grammars plus the means to combine them as well as supplying factory methods to create Florence lexers and parsers that make use of them.
+Custom grammars augment the Florence grammar, specifically its lexer regular expression [entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and parser [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports custom means to combine user defined custom grammars as well as supplying factory methods to create Florence lexers and parsers that make use of them.
 
 ## Installation
 
