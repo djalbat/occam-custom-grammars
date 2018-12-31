@@ -34,7 +34,9 @@ You will need to do this if you want to look at the example.
 
 ## Example
 
-There is one example to enable you to alter a single custom grammar, see it combined with the default Florence grammars and merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
+There is one example to enable you to alter a single user defined custom grammar, see it combined with the default Florence custom grammar and then merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
+
+The default Florence custom grammar has an empty regular expression entry, no additional tokens are defined effectively, but it does have default BNF snippets. These can be view by choosing the 'Default' option from the custom grammar select field. To set your own, custom regular expression for defining additional tokens and your own BNF for defining additional terms, expressions, statements  and metastatement, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries. Now select the `expression` option from the rule name select field and add the following to the BNF textarea:
 
 ```
   expression ::= expression operator expression
@@ -45,6 +47,7 @@ There is one example to enable you to alter a single custom grammar, see it comb
 
   operator   ::= "+" | "-" | "/" | "*" ;
 ```
+You will see that the `expression` rule towards the foot of the Florence BNF textarea has been augmented with something approaching the rule you have just added. The difference is down to the eliminiation of left recursion, an explantion of which can be found in Occam's [grammar utilities](https://github.com/jecs-imperial/occam-grammar-utilities) package.
 
 ## Building
 
