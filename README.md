@@ -6,6 +6,7 @@
 
 - [Introduction](#introduction)
 - [Installation](#installation)
+- [Usage](#usage)
 - [Example](#example)
 - [Building](#building)
 - [Contact](#contact)
@@ -31,6 +32,48 @@ You can also clone the repository with [Git](https://git-scm.com/)...
     npm install
 
 You will need to do this if you want to look at the example.
+
+## Usage
+
+```js
+const customGrammars = require('occam-custom-grammars');
+
+const { CustomGrammar, CombinedCustomGrammars } = customGrammars;
+
+const name = 'User defined',
+      customGrammar = CustomGrammar.fromName(name),
+      ruleName = 'term',
+      bnf = `
+
+        ...
+      `,
+      lexicalPattern = '->|=>';
+
+customGrammar.setBNF(ruleName, bnf);
+
+customGrammar.setLexicalPattern(lexicalPattern);
+
+...
+
+const customGrammars = [
+        customGrammar
+      ],
+      combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars);
+
+...
+```
+Have a look at the source of the `CustomGrammar` class for a full list of methods.
+```
+const { lexers, parsers } = customGrammars,
+      { florenceLexerFromCombinedCustomGrammars } = lexers,
+      { florenceParserFromCombinedCustomGrammars } = parsers;
+
+const combinedCustomGrammars = ...
+      florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
+      florenceParser = florenceParserFromCombinedCustomGrammars(combinedCustomGrammars);
+
+...
+```
 
 ## Example
 

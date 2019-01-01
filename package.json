@@ -1,7 +1,7 @@
 {
   "name": "occam-custom-grammars",
   "author": "James Smith",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "homepage": "https://github.com/jecs-imperial/occam-custom-grammars",
   "description": "Occam's custom grammars.",
