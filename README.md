@@ -94,7 +94,7 @@ Now select the `expression` option from the rule name select field and add the f
 
   operator   ::= "+" | "-" | "/" | "*" ;
 ```
-You will see that the Florence BNF textarea has been augmented with something approaching the rules you have just added. The differences are down to the elimination of left recursion, an explanation of which can be found in Occam's [grammar utilities](https://github.com/jecs-imperial/occam-grammar-utilities) package.
+You will see that the Florence BNF textarea has been augmented with the rules you have just added.
 
 ## Building
 
