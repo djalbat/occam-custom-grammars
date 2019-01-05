@@ -15,7 +15,7 @@
 
 In Occam parlance, a grammar is a combination of a series of regular expression entries for a lexer and BNF for a parser. A custom grammar on the other hand is a single regular expression plus four BNF snippets for terms, expressions, statements and metastatements.
 
-Custom grammars augment the Florence grammar, specifically its lexer regular expression [entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and parser [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports the means to combine custom grammars as well as supplying factory methods to create Florence lexers and parsers that make use of them.
+Custom grammars augment the Florence grammar, specifically its lexer regular expression [entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and parser [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports the means to combine custom grammars as well as supplying factory functions to create Florence lexers and parsers that make use of them.
 
 ## Installation
 
@@ -62,7 +62,7 @@ const customGrammars = [
 
 ...
 ```
-Have a look at the source of the `CustomGrammar` class for a full list of methods.
+Once combined, custom grammars can be passed to factory functions to create lexers and parsers:
 ```
 const { lexers, parsers } = customGrammars,
       { florenceLexerFromCombinedCustomGrammars } = lexers,
@@ -79,7 +79,55 @@ const combinedCustomGrammars = ...
 
 There is one example to enable you to alter a single user defined custom grammar, see it combined with the default Florence custom grammar and then merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
 
-The default Florence custom grammar has an empty regular expression entry, no additional tokens are defined effectively, but it does have default BNF snippets. These can be viewed by choosing the 'Default' option from the custom grammar select field.
+The default Florence custom grammar has an empty regular expression entry, no additional tokens are defined effectively, but it does have default BNF snippets. These can be viewed by choosing the 'Default' option from the custom grammar select field and are also given below:
+
+```
+ metastatement                        ::=   proofAssertion
+
+                                        |   contextDefinition
+
+                                        |   subproof
+
+                                        |   metavariable
+
+                                        |   nonsense
+
+                                        ;
+
+
+ proofAssertion                       ::=   context "⊢" judgement ;
+
+ contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
+
+ judgement                            ::=   reference "::" metastatement ;
+
+ subproof                             ::=   supposition "..." metastatement ;
+
+ supposition                          ::=   "[" metastatement "]" ;
+```
+
+```
+ statement                            ::=   typeAssertion
+
+                                        |   equality
+
+                                        |   nonsense
+
+                                        ;
+
+
+ typeAssertion                        ::=   expression ":" typeName ;
+
+ equality                             ::=   expression "=" expression ;
+```
+
+```
+ expression                           ::=   term ;
+```
+
+```
+ term                                 ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
+```
 
 To set your own custom regular expression for defining additional tokens and your own BNF for defining additional terms, expressions, statements  and metastatements, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries.
 
