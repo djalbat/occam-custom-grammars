@@ -79,9 +79,9 @@ const combinedCustomGrammars = ...
 
 There is one example to enable you to alter a single user defined custom grammar, see it combined with the default Florence custom grammar and then merged with the Florence grammar. To view it, open the `example.html` file in the root of the repository.
 
-The default Florence custom grammar has an empty regular expression entry, no additional tokens are defined, but it does have default BNF snippets for [metastatements](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/metastatement.js), [statements](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/statement.js), [expressions](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/expression.js) and [terms](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/term.js). These can be viewed at any time by choosing the 'Default' option from the custom grammar select field and the appropriate options from the rule name select field.
+The default Florence custom grammar has an empty regular expression entry, no additional tokens are defined, but it does have default BNF snippets for [terms](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/term.js), [expressions](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/expression.js), [statements](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/statement.js) and [metastatements](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultCustomGrammarBNF/metastatement.js). These can be viewed at any time by choosing the 'Default' option from the custom grammar select field and the appropriate option from the rule name select field underneath.
 
-To set your own custom regular expression for defining additional tokens and your own BNF for defining additional terms, expressions, statements  and metastatements, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries.
+To set your own custom regular expression and BNF, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries.
 
 Now select the `expression` option from the rule name select field and add the following to the BNF textarea:
 
@@ -94,7 +94,7 @@ Now select the `expression` option from the rule name select field and add the f
 
   operator   ::= "+" | "-" | "/" | "*" ;
 ```
-You will see that the Florence BNF textarea has been augmented with the rules you have just added.
+You will see that the Florence BNF textarea has been augmented with the rules you have just added together with the default rules.
 
 ## Building
 
