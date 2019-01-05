@@ -94,7 +94,7 @@ Now select the `expression` option from the rule name select field and add the f
 
   operator   ::= "+" | "-" | "/" | "*" ;
 ```
-You will see that the Florence BNF textarea has been augmented with the rules you have just added together with the default rules.
+You will see that the Florence BNF textarea has been augmented with the rules you have just added together with the default rules. Note that if the rule is left recursive, as in the example above, the left recursion will have been removed.
 
 ## Building
 

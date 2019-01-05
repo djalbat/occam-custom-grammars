@@ -3,11 +3,13 @@
 const parsers = require('occam-parsers'),
       necessary = require('necessary');
 
-const ruleUtilities = require('./utilities/rule');
+const ruleUtilities = require('./utilities/rule'),
+      leftRecursionUtilities = require('./utilities/leftRecursion');
 
 const { arrayUtilities } = necessary,
       { unshift } = arrayUtilities,
       { findRuleByName } = ruleUtilities,
+      { eliminateLeftRecursion } = leftRecursionUtilities,
       { BasicParser, termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
 
 class CombinedCustomGrammars {
@@ -112,7 +114,9 @@ function rulesFromBNFs(ruleName, defaultBNF, bnfs) {
   const mainRule = defaultMainRule, ///
         remainingRules = defaultRemainingRules; ///
 
-  const rules = [].concat(mainRule).concat(remainingRules);
+  let rules = [].concat(mainRule).concat(remainingRules);
+
+  rules = eliminateLeftRecursion(rules, ruleName);
 
   return rules;
 }
