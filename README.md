@@ -82,51 +82,51 @@ There is one example to enable you to alter a single user defined custom grammar
 The default Florence custom grammar has an empty regular expression entry, no additional tokens are defined effectively, but it does have default BNF snippets. These can be viewed by choosing the 'Default' option from the custom grammar select field and are also given below:
 
 ```
- metastatement                        ::=   proofAssertion
+ metastatement              ::=   proofAssertion
 
-                                        |   contextDefinition
+                              |   contextDefinition
 
-                                        |   subproof
+                              |   subproof
 
-                                        |   metavariable
+                              |   metavariable
 
-                                        |   nonsense
+                              |   nonsense
 
-                                        ;
+                              ;
 
 
- proofAssertion                       ::=   context "⊢" judgement ;
+ proofAssertion             ::=   context "⊢" judgement ;
 
- contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
+ contextDefinition          ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
- judgement                            ::=   reference "::" metastatement ;
+ judgement                  ::=   reference "::" metastatement ;
 
- subproof                             ::=   supposition "..." metastatement ;
+ subproof                   ::=   supposition "..." metastatement ;
 
- supposition                          ::=   "[" metastatement "]" ;
+ supposition                ::=   "[" metastatement "]" ;
 ```
 
 ```
- statement                            ::=   typeAssertion
+ statement                  ::=   typeAssertion
 
-                                        |   equality
+                              |   equality
 
-                                        |   nonsense
+                              |   nonsense
 
-                                        ;
+                              ;
 
 
- typeAssertion                        ::=   expression ":" typeName ;
+ typeAssertion              ::=   expression ":" typeName ;
 
- equality                             ::=   expression "=" expression ;
+ equality                   ::=   expression "=" expression ;
 ```
 
 ```
- expression                           ::=   term ;
+ expression                 ::=   term ;
 ```
 
 ```
- term                                 ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
+ term                       ::=   constructorName<NO_WHITESPACE>parenthesisedTerms? ;
 ```
 
 To set your own custom regular expression for defining additional tokens and your own BNF for defining additional terms, expressions, statements  and metastatements, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries.
