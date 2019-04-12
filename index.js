@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  lexers: require('./lib/lexers'),
-  parsers: require('./lib/parsers'),
   CustomGrammar: require('./lib/customGrammar'),
+  lexersUtilities: require('./lib/utilities/lexers'),
+  parsersUtilities: require('./lib/utilities/parsers'),
   CombinedCustomGrammars: require('./lib/combinedCustomGrammars')
 };

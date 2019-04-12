@@ -3,13 +3,13 @@
 const easy = require('easy'),
       easyLayout = require('easy-layout');
 
-const lexers = require('../lexers'),
-      parsers = require('../parsers'),
-      constants = require('../constants'),
+const constants = require('../constants'),
       BNFTextarea = require('./textarea/bnf'),
       CustomGrammar = require('../customGrammar'),
       rulesUtilities = require('../utilities/rules'),
       RuleNameSelect = require('./select/ruleName'),
+      lexersUtilities = require('../utilities/lexers'),
+      parsersUtilities = require('../utilities/parsers'),
       LexicalPatternInput = require('./input/lexicalPattern'),
       FlorenceBNFTextarea = require('./textarea/florenceBNF'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
@@ -20,8 +20,8 @@ const lexers = require('../lexers'),
 const { Element } = easy,
       { SizeableElement } = easyLayout,
       { rulesAsString, rulesAsEntries } = rulesUtilities,
-      { florenceLexerFromCombinedCustomGrammars } = lexers,
-      { florenceParserFromCombinedCustomGrammars } = parsers,
+      { florenceLexerFromCombinedCustomGrammars } = lexersUtilities,
+      { florenceParserFromCombinedCustomGrammars } = parsersUtilities,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
       { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF  } = parsers;
 
