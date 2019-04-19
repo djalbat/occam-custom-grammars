@@ -1,16 +1,20 @@
 'use strict';
 
-const parsers = require('occam-parsers'),
-      necessary = require('necessary');
+const parsers = require('occam-parsers'), ///
+      necessary = require('necessary'),
+      grammarUtilities = require('occam-grammar-utilities');  ///
 
-const ruleUtilities = require('./utilities/rule'),
-      leftRecursionUtilities = require('./utilities/leftRecursion');
+const rulesUtilities = require('./utilities/rules'),
+      ruleNameUtilities = require('./utilities/ruleName'),
+      customGrammarsUtilities = require('./utilities/customGrammars');
 
-const { arrayUtilities } = necessary,
-      { unshift } = arrayUtilities,
-      { findRuleByName } = ruleUtilities,
-      { eliminateLeftRecursion } = leftRecursionUtilities,
-      { BasicParser, termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
+const { rulesFromBNF } = rulesUtilities,
+      { arrayUtilities } = necessary,
+      { first, unshift } = arrayUtilities,
+      { eliminateImplicitLeftRecursion } = grammarUtilities,
+      { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } = customGrammarsUtilities,
+      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers,
+      { findRuleByRuleName, qualifiedRuleBNFFromRuleName, qualifiedRuleNameFromRuleName, unqualifiedRuleBNFFromRuleName, unqualifiedRuleNameFromRuleName } = ruleNameUtilities;
 
 class CombinedCustomGrammars {
   constructor(lexicalPattern, rules) {
@@ -47,92 +51,93 @@ function combinedLexicalPatternFromCustomGrammars(customGrammars) {
 }
 
 function combinedRulesFromCustomGrammars(customGrammars) {
-  const metastatementDefaultBNF = metastatementDefaultCustomGrammarBNF, ///
-        expressionDefaultBNF = expressionDefaultCustomGrammarBNF, ///
-        statementDefaultBNF = statementDefaultCustomGrammarBNF, ///
-        termDefaultBNF = termDefaultCustomGrammarBNF, ///
-        metastatementBNFs = bnfsFromCustomGrammars('metastatement', customGrammars),
-        expressionBNFs = bnfsFromCustomGrammars('expression', customGrammars),
-        statementBNFs = bnfsFromCustomGrammars('statement', customGrammars),
-        termBNFs = bnfsFromCustomGrammars('term', customGrammars),
-        metastatementRules = rulesFromBNFs('metastatement', metastatementDefaultBNF, metastatementBNFs),
-        expressionRules = rulesFromBNFs('expression', expressionDefaultBNF, expressionBNFs),
-        statementRules = rulesFromBNFs('statement', statementDefaultBNF, statementBNFs),
-        termRules = rulesFromBNFs('term', termDefaultBNF, termBNFs),
+  const metastatementRules = metastatementRulesFromCustomGrammars(customGrammars),
+        statementRules = statementRulesFromCustomGrammars(customGrammars),
+        expressionRules = expressionRulesFromCustomGrammars(customGrammars),
+        termRules = termRulesFromCustomGrammars(customGrammars),
         combinedRules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules); ///
 
   return combinedRules;
 }
 
-function lexicalPatternsFromCustomGrammars(customGrammars) {
-  const lexicalPatterns = [];
+function metastatementRulesFromCustomGrammars(customGrammars) {
+  const ruleName = 'metastatement', ///
+        defaultBNF = metastatementDefaultCustomGrammarBNF, ///
+        bnfs = bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars),
+        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        qualifiedRules = qualifiedRulesFromMainRule(mainRule),
+        unqualifiedRules = unqualifiedRulesFromMainRule(mainRule);
 
-  customGrammars.forEach(function(customGrammar) {
-    const lexicalPattern = customGrammar.getLexicalPattern();
+  let rules;
 
-    if (lexicalPattern) { ///
-      lexicalPatterns.push(lexicalPattern);
-    }
-  });
+  rules = [].concat(remainingRules).concat(mainRule);
 
-  return lexicalPatterns;
+  rules = eliminateImplicitLeftRecursion(rules);
+
+  rules = [].concat(unqualifiedRules).concat(qualifiedRules).concat(rules);
+
+  const metastatementRules = rules;
+
+  return metastatementRules;
 }
 
-function bnfsFromCustomGrammars(ruleName, customGrammars) {
-  const bnfs = [];
+function statementRulesFromCustomGrammars(customGrammars) {
+  const ruleName = 'statement', ///
+        defaultBNF = statementDefaultCustomGrammarBNF, ///
+        bnfs = bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars),
+        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        qualifiedRules = qualifiedRulesFromMainRule(mainRule),
+        unqualifiedRules = unqualifiedRulesFromMainRule(mainRule);
 
-  customGrammars.forEach(function(customGrammar) {
-    const bnf = customGrammar.getBNF(ruleName);
+  let rules;
 
-    if (bnf) {  ///
-      bnfs.push(bnf);
-    }
-  });
+  rules = [].concat(remainingRules).concat(mainRule);
 
-  return bnfs;
+  rules = eliminateImplicitLeftRecursion(rules);
+
+  rules = [].concat(unqualifiedRules).concat(qualifiedRules).concat(rules);
+
+  const statementRules = rules;
+
+  return statementRules;
 }
 
-function rulesFromBNFs(ruleName, defaultBNF, bnfs) {
-  const defaultRules = rulesFromBNF(defaultBNF),
-        defaultMainRule = mainRuleFromRulesAndRuleName(defaultRules, ruleName),
-        defaultRemainingRules = remainingRulesFromRulesAndMainRule(defaultRules, defaultMainRule),
-        defaultMainRuleDefinitions = defaultMainRule.getDefinitions();
+function expressionRulesFromCustomGrammars(customGrammars) {
+  const ruleName = 'expression', ///
+        defaultBNF = expressionDefaultCustomGrammarBNF, ///
+        bnfs = bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars),
+        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs);
 
-  bnfs.forEach(function(bnf) {
-    const rules = rulesFromBNF(bnf),
-          mainRule = mainRuleFromRulesAndRuleName(rules, ruleName),
-          remainingRules = remainingRulesFromRulesAndMainRule(rules, mainRule),
-          mainRuleDefinitions = (mainRule !== null) ?
-                                  mainRule.getDefinitions() :
-                                    [];
+  let rules;
 
-    unshift(defaultRemainingRules, remainingRules);
+  rules = [].concat(remainingRules).concat(mainRule);
 
-    unshift(defaultMainRuleDefinitions, mainRuleDefinitions);
-  });
+  rules = eliminateImplicitLeftRecursion(rules);
 
-  const mainRule = defaultMainRule, ///
-        remainingRules = defaultRemainingRules; ///
+  const expressionRules = rules;
 
-  let rules = [].concat(mainRule).concat(remainingRules);
-
-  rules = eliminateLeftRecursion(rules, ruleName);
-
-  return rules;
+  return expressionRules;
 }
 
-function rulesFromBNF(bnf) {
-  const basicParser = BasicParser.fromBNF(bnf),
-        rules = basicParser.getRules();
+function termRulesFromCustomGrammars(customGrammars) {
+  const ruleName = 'term', ///
+        defaultBNF = termDefaultCustomGrammarBNF, ///
+        bnfs = bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars),
+        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs);
 
-  return rules;
-}
+  let rules;
 
-function mainRuleFromRulesAndRuleName(rules, ruleName) {
-  const name = ruleName,  ///
-        mainRule = findRuleByName(name, rules);
+  rules = [].concat(remainingRules).concat(mainRule);
 
-  return mainRule;
+  rules = eliminateImplicitLeftRecursion(rules);
+
+  const termRules = rules;
+
+  return termRules;
 }
 
 function remainingRulesFromRulesAndMainRule(rules, mainRule) {
@@ -144,3 +149,110 @@ function remainingRulesFromRulesAndMainRule(rules, mainRule) {
 
   return remainingRules;
 }
+
+function mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs) {
+  const defaultRules = rulesFromBNF(defaultBNF),
+        defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
+        defaultMainRuleDefinitions = defaultMainRule.getDefinitions();
+
+  bnfs.forEach(function(bnf) {
+    const rules = rulesFromBNF(bnf),
+          mainRule = findRuleByRuleName(ruleName, rules),
+          mainRuleDefinitions = (mainRule !== null) ?
+                                  mainRule.getDefinitions() :
+                                    [];
+
+    unshift(defaultMainRuleDefinitions, mainRuleDefinitions);
+  });
+
+  const mainRule = defaultMainRule; ///
+
+  return mainRule;
+}
+
+function remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs) {
+  const defaultRules = rulesFromBNF(defaultBNF),
+        defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
+        defaultRemainingRules = remainingRulesFromRulesAndMainRule(defaultRules, defaultMainRule);
+
+  bnfs.forEach(function(bnf) {
+    const rules = rulesFromBNF(bnf),
+          mainRule = findRuleByRuleName(ruleName, rules),
+          remainingRules = remainingRulesFromRulesAndMainRule(rules, mainRule);
+
+    unshift(defaultRemainingRules, remainingRules);
+  });
+
+  const remainingRules = defaultRemainingRules; ///
+
+  return remainingRules;
+}
+
+function qualifiedRulesFromMainRule(mainRule) {
+  const mainQualifiedRule = mainQualifiedRuleFromMainRule(mainRule),
+        remainingQualifiedRules = remainingQualifiedRulesFromMainRule(mainRule),
+        qualifiedRules = [].concat(mainQualifiedRule).concat(remainingQualifiedRules);
+
+  return qualifiedRules;
+}
+
+function unqualifiedRulesFromMainRule(mainRule) {
+  const mainUnqualifiedRule = mainUnqualifiedRuleFromMainRule(mainRule),
+        remainingUnqualifiedRules = remainingUnqualifiedRulesFromMainRule(mainRule),
+        unqualifiedRules = [].concat(mainUnqualifiedRule).concat(remainingUnqualifiedRules);
+
+  return unqualifiedRules;
+}
+
+function mainAmendedRuleFromMainRule(mainRule, callback) {
+  const ruleName = mainRule.getName(),
+        definitions = mainRule.getDefinitions(),
+        mainAmendedRuleName = callback(ruleName),
+        mainAmendedRuleNamesBNF = definitions.reduce(function(mainAmendedRuleNamesBNF, definition) {
+          const parts = definition.getParts(),
+                firstPart = first(parts),
+                ruleNamePart = firstPart, ///
+                ruleName = ruleNamePart.getRuleName(),
+                mainAmendedRuleName = callback(ruleName);
+
+          mainAmendedRuleNamesBNF = (mainAmendedRuleNamesBNF === null) ?
+                                      mainAmendedRuleName :
+                                       `${mainAmendedRuleNamesBNF} | ${mainAmendedRuleName}`;
+
+          return mainAmendedRuleNamesBNF;
+        }, null),
+        mainAmendedRuleBNF = `${mainAmendedRuleName} ::= ${mainAmendedRuleNamesBNF} ;`,
+        mainAmendedRules = rulesFromBNF(mainAmendedRuleBNF),
+        firstUnqualifiedMainRule = first(mainAmendedRules),
+        mainAmendedRule = firstUnqualifiedMainRule; ///
+
+  return mainAmendedRule;
+}
+
+function mainQualifiedRuleFromMainRule(mainRule) { return mainAmendedRuleFromMainRule(mainRule, qualifiedRuleNameFromRuleName); }
+
+function mainUnqualifiedRuleFromMainRule(mainRule) { return mainAmendedRuleFromMainRule(mainRule, unqualifiedRuleNameFromRuleName); }
+
+function remainingAmendedRulesFromMainRule(mainRule, callback) {
+  const definitions = mainRule.getDefinitions(),
+        remainingAmendedRulesBNF = definitions.reduce(function(remainingAmendedRulesBNF, definition) {
+          const parts = definition.getParts(),
+                firstPart = first(parts),
+                ruleNamePart = firstPart, ///
+                ruleName = ruleNamePart.getRuleName(),
+                remainingAmendedRuleBNF = callback(ruleName);
+
+          remainingAmendedRulesBNF = (remainingAmendedRulesBNF === null) ?
+                                       remainingAmendedRuleBNF :
+                                        `${remainingAmendedRulesBNF} ${remainingAmendedRuleBNF}`;
+
+          return remainingAmendedRulesBNF;
+        }, null),
+        remainingAmendedRules = rulesFromBNF(remainingAmendedRulesBNF);
+
+  return remainingAmendedRules;
+}
+
+function remainingQualifiedRulesFromMainRule(mainRule) { return remainingAmendedRulesFromMainRule(mainRule, qualifiedRuleBNFFromRuleName); }
+
+function remainingUnqualifiedRulesFromMainRule(mainRule) { return remainingAmendedRulesFromMainRule(mainRule, unqualifiedRuleBNFFromRuleName); }

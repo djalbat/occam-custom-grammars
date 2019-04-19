@@ -1,6 +1,7 @@
 'use strict';
 
 const easy = require('easy'),
+      parsers = require('occam-parsers'), ///
       easyLayout = require('easy-layout');
 
 const constants = require('../constants'),

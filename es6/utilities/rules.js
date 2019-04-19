@@ -1,5 +1,16 @@
 'use strict';
 
+const parsers = require('occam-parsers'); ///
+
+const { BasicParser } = parsers;
+
+function rulesFromBNF(bnf) {
+const basicParser = BasicParser.fromBNF(bnf),
+      rules = basicParser.getRules();
+
+return rules;
+}
+
 function rulesAsString(rules) {
   const maximumRuleNameLength = rules.reduce(function(maximumRuleNameLength, rule) {
           const ruleName = rule.getName(),
@@ -31,6 +42,7 @@ function rulesAsEntries(rules) {
 }
 
 module.exports = {
+  rulesFromBNF,
   rulesAsString,
   rulesAsEntries
 };
