@@ -1,23 +1,14 @@
 'use strict';
 
-const lexers = require('occam-lexers'), ///
-      parsers = require('occam-parsers'); ///
+const parsers = require('occam-parsers'); ///
 
-const { BNFLexer } = lexers,
-      { Rule, BNFParser } = parsers;
-
-const bnfLexer = BNFLexer.fromNothing(),
-      bnfParser = BNFParser.fromNothing();
+const { BasicParser } = parsers;
 
 function rulesFromBNF(bnf) {
-  const content = bnf,  ///
-        tokens = bnfLexer.tokenise(content),
-        node = bnfParser.parse(tokens),
-        rules = (node !== null) ?
-                  node.generateRules(Rule) :
-                    [];
+const basicParser = BasicParser.fromBNF(bnf),
+      rules = basicParser.getRules();
 
-  return rules;
+return rules;
 }
 
 function rulesAsString(rules) {
