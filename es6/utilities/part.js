@@ -2,10 +2,8 @@
 
 const parsers = require('occam-parsers');
 
-const { Parts } = parsers,
-      { RuleNamePart } = Parts,
-      { type } = RuleNamePart,
-      ruleNameType = type;  ///
+const { partTypes } = parsers,
+      { RuleNamePartType } = partTypes;
 
 function isPartRuleNamePart(part) {
   let partRuleNamePart = false;
@@ -16,9 +14,9 @@ function isPartRuleNamePart(part) {
   if (partNonTerminalPart) {
     const nonTerminalPart = part, ///
           type = nonTerminalPart.getType(),
-          typeRuleNameType = (type === ruleNameType);
+          typeRuleNamePartType = (type === RuleNamePartType);
 
-    partRuleNamePart = typeRuleNameType;  ///
+    partRuleNamePart = typeRuleNamePartType;  ///
   }
 
   return partRuleNamePart;
