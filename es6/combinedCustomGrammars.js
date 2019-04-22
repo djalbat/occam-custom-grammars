@@ -76,9 +76,7 @@ function rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(ruleName, cus
 
   rules = eliminateImplicitLeftRecursion(rules);
 
-  const metastatementRules = rules;
-
-  return metastatementRules;
+  return rules;
 }
 
 function remainingRulesFromRulesAndMainRule(rules, mainRule) {
