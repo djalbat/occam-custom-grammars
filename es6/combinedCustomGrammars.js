@@ -72,7 +72,7 @@ function rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(ruleName, cus
 
   let rules;
 
-  rules = [].concat(remainingRules).concat(mainRule);
+  rules = [].concat(mainRule).concat(remainingRules);
 
   rules = eliminateImplicitLeftRecursion(rules);
 
