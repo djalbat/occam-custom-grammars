@@ -52,12 +52,12 @@ function combinedLexicalPatternFromCustomGrammars(customGrammars) {
 
 function combinedRulesFromCustomGrammars(customGrammars) {
   const metastatementRuleName = 'metastatement',
-        expressionRuleName = 'expression',
         statementRuleName = 'statement',
+        expressionRuleName = 'expression',
         termRuleName = 'term',
         metastatementRules = rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(metastatementRuleName, customGrammars, metastatementDefaultCustomGrammarBNF),
-        expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(expressionRuleName, customGrammars, expressionDefaultCustomGrammarBNF),
         statementRules = rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(statementRuleName, customGrammars, statementDefaultCustomGrammarBNF),
+        expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(expressionRuleName, customGrammars, expressionDefaultCustomGrammarBNF),
         termRules = rulesFromRuleNameCustomGrammarsAndDefaultCustomGrammarBNF(termRuleName, customGrammars, termDefaultCustomGrammarBNF),
         combinedRules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules);
 

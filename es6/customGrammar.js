@@ -1,5 +1,10 @@
 'use strict';
 
+const necessary = require('necessary');
+
+const { fileSystemUtilities } = necessary,
+      { readFile, checkFileExists } = fileSystemUtilities;
+
 class CustomGrammar {
   constructor(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
     this.name = name;
@@ -118,6 +123,33 @@ class CustomGrammar {
           expressionBNF = null,
           statementBNF = null,
           metastatementBNF = null,
+          customGrammar = new CustomGrammar(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
+
+    return customGrammar;
+  }
+
+  static fromDirectoryName(directoryPath) {
+    const lexicalPatternFilePath = `${directoryPath}/pattern.lex`,
+          termBNFFilePath = `${directoryPath}/term.bnf`,
+          expressionBNFFilePath = `${directoryPath}/expression.bnf`,
+          statementBNFFilePath = `${directoryPath}/statement.bnf`,
+          metastatementBNFFilePath = `${directoryPath}/metastatement.bnf`,
+          lexicalPatternFileExists = checkFileExists(lexicalPatternFilePath),
+          termBNFFileExists = checkFileExists(termBNFFilePath),
+          expressionBNFFileExists = checkFileExists(expressionBNFFilePath),
+          statementBNFFileExists = checkFileExists(statementBNFFilePath),
+          metastatementBNFFileExists = checkFileExists(metastatementBNFFilePath),
+          lexicalPatternContent = lexicalPatternFileExists ? readFile(lexicalPatternFilePath) : null,
+          termBNFContent = termBNFFileExists ? readFile(termBNFFilePath) : null,
+          expressionBNFContent = expressionBNFFileExists ? readFile(expressionBNFFilePath) : null,
+          statementBNFContent = statementBNFFileExists ? readFile(statementBNFFilePath) : null,
+          metastatementBNFContent = metastatementBNFFileExists ? readFile(metastatementBNFFilePath) : null,
+          name = directoryPath, ///
+          lexicalPattern = lexicalPatternContent, ///
+          termBNF = termBNFContent, ///
+          expressionBNF = expressionBNFContent, ///
+          statementBNF = statementBNFContent, ///
+          metastatementBNF = metastatementBNFContent, ///
           customGrammar = new CustomGrammar(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
     return customGrammar;
