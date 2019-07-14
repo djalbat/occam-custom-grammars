@@ -128,12 +128,12 @@ class CustomGrammar {
     return customGrammar;
   }
 
-  static fromDirectoryName(directoryName) {
-    const lexicalPatternFilePath = `${directoryName}/pattern.lex`,
-          termBNFFilePath = `${directoryName}/term.bnf`,
-          expressionBNFFilePath = `${directoryName}/expression.bnf`,
-          statementBNFFilePath = `${directoryName}/statement.bnf`,
-          metastatementBNFFilePath = `${directoryName}/metastatement.bnf`,
+  static fromDirectoryPath(directoryPath) {
+    const lexicalPatternFilePath = `${directoryPath}/pattern.lex`,
+          termBNFFilePath = `${directoryPath}/term.bnf`,
+          expressionBNFFilePath = `${directoryPath}/expression.bnf`,
+          statementBNFFilePath = `${directoryPath}/statement.bnf`,
+          metastatementBNFFilePath = `${directoryPath}/metastatement.bnf`,
           lexicalPatternFileExists = checkFileExists(lexicalPatternFilePath),
           termBNFFileExists = checkFileExists(termBNFFilePath),
           expressionBNFFileExists = checkFileExists(expressionBNFFilePath),
@@ -144,7 +144,7 @@ class CustomGrammar {
           expressionBNFContent = expressionBNFFileExists ? readFile(expressionBNFFilePath) : null,
           statementBNFContent = statementBNFFileExists ? readFile(statementBNFFilePath) : null,
           metastatementBNFContent = metastatementBNFFileExists ? readFile(metastatementBNFFilePath) : null,
-          name = directoryName, ///
+          name = directoryPath, ///
           lexicalPattern = lexicalPatternContent, ///
           termBNF = termBNFContent, ///
           expressionBNF = expressionBNFContent, ///
