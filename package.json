@@ -13,7 +13,7 @@
     "necessary": "^3.4.0",
     "occam-grammar-utilities": "^1.1.1",
     "occam-lexers": "^9.0.1",
-    "occam-parsers": "^9.0.22"
+    "occam-parsers": "^8.0.23"
   },
   "devDependencies": {
     "babel": "^6.5.2",
