@@ -16,7 +16,7 @@ const { rulesFromBNF } = rulesUtilities,
       { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } = customGrammarsUtilities,
       { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
 
-class CombinedCustomGrammars {
+class CombinedCustomGrammar {
   constructor(lexicalPattern, rules) {
     this.lexicalPattern = lexicalPattern;
     this.rules = rules;
@@ -35,13 +35,13 @@ class CombinedCustomGrammars {
           combinedRules = combinedRulesFromCustomGrammars(customGrammars),
           lexicalPattern = combinedLexicalPattern,  ///
           rules = combinedRules,  ///
-          combinedCustomGrammars = new CombinedCustomGrammars(lexicalPattern, rules);
+          combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
     
-    return combinedCustomGrammars;
+    return combinedCustomGrammar;
   }
 }
 
-module.exports = CombinedCustomGrammars;
+module.exports = CombinedCustomGrammar;
 
 function combinedLexicalPatternFromCustomGrammars(customGrammars) {
   const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars),

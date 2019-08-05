@@ -14,15 +14,15 @@ const constants = require('../constants'),
       LexicalPatternInput = require('./input/lexicalPattern'),
       FlorenceBNFTextarea = require('./textarea/florenceBNF'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
-      CombinedCustomGrammars = require('../combinedCustomGrammars'),
+      CombinedCustomGrammar = require('../combinedCustomGrammar'),
       CustomGrammarNameSelect = require('./select/customGrammarName'),
       FlorenceLexicalEntriesTextarea = require('./textarea/florenceLexicalEntries');
 
 const { Element } = easy,
       { SizeableElement } = easyLayout,
       { rulesAsString, rulesAsEntries } = rulesUtilities,
-      { florenceLexerFromCombinedCustomGrammars } = lexersUtilities,
-      { florenceParserFromCombinedCustomGrammars } = parsersUtilities,
+      { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
+      { florenceParserFromCombinedCustomGrammar } = parsersUtilities,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
       { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF  } = parsers;
 
@@ -47,9 +47,9 @@ class View extends Element {
         userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
       }
 
-      const combinedCustomGrammars = CombinedCustomGrammars.fromCustomGrammars(customGrammars),
-            florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
-            florenceParser = florenceParserFromCombinedCustomGrammars(combinedCustomGrammars),
+      const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
+            florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
             florenceLexerRules = florenceLexer.getRules(),
             florenceParserRules = florenceParser.getRules(),
             florenceLexerEntries = rulesAsEntries(florenceLexerRules),

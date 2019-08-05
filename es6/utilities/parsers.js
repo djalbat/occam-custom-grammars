@@ -13,19 +13,19 @@ const { arrayUtilities } = necessary,
 const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
-function florenceParserFromCombinedCustomGrammars(combinedCustomGrammars) {
+function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
-        florenceParser = florenceParserFromBNFAndCombinedCustomGrammars(bnf, combinedCustomGrammars);
+        florenceParser = florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar);
 
   return florenceParser;
 }
 
-function florenceParserFromBNFAndCombinedCustomGrammars(bnf, combinedCustomGrammars) {
-  const combinedCustomGrammarsRules = combinedCustomGrammars.getRules(),
+function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
+  const combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
         tokens = bnfLexer.tokensFromBNF(bnf),
         rules = bnfParser.rulesFromTokens(tokens);
 
-  push(rules, combinedCustomGrammarsRules);
+  push(rules, combinedCustomGrammarRules);
 
   const florenceParser = new FlorenceParser(rules);
 
@@ -37,6 +37,6 @@ module.exports = {
   statementDefaultCustomGrammarBNF,
   expressionDefaultCustomGrammarBNF,
   metastatementDefaultCustomGrammarBNF,
-  florenceParserFromCombinedCustomGrammars,
-  florenceParserFromBNFAndCombinedCustomGrammars
+  florenceParserFromCombinedCustomGrammar,
+  florenceParserFromBNFAndCombinedCustomGrammar
 };

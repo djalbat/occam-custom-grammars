@@ -38,7 +38,7 @@ You will need to do this if you want to look at the example.
 ```js
 const customGrammars = require('occam-custom-grammars');
 
-const { CustomGrammar, CombinedCustomGrammars } = customGrammars;
+const { CustomGrammar, CombinedCustomGrammar } = customGrammars;
 
 const name = 'User defined',
       customGrammar = CustomGrammar.fromName(name),
@@ -65,12 +65,12 @@ const customGrammars = [
 Once combined, custom grammars can be passed to factory functions to create lexers and parsers:
 ```
 const { lexers, parsers } = customGrammars,
-      { florenceLexerFromCombinedCustomGrammars } = lexers,
-      { florenceParserFromCombinedCustomGrammars } = parsers;
+      { florenceLexerFromCombinedCustomGrammar } = lexers,
+      { florenceParserFromCombinedCustomGrammar } = parsers;
 
-const combinedCustomGrammars = ...
-      florenceLexer = florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars),
-      florenceParser = florenceParserFromCombinedCustomGrammars(combinedCustomGrammars);
+const combinedCustomGrammar = ...
+      florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+      florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
 
 ...
 ```

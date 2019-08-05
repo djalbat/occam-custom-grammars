@@ -4,16 +4,16 @@ const lexers = require('occam-lexers');
 
 const { Rule, Rules, FlorenceLexer } = lexers;
 
-function florenceLexerFromCombinedCustomGrammars(combinedCustomGrammars) {
+function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = FlorenceLexer,
-        florenceLexer = florenceLexerFromEntriesAndCombinedCustomGrammars(entries, combinedCustomGrammars);
+        florenceLexer = florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar);
 
   return florenceLexer;
 }
 
-function florenceLexerFromEntriesAndCombinedCustomGrammars(entries, combinedCustomGrammars) {
-  const combinedCustomGrammarsLexicalPattern = combinedCustomGrammars.getLexicalPattern(),
-        custom = combinedCustomGrammarsLexicalPattern, ///
+function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
+  const combinedCustomGrammarLexicalPattern = combinedCustomGrammar.getLexicalPattern(),
+        custom = combinedCustomGrammarLexicalPattern, ///
         customGrammarEntry = {
           custom
         },
@@ -28,6 +28,6 @@ function florenceLexerFromEntriesAndCombinedCustomGrammars(entries, combinedCust
 }
 
 module.exports = {
-  florenceLexerFromCombinedCustomGrammars,
-  florenceLexerFromEntriesAndCombinedCustomGrammars
+  florenceLexerFromCombinedCustomGrammar,
+  florenceLexerFromEntriesAndCombinedCustomGrammar
 };
