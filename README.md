@@ -81,7 +81,7 @@ There is one example to enable you to alter a single user defined custom grammar
 
 The default Florence custom grammar has default [lexical pattern](https://raw.githubusercontent.com/jecs-imperial/occam-lexers/master/es6/florence/defaultLexicalPattern.js) as well as default BNF snippets for [terms](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultBNF/term.js), [expressions](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultBNF/expression.js), [statements](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultBNF/statement.js) and [metastatements](https://raw.githubusercontent.com/jecs-imperial/occam-parsers/master/es6/florence/defaultBNF/metastatement.js). These can be viewed at any time by choosing the 'Default' option from the custom grammar select field and the appropriate option from the rule name select field underneath.
 
-To set your own custom regular expression and BNF, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries.
+To set your own lexical pattern and BNF, choose the 'User defined' option. If you type `=>` into the lexical pattern input field, for example, you will see it appearing as part of the `custom` regular expression entry in the Florence lexical entries textarea. Note that the custom entry comes first, taking precedence over the default entries.
 
 Now select the `expression` option from the rule name select field and add the following to the BNF textarea:
 
