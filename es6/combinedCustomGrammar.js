@@ -48,7 +48,7 @@ module.exports = CombinedCustomGrammar;
 function combinedLexicalPatternFromCustomGrammars(customGrammars) {
   const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars);
 
-  lexicalPatterns.push(defaultLexicalPattern);
+  lexicalPatterns.unshift(defaultLexicalPattern);
 
   const combinedLexicalPattern = lexicalPatterns.reverse().join('|'); ///
 
@@ -76,7 +76,7 @@ function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars, 
 
   let rules;
 
-  rules = [].concat(mainRule).concat(remainingRules);
+  rules = [].concat(remainingRules).concat(mainRule);
 
   rules = eliminateImplicitLeftRecursion(rules);
 

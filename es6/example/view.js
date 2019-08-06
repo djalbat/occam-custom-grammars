@@ -1,6 +1,7 @@
 'use strict';
 
 const easy = require('easy'),
+      lexers = require('occam-lexers'), ///
       parsers = require('occam-parsers'), ///
       easyLayout = require('easy-layout');
 
@@ -20,6 +21,7 @@ const constants = require('../constants'),
 
 const { Element } = easy,
       { SizeableElement } = easyLayout,
+      { defaultLexicalPattern } = lexers,
       { rulesAsString, rulesAsEntries } = rulesUtilities,
       { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities,
@@ -89,7 +91,7 @@ class View extends Element {
         case 'metastatement' : bnf = metastatementDefaultCustomGrammarBNF; break;
       }
 
-      lexicalPattern = null;
+      lexicalPattern = defaultLexicalPattern;
 
       readOnly = true;
     } else {
