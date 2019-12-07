@@ -5,14 +5,6 @@ const easy = require('easy');
 const { InputElement } = easy;
 
 class LexicalPatternInput extends InputElement {
-  showError() {
-    this.addClass('error');
-  }
-
-  hideError() {
-    this.removeClass('error');
-  }
-
   getLexicalPattern() {
     const value = this.getValue(),
           lexicalPattern = value;  ///
@@ -29,15 +21,11 @@ class LexicalPatternInput extends InputElement {
   parentContext() {
     const getLexicalPattern = this.getLexicalPattern.bind(this),
           setLexicalPattern = this.setLexicalPattern.bind(this),
-          showLexicalPatternError = this.showError.bind(this), ///
-          hideLexicalPatternError = this.hideError.bind(this), ///
           setLexicalPatternReadOnly = this.setReadOnly.bind(this); ///
 
     return ({
       getLexicalPattern,
       setLexicalPattern,
-      showLexicalPatternError,
-      hideLexicalPatternError,
       setLexicalPatternReadOnly
     });
   }

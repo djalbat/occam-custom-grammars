@@ -14,7 +14,7 @@ const { rulesFromBNF } = rulesUtilities,
       { unshift } = arrayUtilities,
       { findRuleByRuleName } = ruleNameUtilities,
       { defaultLexicalPattern } = lexers,
-      { eliminateImplicitLeftRecursion } = grammarUtilities,
+      { eliminateLeftRecursion } = grammarUtilities,
       { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } = customGrammarsUtilities,
       { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF } = parsers;
 
@@ -78,7 +78,7 @@ function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars, 
 
   rules = [].concat(remainingRules).concat(mainRule);
 
-  rules = eliminateImplicitLeftRecursion(rules);
+  rules = eliminateLeftRecursion(rules);
 
   return rules;
 }

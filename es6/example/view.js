@@ -6,18 +6,19 @@ const easy = require('easy'),
       easyLayout = require('easy-layout');
 
 const constants = require('../constants'),
-      BNFTextarea = require('./textarea/bnf'),
       CustomGrammar = require('../customGrammar'),
+      ErrorParagraph = require('./paragraph/error'),
       rulesUtilities = require('../utilities/rules'),
       RuleNameSelect = require('./select/ruleName'),
       lexersUtilities = require('../utilities/lexers'),
+      ContentTextarea = require('./textarea/content'),
       parsersUtilities = require('../utilities/parsers'),
+      ParseTreeTextarea = require('./textarea/parseTree'),
       LexicalPatternInput = require('./input/lexicalPattern'),
-      FlorenceBNFTextarea = require('./textarea/florenceBNF'),
+      AdjustedBNFTextarea = require('./textarea/adjustedBNF'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
       CombinedCustomGrammar = require('../combinedCustomGrammar'),
-      CustomGrammarNameSelect = require('./select/customGrammarName'),
-      FlorenceLexicalEntriesTextarea = require('./textarea/florenceLexicalEntries');
+      CustomGrammarNameSelect = require('./select/customGrammarName');
 
 const { Element } = easy,
       { SizeableElement } = easyLayout,
@@ -36,6 +37,8 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
 
 class View extends Element {
   keyUpHandler() {
+    return
+
     try {
       const customGrammarName = this.getCustomGrammarName();
 
@@ -76,6 +79,8 @@ class View extends Element {
   }
 
   changeHandler() {
+    return
+
     const ruleName = this.getRuleName(),
           customGrammarName = this.getCustomGrammarName();
 
@@ -119,33 +124,22 @@ class View extends Element {
 
       <div className="columns">
         <SizeableElement>
-          <h2>
-            Custom grammar
-          </h2>
+          <h2>Custom grammar</h2>
           <CustomGrammarNameSelect onChange={changeHandler} />
-          <h2>
-            Rule name
-          </h2>
+          <h2>Rule name</h2>
           <RuleNameSelect onChange={changeHandler} />
-          <h2>
-            Lexical pattern
-          </h2>
+          <h2>Lexical pattern</h2>
           <LexicalPatternInput onKeyUp={keyUpHandler} />
-          <h2>
-            BNF
-          </h2>
-          <BNFTextarea onKeyUp={keyUpHandler} />
+          <h2>Adjusted BNF</h2>
+          <AdjustedBNFTextarea />
         </SizeableElement>
         <MainVerticalSplitter />
         <div className="column">
-          <h2>
-            Florence lexical entries
-          </h2>
-          <FlorenceLexicalEntriesTextarea />
-          <h2>
-            Florence BNF
-          </h2>
-          <FlorenceBNFTextarea />
+          <h2>Parse tree</h2>
+          <ParseTreeTextarea />
+          <h2>Content</h2>
+          <ContentTextarea onKeyUp={keyUpHandler} />
+          <ErrorParagraph />
         </div>
       </div>
 
