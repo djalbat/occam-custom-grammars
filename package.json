@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "necessary": "^3.4.0",
-    "occam-grammar-utilities": "^3.0.0",
-    "occam-lexers": "^9.2.1",
-    "occam-parsers": "^9.2.1"
+    "occam-grammar-utilities": "^3.0.1",
+    "occam-lexers": "^10.1.1",
+    "occam-parsers": "^10.1.13"
   },
   "devDependencies": {
     "babel": "^6.5.2",

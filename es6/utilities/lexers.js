@@ -2,7 +2,7 @@
 
 const lexers = require('occam-lexers');
 
-const { Rule, Rules, FlorenceLexer } = lexers;
+const { Rule, FlorenceLexer } = lexers;
 
 function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = FlorenceLexer,
@@ -18,9 +18,13 @@ function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCusto
           custom
         },
         customGrammarRule =  Rule.fromEntry(customGrammarEntry),
-        rules = Rules.fromEntries(entries);
+        rules = entries.map((entry) => {
+          const rule = Rule.fromEntry(entry);
 
-  rules.addRule(customGrammarRule);
+          return rule;
+        });
+
+  rules.push(customGrammarRule);
 
   const florenceLexer = new FlorenceLexer(rules);
 

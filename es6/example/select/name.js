@@ -7,7 +7,7 @@ const constants = require('../../constants');
 const { InputElement } = easy,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants;
 
-class CustomGrammarNameSelect extends InputElement {
+class NameSelect extends InputElement {
   getSelectedOptionValue() {
     const domElement = this.getDOMElement(),
           selectedOptionValue = domElement.value; ///
@@ -30,22 +30,22 @@ class CustomGrammarNameSelect extends InputElement {
   }
 
   parentContext() {
-    const getCustomGrammarName = this.getSelectedOptionValue.bind(this); ///
+    const getName = this.getSelectedOptionValue.bind(this); ///
 
     return ({
-      getCustomGrammarName
+      getName
     });
   }
 
-  static fromProperties(properties) { return InputElement.fromProperties(CustomGrammarNameSelect, properties); }
+  static fromProperties(properties) { return InputElement.fromProperties(NameSelect, properties); }
 }
 
-Object.assign(CustomGrammarNameSelect, {
+Object.assign(NameSelect, {
   tagName: 'select',
   defaultProperties: {
-    className: 'custom-grammar-name',
+    className: 'name',
     spellCheck: false
   }
 });
 
-module.exports = CustomGrammarNameSelect;
+module.exports = NameSelect;

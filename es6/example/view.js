@@ -6,19 +6,20 @@ const easy = require('easy'),
       easyLayout = require('easy-layout');
 
 const constants = require('../constants'),
+      NameSelect = require('./select/name'),
+      BNFTextarea = require('./textarea/bnf'),
       CustomGrammar = require('../customGrammar'),
+      RuleNameSelect = require('./select/ruleName'),
       ErrorParagraph = require('./paragraph/error'),
       rulesUtilities = require('../utilities/rules'),
-      RuleNameSelect = require('./select/ruleName'),
       lexersUtilities = require('../utilities/lexers'),
       ContentTextarea = require('./textarea/content'),
       parsersUtilities = require('../utilities/parsers'),
       ParseTreeTextarea = require('./textarea/parseTree'),
+      CombinedBNFTextarea = require('./textarea/combinedBNF'),
       LexicalPatternInput = require('./input/lexicalPattern'),
-      AdjustedBNFTextarea = require('./textarea/adjustedBNF'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
-      CombinedCustomGrammar = require('../combinedCustomGrammar'),
-      CustomGrammarNameSelect = require('./select/customGrammarName');
+      CombinedCustomGrammar = require('../combinedCustomGrammar');
 
 const { Element } = easy,
       { SizeableElement } = easyLayout,
@@ -27,7 +28,7 @@ const { Element } = easy,
       { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
-      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF  } = parsers;
+      { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF  } = parsers;
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
       userDefinedCustomGrammar = CustomGrammar.fromName(name),
@@ -37,12 +38,10 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
 
 class View extends Element {
   keyUpHandler() {
-    return
-
     try {
-      const customGrammarName = this.getCustomGrammarName();
+      const name = this.getName();
 
-      if (customGrammarName === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
         const bnf = this.getBNF(),
               ruleName = this.getRuleName(),
               lexicalPattern = this.getLexicalPattern();
@@ -53,47 +52,40 @@ class View extends Element {
       }
 
       const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-            florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
-            florenceLexerRules = florenceLexer.getRules(),
-            florenceParserRules = florenceParser.getRules(),
-            florenceLexerEntries = rulesAsEntries(florenceLexerRules),
-            florenceParserRulesString = rulesAsString(florenceParserRules),
-            florenceLexicalEntries = florenceLexerEntries,  ///
-            florenceBNF = florenceParserRulesString;  ///
+            combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
+            multiLine = true,
+            combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
+            combinedBNF = combinedCustomGrammarRulesString;  ///
 
-      this.setFlorenceBNF(florenceBNF);
+      const florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
 
-      this.setFlorenceLexicalEntries(florenceLexicalEntries);
+      this.setCombinedBNF(combinedBNF);
 
-      this.hideBNFError();
-
-      this.hideLexicalPatternError();
+      this.hideError();
     } catch (error) {
-      const { message } = error;
+      this.clearCombinedBNF();
 
-      message.includes('regular expression') ? ///
-        this.showLexicalPatternError() :
-          this.showBNFError();
+      this.clearParseTree();
+
+      this.showError(error);
     }
   }
 
   changeHandler() {
-    return
-
-    const ruleName = this.getRuleName(),
-          customGrammarName = this.getCustomGrammarName();
+    const name = this.getName(),
+          ruleName = this.getRuleName();
 
     let bnf,
         readOnly,
         lexicalPattern;
 
-    if (customGrammarName === DEFAULT_CUSTOM_GRAMMAR_NAME) {
+    if (name === DEFAULT_CUSTOM_GRAMMAR_NAME) {
       switch (ruleName) {
-        case 'term' : bnf = termDefaultCustomGrammarBNF; break;
-        case 'statement' : bnf = statementDefaultCustomGrammarBNF; break;
-        case 'expression' : bnf = expressionDefaultCustomGrammarBNF; break;
-        case 'metastatement' : bnf = metastatementDefaultCustomGrammarBNF; break;
+        case 'term' : bnf = termDefaultBNF; break;
+        case 'statement' : bnf = statementDefaultBNF; break;
+        case 'expression' : bnf = expressionDefaultBNF; break;
+        case 'metastatement' : bnf = metastatementDefaultBNF; break;
       }
 
       lexicalPattern = defaultLexicalPattern;
@@ -124,21 +116,23 @@ class View extends Element {
 
       <div className="columns">
         <SizeableElement>
-          <h2>Custom grammar</h2>
-          <CustomGrammarNameSelect onChange={changeHandler} />
+          <h2>Name</h2>
+          <NameSelect onChange={changeHandler} />
           <h2>Rule name</h2>
           <RuleNameSelect onChange={changeHandler} />
           <h2>Lexical pattern</h2>
           <LexicalPatternInput onKeyUp={keyUpHandler} />
-          <h2>Adjusted BNF</h2>
-          <AdjustedBNFTextarea />
+          <h2>BNF</h2>
+          <BNFTextarea onKeyUp={keyUpHandler} />
+          <h2>Content</h2>
+          <ContentTextarea onKeyUp={keyUpHandler} />
         </SizeableElement>
         <MainVerticalSplitter />
         <div className="column">
+          <h2>Combined BNF</h2>
+          <CombinedBNFTextarea />
           <h2>Parse tree</h2>
           <ParseTreeTextarea />
-          <h2>Content</h2>
-          <ContentTextarea onKeyUp={keyUpHandler} />
           <ErrorParagraph />
         </div>
       </div>

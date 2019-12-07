@@ -69,17 +69,34 @@ textarea {
   white-space: pre;
 }
 
+textarea.content {
+  height: 18rem;
+}
+
 textarea.parse-tree {
   overflow-wrap: normal;
   font-size: 0.75rem;
   height: 32rem;
 }
 
-textarea.adjusted-bnf {
-  height: 32rem;
+textarea.bnf {
+  height: 17rem;
+  padding: 1rem;
+}
+
+textarea.combined-bnf {
+  height: 18rem;
   padding: 1rem;
 }
 
 textarea.florence-lexical-entries {
   height: 16rem;
+}
+
+p.error {
+  color: red;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  text-align: left;
+  border: 1px solid red;
 }

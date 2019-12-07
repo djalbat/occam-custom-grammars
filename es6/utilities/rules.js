@@ -11,8 +11,8 @@ const basicParser = BasicParser.fromBNF(bnf),
 return rules;
 }
 
-function rulesAsString(rules) {
-  const maximumRuleNameLength = rules.reduce(function(maximumRuleNameLength, rule) {
+function rulesAsString(rules, multiLine) {
+  const maximumRuleNameLength = rules.reduce((maximumRuleNameLength, rule) => {
           const ruleName = rule.getName(),
                 ruleNameLength = ruleName.length;
 
@@ -20,13 +20,13 @@ function rulesAsString(rules) {
 
           return maximumRuleNameLength;
         }, 0),
-        rulesString = rules.reduce(function(rulesString, rule) {
-          const ruleString = rule.asString(maximumRuleNameLength);
+        rulesString = rules.reduce((rulesString, rule) => {
+          const ruleString = rule.asString(maximumRuleNameLength, multiLine);
 
           rulesString += ruleString;
 
           return rulesString;
-        }, '');
+        }, '').replace(/^\n\n/, '');
 
   return rulesString;
 }
