@@ -70,17 +70,17 @@ textarea {
 }
 
 textarea.content {
-  height: 18rem;
+  height: 12rem;
 }
 
 textarea.parse-tree {
   overflow-wrap: normal;
   font-size: 0.75rem;
-  height: 32rem;
+  height: 24rem;
 }
 
 textarea.bnf {
-  height: 17rem;
+  height: 24rem;
   padding: 1rem;
 }
 

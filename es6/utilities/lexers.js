@@ -18,11 +18,7 @@ function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCusto
           custom
         },
         customGrammarRule =  Rule.fromEntry(customGrammarEntry),
-        rules = entries.map((entry) => {
-          const rule = Rule.fromEntry(entry);
-
-          return rule;
-        });
+        rules = entries.map((entry) => Rule.fromEntry(entry));
 
   rules.push(customGrammarRule);
 

@@ -3,7 +3,8 @@
 const easy = require('easy'),
       lexers = require('occam-lexers'), ///
       parsers = require('occam-parsers'), ///
-      easyLayout = require('easy-layout');
+      easyLayout = require('easy-layout'),
+      grammarUtilities = require('occam-grammar-utilities');
 
 const constants = require('../constants'),
       NameSelect = require('./select/name'),
@@ -22,9 +23,10 @@ const constants = require('../constants'),
       CombinedCustomGrammar = require('../combinedCustomGrammar');
 
 const { Element } = easy,
+      { rulesAsString } = rulesUtilities,
       { SizeableElement } = easyLayout,
       { defaultLexicalPattern } = lexers,
-      { rulesAsString, rulesAsEntries } = rulesUtilities,
+      { removeOrRenameIntermediateNodes } = grammarUtilities,
       { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
@@ -55,12 +57,24 @@ class View extends Element {
             combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
             multiLine = true,
             combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
-            combinedBNF = combinedCustomGrammarRulesString;  ///
+            combinedBNF = combinedCustomGrammarRulesString,  ///
+            florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
+            content = this.getContent(),
+            tokens = florenceLexer.tokenise(content),
+            node = florenceParser.parse(tokens);
 
-      const florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
+      let parseTree = null;
+
+      if (node !== null) {
+        removeOrRenameIntermediateNodes(node);
+
+        parseTree = node.asParseTree(tokens);
+      }
 
       this.setCombinedBNF(combinedBNF);
+
+      this.setParseTree(parseTree);
 
       this.hideError();
     } catch (error) {

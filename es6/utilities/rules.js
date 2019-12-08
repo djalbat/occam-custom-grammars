@@ -31,18 +31,7 @@ function rulesAsString(rules, multiLine) {
   return rulesString;
 }
 
-function rulesAsEntries(rules) {
-  const entries = rules.map(function(rule) {
-    const entry = rule.asEntry();
-
-    return entry;
-  });
-
-  return entries;
-}
-
 module.exports = {
   rulesFromBNF,
-  rulesAsString,
-  rulesAsEntries
+  rulesAsString
 };
