@@ -20,7 +20,7 @@ function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCusto
         customGrammarRule =  Rule.fromEntry(customGrammarEntry),
         rules = entries.map((entry) => Rule.fromEntry(entry));
 
-  rules.push(customGrammarRule);
+  rules.unshift(customGrammarRule);
 
   const florenceLexer = new FlorenceLexer(rules);
 

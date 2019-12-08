@@ -55,7 +55,8 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
 
   lexicalPatterns.unshift(defaultLexicalPattern);
 
-  const lexicalPattern = lexicalPatterns.reverse().join('|'); ///
+  const lexicalPatternsString = lexicalPatterns.reverse().join('|'), ///
+        lexicalPattern = `^(?:${lexicalPatternsString})`;
 
   return lexicalPattern;
 }

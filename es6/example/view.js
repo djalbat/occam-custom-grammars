@@ -9,20 +9,23 @@ const easy = require('easy'),
 const constants = require('../constants'),
       NameSelect = require('./select/name'),
       BNFTextarea = require('./textarea/bnf'),
-      CustomGrammar = require('../customGrammar'),
+      ruleUtilities = require('../utilities/rule'),
+      rulesUtilities = require('../utilities/rules'),
       RuleNameSelect = require('./select/ruleName'),
       ErrorParagraph = require('./paragraph/error'),
-      rulesUtilities = require('../utilities/rules'),
       lexersUtilities = require('../utilities/lexers'),
       ContentTextarea = require('./textarea/content'),
       parsersUtilities = require('../utilities/parsers'),
       ParseTreeTextarea = require('./textarea/parseTree'),
       CombinedBNFTextarea = require('./textarea/combinedBNF'),
       LexicalPatternInput = require('./input/lexicalPattern'),
+      TopmostRuleNameInput = require('./input/topmostRuleName'),
       MainVerticalSplitter = require('./verticalSplitter/main'),
-      CombinedCustomGrammar = require('../combinedCustomGrammar');
+      CombinedCustomGrammar = require('../combinedCustomGrammar'),
+      userDefinedCustomGrammar = require('../userDefinedCustomGrammar');
 
 const { Element } = easy,
+      { findRule } = ruleUtilities,
       { rulesAsString } = rulesUtilities,
       { SizeableElement } = easyLayout,
       { defaultLexicalPattern } = lexers,
@@ -31,12 +34,6 @@ const { Element } = easy,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities,
       { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
       { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF  } = parsers;
-
-const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
-      userDefinedCustomGrammar = CustomGrammar.fromName(name),
-      customGrammars = [
-        userDefinedCustomGrammar
-      ];
 
 class View extends Element {
   keyUpHandler() {
@@ -53,16 +50,22 @@ class View extends Element {
         userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
       }
 
-      const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
+      const customGrammars = [
+              userDefinedCustomGrammar
+            ],
+            combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
             combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
             multiLine = true,
             combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
             combinedBNF = combinedCustomGrammarRulesString,  ///
             florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
             florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
+            topmostRuleName = this.getTopmostRuleName(),
+            rules = florenceParser.getRules(),
+            topmostRule = findRule(topmostRuleName, rules),
             content = this.getContent(),
             tokens = florenceLexer.tokenise(content),
-            node = florenceParser.parse(tokens);
+            node = florenceParser.parse(tokens, topmostRule);
 
       let parseTree = null;
 
@@ -138,6 +141,8 @@ class View extends Element {
           <LexicalPatternInput onKeyUp={keyUpHandler} />
           <h2>BNF</h2>
           <BNFTextarea onKeyUp={keyUpHandler} />
+          <h2>Topmost rule name</h2>
+          <TopmostRuleNameInput onKeyUp={keyUpHandler} />
           <h2>Content</h2>
           <ContentTextarea onKeyUp={keyUpHandler} />
         </SizeableElement>
