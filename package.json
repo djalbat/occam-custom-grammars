@@ -25,10 +25,7 @@
     "chokidar-cli": "^1.2.0",
     "easy": "^7.10.0",
     "easy-layout": "^2.1.46",
-    "juxtapose": "^1.0.89",
-    "occam-grammar-utilities": "^3.0.21",
-    "occam-lexers": "^10.1.33",
-    "occam-parsers": "^10.1.42"
+    "juxtapose": "^1.0.89"
   },
   "scripts": {
     "clean": "rm -rf ./lib",
