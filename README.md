@@ -13,9 +13,9 @@
 
 ## Introduction
 
-In Occam parlance, a grammar is a combination of a series of regular expression entries for a lexer and BNF for a parser. A custom grammar on the other hand is a single regular expression plus four BNF snippets for terms, expressions, statements and metastatements.
+In Occam parlance, a grammar is a combination of lexical entries for a lexer and extended BNF for a parser. A custom grammar on the other hand is a single lexical entry together with four extended BNF snippets for terms, expressions, statements and metastatements.
 
-Custom grammars augment the Florence grammar, specifically its lexer regular expression [entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and parser [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports the means to combine custom grammars as well as supplying factory functions to create Florence lexers and parsers that make use of them.
+Custom grammars augment the Florence grammar, specifically its [lexical entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and [extended BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports the means to combine custom grammars as well as supplying factory functions to create Florence lexers and parsers that make use of them.
 
 ## Installation
 
@@ -77,9 +77,9 @@ const combinedCustomGrammar = ...
 
 ## Example
 
-The example allows you to define a single custom grammar and see the resultant parse tree any content you provide. To view it, open the `example.html` file in the root of the repository.
+The example allows you to define a custom grammar and see the resultant parse tree for any content you provide. To view it, open the `example.html` file in the root of the repository.
 
-To alter the custom grammar, change the option of the name select field to 'User defined'. This makes both the lexical pattern input field and BNF textarea editable. Changing the rule name select field allows you to alter the BNF for terms, expressions, statements and metastatements. Note that there is already a lexical pattern and some BNF defined for illustrative purposes. Try the following content to see them in action:
+To alter the custom grammar, change the option of the 'Name' select field to 'User defined'. This makes both the 'Lexical pattern' input field and 'BNF' textarea editable. Changing the 'Rule name' select field allows you to alter the BNF for terms, expressions, statements and metastatements. Note that there is already a lexical pattern and some BNF defined for illustrative purposes. Try the following content to see them in action, making sure to including a trailing carriage return:
 
 ```
 Axiom (InsertOperation)
