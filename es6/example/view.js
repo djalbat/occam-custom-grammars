@@ -133,24 +133,40 @@ class View extends Element {
 
       <div className="columns">
         <SizeableElement>
-          <h2>Name</h2>
+          <h2>
+            Name
+          </h2>
           <NameSelect onChange={changeHandler} />
-          <h2>Rule name</h2>
+          <h2>
+            Rule name
+          </h2>
           <RuleNameSelect onChange={changeHandler} />
-          <h2>Lexical pattern</h2>
+          <h2>
+            Lexical pattern
+          </h2>
           <LexicalPatternInput onKeyUp={keyUpHandler} />
-          <h2>BNF</h2>
+          <h2>
+            BNF
+          </h2>
           <BNFTextarea onKeyUp={keyUpHandler} />
-          <h2>Topmost rule name</h2>
+          <h2>
+            Topmost rule name
+          </h2>
           <TopmostRuleNameInput onKeyUp={keyUpHandler} />
-          <h2>Content</h2>
+          <h2>
+            Content
+          </h2>
           <ContentTextarea onKeyUp={keyUpHandler} />
         </SizeableElement>
         <MainVerticalSplitter />
         <div className="column">
-          <h2>Combined BNF</h2>
+          <h2>
+            Combined BNF
+          </h2>
           <CombinedBNFTextarea />
-          <h2>Parse tree</h2>
+          <h2>
+            Parse tree
+          </h2>
           <ParseTreeTextarea />
           <ErrorParagraph />
         </div>
