@@ -3,7 +3,7 @@
 export function lexicalPatternsFromCustomGrammars(customGrammars) {
   const lexicalPatterns = [];
 
-  customGrammars.forEach(function(customGrammar) {
+  customGrammars.forEach((customGrammar) => {
     const lexicalPattern = customGrammar.getLexicalPattern();
 
     if (lexicalPattern) { ///
@@ -17,7 +17,7 @@ export function lexicalPatternsFromCustomGrammars(customGrammars) {
 export function bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars) {
   const bnfs = [];
 
-  customGrammars.forEach(function(customGrammar) {
+  customGrammars.forEach((customGrammar) => {
     const bnf = customGrammar.getBNF(ruleName);
 
     if (bnf) {  ///

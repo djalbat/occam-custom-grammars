@@ -87,7 +87,7 @@ function removeStartRule(rules) {
 }
 
 function remainingRulesFromRulesAndMainRule(rules, mainRule) {
-  const remainingRules = rules.filter(function(rule) {
+  const remainingRules = rules.filter((rule) => {
     if (rule !== mainRule) {
       return true;
     }
@@ -101,7 +101,7 @@ function mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs) {
         defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
         defaultMainRuleDefinitions = defaultMainRule.getDefinitions();
 
-  bnfs.forEach(function(bnf) {
+  bnfs.forEach((bnf) => {
     const rules = rulesFromBNF(bnf),
           mainRule = findRuleByRuleName(ruleName, rules),
           mainRuleDefinitions = (mainRule !== null) ?
@@ -121,7 +121,7 @@ function remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs)
         defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
         defaultRemainingRules = remainingRulesFromRulesAndMainRule(defaultRules, defaultMainRule);
 
-  bnfs.forEach(function(bnf) {
+  bnfs.forEach((bnf) => {
     const rules = rulesFromBNF(bnf),
           mainRule = findRuleByRuleName(ruleName, rules),
           remainingRules = remainingRulesFromRulesAndMainRule(rules, mainRule);

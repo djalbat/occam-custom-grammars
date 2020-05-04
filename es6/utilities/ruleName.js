@@ -2,7 +2,7 @@
 
 export function findRuleByRuleName(ruleName, rules) {
   const name = ruleName,  ///
-        rule = rules.find(function(rule) {
+        rule = rules.find((rule) => {
           const ruleName = rule.getName();
 
           if (ruleName === name) {
