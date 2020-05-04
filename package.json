@@ -10,19 +10,19 @@
     "url": "https://github.com/jecs-imperial/occam-custom-grammars"
   },
   "dependencies": {
-    "easy": "^7.10.0",
-    "easy-layout": "^2.1.46",
-    "juxtapose": "^1.0.89",
-    "necessary": "^3.4.0",
-    "occam-grammar-utilities": "^3.0.28",
-    "occam-lexers": "^10.1.42",
-    "occam-parsers": "^10.1.60"
+    "necessary": "^4.1.10",
+    "occam-grammar-utilities": "^4.0.2",
+    "occam-lexers": "^11.0.20",
+    "occam-parsers": "^11.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "browserify": "^16.5.0",
+    "easy": "^7.10.0",
+    "easy-layout": "^2.1.46",
+    "juxtapose": "^1.0.89",
     "watchful-cli": "^1.4.6"
   },
   "scripts": {
