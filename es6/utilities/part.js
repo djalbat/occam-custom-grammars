@@ -1,9 +1,8 @@
 "use strict";
 
-const parsers = require("occam-parsers");
+import { partTypes } from "occam-parsers";
 
-const { partTypes } = parsers,
-      { RuleNamePartType } = partTypes;
+const { RuleNamePartType } = partTypes;
 
 function isPartRuleNamePart(part) {
   let partRuleNamePart = false;

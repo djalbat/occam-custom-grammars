@@ -1,9 +1,8 @@
 "use strict";
 
-const constants = require("./constants"),
-      CustomGrammar = require("./customGrammar");
+import CustomGrammar from "./customGrammar";
 
-const { USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants;
+import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "./constants";
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
       lexicalPattern = `<=|\\+|\\-|\\||insert|delete|empty`,

@@ -1,8 +1,6 @@
 "use strict";
 
-const parsers = require("occam-parsers"); ///
-
-const { BasicParser } = parsers;
+import { BasicParser } from "occam-parsers";
 
 function rulesFromBNF(bnf) {
 const basicParser = BasicParser.fromBNF(bnf),

@@ -1,9 +1,8 @@
 "use strict";
 
-const necessary = require("necessary");
+import { fileSystemUtilities } from "necessary";
 
-const { fileSystemUtilities } = necessary,
-      { readFile, checkFileExists } = fileSystemUtilities;
+const { readFile, checkFileExists } = fileSystemUtilities;
 
 class CustomGrammar {
   constructor(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {

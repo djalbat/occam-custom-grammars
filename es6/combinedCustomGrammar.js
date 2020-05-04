@@ -1,22 +1,15 @@
 "use strict";
 
-const lexers = require("occam-lexers"),
-      parsers = require("occam-parsers"),
-      necessary = require("necessary"),
-      grammarUtilities = require("occam-grammar-utilities");
+import { arrayUtilities } from "necessary";
+import { defaultLexicalPattern } from "occam-lexers";
+import { eliminateLeftRecursion } from "occam-grammar-utilities";
+import { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF } from "occam-parsers";
 
-const rulesUtilities = require("./utilities/rules"),
-      ruleNameUtilities = require("./utilities/ruleName"),
-      customGrammarsUtilities = require("./utilities/customGrammars");
+import { rulesFromBNF } from "./utilities/rules";
+import { findRuleByRuleName } from "./utilities/ruleName";
+import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
 
-const { rulesFromBNF } = rulesUtilities,
-      { arrayUtilities } = necessary,
-      { findRuleByRuleName } = ruleNameUtilities,
-      { defaultLexicalPattern } = lexers,
-      { eliminateLeftRecursion } = grammarUtilities,
-      { first, filter, unshift } = arrayUtilities,
-      { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } = customGrammarsUtilities,
-      { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF } = parsers;
+const { first, filter, unshift } = arrayUtilities;
 
 class CombinedCustomGrammar {
   constructor(lexicalPattern, rules) {
