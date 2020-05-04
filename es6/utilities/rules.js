@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const parsers = require('occam-parsers'); ///
+const parsers = require("occam-parsers"); ///
 
 const { BasicParser } = parsers;
 
@@ -26,7 +26,7 @@ function rulesAsString(rules, multiLine) {
           rulesString += ruleString;
 
           return rulesString;
-        }, '').replace(/^\n\n/, '');
+        }, "").replace(/^\n\n/, "");
 
   return rulesString;
 }

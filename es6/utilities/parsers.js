@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers'),
-      parsers = require('occam-parsers'),
-      necessary = require('necessary');
+const lexers = require("occam-lexers"),
+      parsers = require("occam-parsers"),
+      necessary = require("necessary");
 
 const { arrayUtilities } = necessary,
       { push } = arrayUtilities,

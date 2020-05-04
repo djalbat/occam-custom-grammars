@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers');
+const lexers = require("occam-lexers");
 
 const { Rule, FlorenceLexer } = lexers;
 

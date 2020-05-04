@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
-const lexers = require('occam-lexers'),
-      parsers = require('occam-parsers'),
-      necessary = require('necessary'),
-      grammarUtilities = require('occam-grammar-utilities');
+const lexers = require("occam-lexers"),
+      parsers = require("occam-parsers"),
+      necessary = require("necessary"),
+      grammarUtilities = require("occam-grammar-utilities");
 
-const rulesUtilities = require('./utilities/rules'),
-      ruleNameUtilities = require('./utilities/ruleName'),
-      customGrammarsUtilities = require('./utilities/customGrammars');
+const rulesUtilities = require("./utilities/rules"),
+      ruleNameUtilities = require("./utilities/ruleName"),
+      customGrammarsUtilities = require("./utilities/customGrammars");
 
 const { rulesFromBNF } = rulesUtilities,
       { arrayUtilities } = necessary,
@@ -55,17 +55,17 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
 
   lexicalPatterns.unshift(defaultLexicalPattern);
 
-  const lexicalPatternsString = lexicalPatterns.reverse().join('|'), ///
+  const lexicalPatternsString = lexicalPatterns.reverse().join("|"), ///
         lexicalPattern = `^(?:${lexicalPatternsString})`;
 
   return lexicalPattern;
 }
 
 function rulesFromCustomGrammars(customGrammars) {
-  const metastatementRuleName = 'metastatement',
-        statementRuleName = 'statement',
-        expressionRuleName = 'expression',
-        termRuleName = 'term',
+  const metastatementRuleName = "metastatement",
+        statementRuleName = "statement",
+        expressionRuleName = "expression",
+        termRuleName = "term",
         metastatementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(metastatementRuleName, customGrammars, metastatementDefaultBNF),
         statementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(statementRuleName, customGrammars, statementDefaultBNF),
         expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(expressionRuleName, customGrammars, expressionDefaultBNF),
@@ -76,7 +76,7 @@ function rulesFromCustomGrammars(customGrammars) {
 }
 
 function addStartRule(rules) {
-  const startRulesBNF = ' start ::= metastatement | statement | expression | term ; ',
+  const startRulesBNF = " start ::= metastatement | statement | expression | term ; ",
         startRules = rulesFromBNF(startRulesBNF),
         firstStartRule = first(startRules),
         startRule = firstStartRule; ///

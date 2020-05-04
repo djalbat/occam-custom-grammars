@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const necessary = require('necessary');
+const necessary = require("necessary");
 
 const { fileSystemUtilities } = necessary,
       { readFile, checkFileExists } = fileSystemUtilities;
@@ -27,19 +27,19 @@ class CustomGrammar {
     let bnf;
 
     switch (ruleName) {
-      case 'term' :
+      case "term" :
         bnf = this.termBNF;
         break;
 
-      case 'expression' :
+      case "expression" :
         bnf = this.expressionBNF;
         break;
 
-      case 'statement' :
+      case "statement" :
         bnf = this.statementBNF;
         break;
 
-      case 'metastatement' :
+      case "metastatement" :
         bnf = this.metastatementBNF;
         break;
     }
@@ -57,19 +57,19 @@ class CustomGrammar {
 
   setBNF(ruleName, bnf) {
     switch (ruleName) {
-      case 'term' :
+      case "term" :
         this.termBNF = bnf;
         break;
 
-      case 'expression' :
+      case "expression" :
         this.expressionBNF = bnf;
         break;
 
-      case 'statement' :
+      case "statement" :
         this.statementBNF = bnf;
         break;
 
-      case 'metastatement' :
+      case "metastatement" :
         this.metastatementBNF = bnf;
         break;
     }

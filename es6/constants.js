@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const DEFAULT_CUSTOM_GRAMMAR_NAME = 'Default',
-      USER_DEFINED_CUSTOM_GRAMMAR_NAME = 'User defined';
+const DEFAULT_CUSTOM_GRAMMAR_NAME = "Default",
+      USER_DEFINED_CUSTOM_GRAMMAR_NAME = "User defined";
 
 module.exports = {
   DEFAULT_CUSTOM_GRAMMAR_NAME,

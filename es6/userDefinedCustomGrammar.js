@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const constants = require('./constants'),
-      CustomGrammar = require('./customGrammar');
+const constants = require("./constants"),
+      CustomGrammar = require("./customGrammar");
 
 const { USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants;
 
@@ -66,9 +66,9 @@ arithmeticExpression  ::=  addition
 
 userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
 
-userDefinedCustomGrammar.setBNF('term', termBNF);
-userDefinedCustomGrammar.setBNF('expression', expressionBNF);
-userDefinedCustomGrammar.setBNF('statement', statementBNF);
-userDefinedCustomGrammar.setBNF('metastatement', metastatementBNF);
+userDefinedCustomGrammar.setBNF("term", termBNF);
+userDefinedCustomGrammar.setBNF("expression", expressionBNF);
+userDefinedCustomGrammar.setBNF("statement", statementBNF);
+userDefinedCustomGrammar.setBNF("metastatement", metastatementBNF);
 
 module.exports = userDefinedCustomGrammar;

@@ -23,7 +23,7 @@
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
     "browserify": "^16.5.0",
-    "watchful-cli": "^1.0.10"
+    "watchful-cli": "^1.4.6"
   },
   "scripts": {
     "clean": "rm -rf ./lib",
