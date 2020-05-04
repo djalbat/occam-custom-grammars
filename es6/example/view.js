@@ -1,3 +1,109 @@
+"use strict";
+
+import { Element } from "easy";
+import { ColumnsDiv } from "easy-layout";
+
+import Heading from "./heading";
+import ColumnDiv from "./div/column";
+import SubHeading from "./subHeading";
+import NameSelect from "./select/name";
+import SizeableDiv from "./div/sizeable";
+import BNFTextarea from "./textarea/bnf";
+import RuleNameSelect from "./select/ruleName";
+import ContentTextarea from "./textarea/content";
+import ParseTreeTextarea from "./textarea/parseTree";
+import LexicalPatternInput from "./input/lexicalPattern";
+import CombinedBNFTextarea from "./textarea/combinedBNF";
+import VerticalSplitterDiv from "./div/splitter/vertical";
+import TopmostRuleNameInput from "./input/topmostRuleName";
+
+export default class View extends Element {
+  keyUpHandler() {
+
+  }
+
+  changeHandler() {
+
+  }
+
+  childElements(properties) {
+    const keyUpHandler = this.keyUpHandler.bind(this),
+          changeHandler = this.changeHandler.bind(this);
+
+    return ([
+
+      <Heading>
+        Grammar utilities example
+      </Heading>,
+      <ColumnsDiv>
+        <SizeableDiv>
+          <SubHeading>
+            Name
+          </SubHeading>
+          <NameSelect onChange={changeHandler} />
+          <SubHeading>
+            Rule name
+          </SubHeading>
+          <RuleNameSelect onChange={changeHandler} />
+          <SubHeading>
+            Lexical pattern
+          </SubHeading>
+          <LexicalPatternInput onKeyUp={keyUpHandler} />
+          <SubHeading>
+            BNF
+          </SubHeading>
+          <BNFTextarea onKeyUp={keyUpHandler} />
+          <SubHeading>
+            Topmost ruleName
+          </SubHeading>
+          <TopmostRuleNameInput onKeyUp={keyUpHandler} />
+        </SizeableDiv>
+        <VerticalSplitterDiv />
+        <ColumnDiv>
+          <SubHeading>
+            Content
+          </SubHeading>
+          <ContentTextarea onKeyUp={keyUpHandler} />
+          <SubHeading>
+            Combined BNF
+          </SubHeading>
+          <CombinedBNFTextarea />
+          <SubHeading>
+            Parse tree
+          </SubHeading>
+          <ParseTreeTextarea />
+        </ColumnDiv>
+      </ColumnsDiv>
+
+    ]);
+  }
+
+  initialise(properties) {
+    this.assignContext();
+
+    this.changeHandler();
+
+    this.keyUpHandler();
+  }
+
+  static tagName = "div";
+
+  static fromClass(Class, properties) {
+    const exampleView = Element.fromClass(Class, properties);
+
+    exampleView.initialise(properties);
+
+    return exampleView
+  }
+}
+
+
+
+
+
+
+
+/*
 'use strict';
 
 const easy = require('easy'),
@@ -124,79 +230,5 @@ class View extends Element {
 
     this.setLexicalPatternReadOnly(readOnly);
   }
-
-  childElements(properties) {
-    const keyUpHandler = this.keyUpHandler.bind(this),
-          changeHandler = this.changeHandler.bind(this);
-
-    return (
-
-      <div className="columns">
-        <SizeableElement>
-          <h2>
-            Name
-          </h2>
-          <NameSelect onChange={changeHandler} />
-          <h2>
-            Rule name
-          </h2>
-          <RuleNameSelect onChange={changeHandler} />
-          <h2>
-            Lexical pattern
-          </h2>
-          <LexicalPatternInput onKeyUp={keyUpHandler} />
-          <h2>
-            BNF
-          </h2>
-          <BNFTextarea onKeyUp={keyUpHandler} />
-          <h2>
-            Topmost rule name
-          </h2>
-          <TopmostRuleNameInput onKeyUp={keyUpHandler} />
-          <h2>
-            Content
-          </h2>
-          <ContentTextarea onKeyUp={keyUpHandler} />
-        </SizeableElement>
-        <MainVerticalSplitter />
-        <div className="column">
-          <h2>
-            Combined BNF
-          </h2>
-          <CombinedBNFTextarea />
-          <h2>
-            Parse tree
-          </h2>
-          <ParseTreeTextarea />
-          <ErrorParagraph />
-        </div>
-      </div>
-
-    );
-  }
-
-  initialise() {
-    this.assignContext();
-
-    this.changeHandler(); ///
-
-    this.keyUpHandler();  ///
-  }
-
-  static fromProperties(properties) {
-    const view = Element.fromProperties(View, properties);
-
-    view.initialise();
-
-    return view
-  }
 }
-
-Object.assign(View, {
-  tagName: 'div',
-  defaultProperties: {
-    className: 'view'
-  }
-});
-
-module.exports = View;
+*/

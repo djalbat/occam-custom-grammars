@@ -1,19 +1,17 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+import Input from "../input";
 
-const { InputElement } = easy;
-
-class LexicalPatternInput extends InputElement {
+export default class LexicalPatternInput extends Input {
   getLexicalPattern() {
     const value = this.getValue(),
-          lexicalPattern = value;  ///
+          lexicalPattern = value; ///
 
     return lexicalPattern;
   }
 
   setLexicalPattern(lexicalPattern) {
-    const value = lexicalPattern || '';  ///
+    const value = lexicalPattern; ///
 
     this.setValue(value);
   }
@@ -21,7 +19,7 @@ class LexicalPatternInput extends InputElement {
   parentContext() {
     const getLexicalPattern = this.getLexicalPattern.bind(this),
           setLexicalPattern = this.setLexicalPattern.bind(this),
-          setLexicalPatternReadOnly = this.setReadOnly.bind(this); ///
+          setLexicalPatternReadOnly = this.setReadOnly.bind(this); ///;
 
     return ({
       getLexicalPattern,
@@ -30,15 +28,8 @@ class LexicalPatternInput extends InputElement {
     });
   }
 
-  static fromProperties(properties) { return InputElement.fromProperties(LexicalPatternInput, properties); }
+  static defaultProperties = {
+    className: "lexical-pattern",
+    spellCheck: "false"
+  };
 }
-
-Object.assign(LexicalPatternInput, {
-  tagName: 'input',
-  defaultProperties: {
-    className: 'lexical-pattern',
-    spellCheck: 'false'
-  }
-});
-
-module.exports = LexicalPatternInput;

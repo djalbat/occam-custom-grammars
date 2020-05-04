@@ -1,13 +1,11 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+import Input from "../input";
 
-const { InputElement } = easy;
-
-class TopmostRuleNameInput extends InputElement {
+export default class TopmostRuleNameInput extends Input {
   getTopmostRuleName() {
     const value = this.getValue(),
-          topmostRuleName = value;  ///
+          topmostRuleName = value; ///
 
     return topmostRuleName;
   }
@@ -20,15 +18,8 @@ class TopmostRuleNameInput extends InputElement {
     });
   }
 
-  static fromProperties(properties) { return InputElement.fromProperties(TopmostRuleNameInput, properties); }
+  static defaultProperties = {
+    className: "topmost-rule-name",
+    spellCheck: "false"
+  };
 }
-
-Object.assign(TopmostRuleNameInput, {
-  tagName: 'input',
-  defaultProperties: {
-    className: 'topmost-rule-name',
-    spellCheck: 'false'
-  }
-});
-
-module.exports = TopmostRuleNameInput;

@@ -1,24 +1,23 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+import Select from "../select";
 
-const { InputElement } = easy;
-
-class RuleNameSelect extends InputElement {
-  getSelectedOptionValue() {
-    const domElement = this.getDOMElement(),
-          selectedOptionValue = domElement.value; ///
-
-    return selectedOptionValue;
-  }
-
+export default class RuleNameSelect extends Select {
   childElements(properties) {
     return ([
 
-      <option value="term" selected >term</option>,
-      <option value="expression">expression</option>,
-      <option value="statement">statement</option>,
-      <option value="metastatement">metastatement</option>
+      <option value="term" selected >
+        term
+      </option>,
+      <option value="term" selected >
+        expression
+      </option>,
+      <option value="term" selected >
+        statement
+      </option>,
+      <option value="term" selected >
+        metastatement
+      </option>,
 
     ]);
   }
@@ -31,15 +30,8 @@ class RuleNameSelect extends InputElement {
     });
   }
 
-  static fromProperties(properties) { return InputElement.fromProperties(RuleNameSelect, properties); }
-}
-
-Object.assign(RuleNameSelect, {
-  tagName: 'select',
-  defaultProperties: {
-    className: 'rule-name',
-    spellCheck: false
+  static defaultProperties = {
+    className: "rule-name",
+    spellCheck: "false"
   }
-});
-
-module.exports = RuleNameSelect;
+}

@@ -1,53 +1,33 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+import Textarea from "../textarea";
 
-const { InputElement } = easy;
-
-class BNFTextarea extends InputElement {
-  clearBNF() {
-    const value = '';
-
-    this.setValue(value);
-  }
-
+export default class BNFTextarea extends Textarea {
   getBNF() {
     const value = this.getValue(),
-          bnf = value;  ///
+          bnf = value; ///
 
-    return (bnf);
+    return bnf;
   }
 
   setBNF(bnf) {
-    const value = bnf;  ///
+    const value = bnf;
 
     this.setValue(value);
   }
 
   parentContext() {
     const getBNF = this.getBNF.bind(this),
-          setBNF = this.setBNF.bind(this),
-          clearBNF = this.clearBNF.bind(this),
-          setBNFReadOnly = this.setReadOnly.bind(this);
+          setBNF = this.setBNF.bind(this);
 
     return ({
       getBNF,
-      setBNF,
-      clearBNF,
-      setBNFReadOnly
+      setBNF
     });
   }
 
-  static fromProperties(properties) { return InputElement.fromProperties(BNFTextarea, properties); }
+  static defaultProperties = {
+    className: "bnf",
+    spellCheck: "false"
+  };
 }
-
-Object.assign(BNFTextarea, {
-  tagName: 'textarea',
-  defaultProperties: {
-    className: 'bnf',
-    spellCheck: 'false',
-    readOnly: true
-  }
-});
-
-module.exports = BNFTextarea;

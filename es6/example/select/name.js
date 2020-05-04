@@ -1,20 +1,10 @@
-'use strict';
+"use strict";
 
-const easy = require('easy');
+import Select from "../select";
 
-const constants = require('../../constants');
+import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../../constants";
 
-const { InputElement } = easy,
-      { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants;
-
-class NameSelect extends InputElement {
-  getSelectedOptionValue() {
-    const domElement = this.getDOMElement(),
-          selectedOptionValue = domElement.value; ///
-
-    return selectedOptionValue;
-  }
-
+export default class NameSelect extends Select {
   childElements(properties) {
     const defaultName = DEFAULT_CUSTOM_GRAMMAR_NAME,  ///
           defaultValue = defaultName, ///
@@ -23,8 +13,12 @@ class NameSelect extends InputElement {
 
     return ([
 
-      <option value={defaultValue} selected>{defaultName}</option>,
-      <option value={userDefinedValue}>{userDefinedName}</option>,
+      <option value={defaultValue} selected >
+        {defaultName}
+      </option>,
+      <option value={userDefinedValue}>
+        {userDefinedName}
+      </option>,
 
     ]);
   }
@@ -37,15 +31,8 @@ class NameSelect extends InputElement {
     });
   }
 
-  static fromProperties(properties) { return InputElement.fromProperties(NameSelect, properties); }
-}
-
-Object.assign(NameSelect, {
-  tagName: 'select',
-  defaultProperties: {
-    className: 'name',
-    spellCheck: false
+  static defaultProperties = {
+    className: "name",
+    spellCheck: "false"
   }
-});
-
-module.exports = NameSelect;
+}
