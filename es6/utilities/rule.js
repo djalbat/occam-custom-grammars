@@ -1,6 +1,6 @@
 "use strict";
 
-function findRule(ruleName, rules) {
+export function findRule(ruleName, rules) {
   const name = ruleName,  ///
         rule = rules.find((rule) => {
           const ruleName = rule.getName();
@@ -12,7 +12,3 @@ function findRule(ruleName, rules) {
 
   return rule;
 }
-
-module.exports = {
-  findRule
-};

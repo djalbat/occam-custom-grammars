@@ -11,7 +11,7 @@ import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } 
 
 const { first, filter, unshift } = arrayUtilities;
 
-class CombinedCustomGrammar {
+export default class CombinedCustomGrammar {
   constructor(lexicalPattern, rules) {
     this.lexicalPattern = lexicalPattern;
     this.rules = rules;
@@ -40,8 +40,6 @@ class CombinedCustomGrammar {
     return combinedCustomGrammar;
   }
 }
-
-module.exports = CombinedCustomGrammar;
 
 function lexicalPatternFromCustomGrammars(customGrammars) {
   const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars);

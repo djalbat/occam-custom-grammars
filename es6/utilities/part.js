@@ -4,7 +4,7 @@ import { partTypes } from "occam-parsers";
 
 const { RuleNamePartType } = partTypes;
 
-function isPartRuleNamePart(part) {
+export function isPartRuleNamePart(part) {
   let partRuleNamePart = false;
 
   const partTerminalPart = part.isTerminalPart(),
@@ -20,7 +20,3 @@ function isPartRuleNamePart(part) {
 
   return partRuleNamePart;
 }
-
-module.exports = {
-  isPartRuleNamePart
-};

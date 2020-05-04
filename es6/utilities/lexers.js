@@ -2,14 +2,14 @@
 
 import { Rule, FlorenceLexer } from "occam-lexers";
 
-function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
+export function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = FlorenceLexer,
         florenceLexer = florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar);
 
   return florenceLexer;
 }
 
-function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
+export function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
   const combinedCustomGrammarLexicalPattern = combinedCustomGrammar.getLexicalPattern(),
         custom = combinedCustomGrammarLexicalPattern, ///
         customGrammarEntry = {
@@ -25,7 +25,7 @@ function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCusto
   return florenceLexer;
 }
 
-module.exports = {
+export default {
   florenceLexerFromCombinedCustomGrammar,
   florenceLexerFromEntriesAndCombinedCustomGrammar
 };

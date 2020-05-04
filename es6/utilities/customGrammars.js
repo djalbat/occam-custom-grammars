@@ -1,6 +1,6 @@
 "use strict";
 
-function lexicalPatternsFromCustomGrammars(customGrammars) {
+export function lexicalPatternsFromCustomGrammars(customGrammars) {
   const lexicalPatterns = [];
 
   customGrammars.forEach(function(customGrammar) {
@@ -14,7 +14,7 @@ function lexicalPatternsFromCustomGrammars(customGrammars) {
   return lexicalPatterns;
 }
 
-function bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars) {
+export function bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars) {
   const bnfs = [];
 
   customGrammars.forEach(function(customGrammar) {
@@ -27,8 +27,3 @@ function bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars) {
 
   return bnfs;
 }
-
-module.exports = {
-  lexicalPatternsFromCustomGrammars,
-  bnfsFromRuleNameAndCustomGrammars
-};

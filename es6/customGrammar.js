@@ -4,7 +4,7 @@ import { fileSystemUtilities } from "necessary";
 
 const { readFile, checkFileExists } = fileSystemUtilities;
 
-class CustomGrammar {
+export default class CustomGrammar {
   constructor(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
     this.name = name;
     this.lexicalPattern = lexicalPattern;
@@ -154,5 +154,3 @@ class CustomGrammar {
     return customGrammar;
   }
 }
-
-module.exports = CustomGrammar;

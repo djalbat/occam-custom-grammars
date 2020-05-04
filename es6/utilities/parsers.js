@@ -4,17 +4,16 @@ import { BNFLexer } from "occam-lexers";
 import { arrayUtilities } from "necessary";
 import { BNFParser, FlorenceParser } from "occam-parsers";
 
-const { push } = arrayUtilities,
-      { termDefaultCustomGrammarBNF, statementDefaultCustomGrammarBNF, expressionDefaultCustomGrammarBNF, metastatementDefaultCustomGrammarBNF } = parsers;
+const { push } = arrayUtilities;
 
-function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
+export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
         florenceParser = florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar);
 
   return florenceParser;
 }
 
-function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
+export function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
   const combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
         bnfLexer = BNFLexer.fromNothing(),
         bnfParser = BNFParser.fromNothing(),
@@ -28,11 +27,7 @@ function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGramma
   return florenceParser;
 }
 
-module.exports = {
-  termDefaultCustomGrammarBNF,
-  statementDefaultCustomGrammarBNF,
-  expressionDefaultCustomGrammarBNF,
-  metastatementDefaultCustomGrammarBNF,
+export default {
   florenceParserFromCombinedCustomGrammar,
   florenceParserFromBNFAndCombinedCustomGrammar
 };

@@ -2,14 +2,14 @@
 
 import { BasicParser } from "occam-parsers";
 
-function rulesFromBNF(bnf) {
-const basicParser = BasicParser.fromBNF(bnf),
-      rules = basicParser.getRules();
+export function rulesFromBNF(bnf) {
+  const basicParser = BasicParser.fromBNF(bnf),
+        rules = basicParser.getRules();
 
-return rules;
+  return rules;
 }
 
-function rulesAsString(rules, multiLine) {
+export function rulesAsString(rules, multiLine) {
   const maximumRuleNameLength = rules.reduce((maximumRuleNameLength, rule) => {
           const ruleName = rule.getName(),
                 ruleNameLength = ruleName.length;
@@ -28,8 +28,3 @@ function rulesAsString(rules, multiLine) {
 
   return rulesString;
 }
-
-module.exports = {
-  rulesFromBNF,
-  rulesAsString
-};

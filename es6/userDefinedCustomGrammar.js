@@ -61,13 +61,14 @@ arithmeticExpression  ::=  addition
 
    lessThanOrEqualTo  ::=  expression "<=" expression ;`,
       metastatementBNF = ``,
-      userDefinedCustomGrammar = CustomGrammar.fromName(name);
+      json = {
+        "name": name,
+        "lexicalPattern": lexicalPattern,
+        "termBNF": termBNF,
+        "expressionBNF": expressionBNF,
+        "statementBNF": statementBNF,
+        "metastatementBNF": metastatementBNF
+      },
+      userDefinedCustomGrammar = CustomGrammar.fromJSON(json);
 
-userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
-
-userDefinedCustomGrammar.setBNF("term", termBNF);
-userDefinedCustomGrammar.setBNF("expression", expressionBNF);
-userDefinedCustomGrammar.setBNF("statement", statementBNF);
-userDefinedCustomGrammar.setBNF("metastatement", metastatementBNF);
-
-module.exports = userDefinedCustomGrammar;
+export default userDefinedCustomGrammar;
