@@ -1,4 +1,4 @@
-# Custom Grammars
+# Occam Custom Grammars
 
 [Occam](https://github.com/jecs-imperial/occam)'s custom grammars.
 
@@ -35,19 +35,17 @@ You will need to do this if you want to look at the example.
 
 ## Usage
 
-```js
-const customGrammars = require('occam-custom-grammars');
+```
+import { CustomGrammar, CombinedCustomGrammar } from "occam-custom-grammars";
 
-const { CustomGrammar, CombinedCustomGrammar } = customGrammars;
-
-const name = 'User defined',
+const name = "User defined",
       customGrammar = CustomGrammar.fromName(name),
-      ruleName = 'term',
+      ruleName = "term",
       bnf = `
 
         ...
       `,
-      lexicalPattern = '->|=>';
+      lexicalPattern = ""->|=>"";
 
 customGrammar.setBNF(ruleName, bnf);
 
