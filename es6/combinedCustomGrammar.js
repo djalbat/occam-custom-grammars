@@ -1,9 +1,12 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
-import { defaultLexicalPattern } from "occam-lexers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
-import { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF } from "occam-parsers";
+import { termDefaultCustomGrammarBNF as termDefaultBNF,
+         statementDefaultCustomGrammarBNF as statementDefaultBNF,
+         expressionDefaultCustomGrammarBNF as expressionDefaultBNF,
+         metastatementDefaultCustomGrammarBNF as metastatementDefaultBNF } from "occam-parsers";
+import { defaultCustomGrammarLexicalPattern as defaultLexicalPattern } from "occam-lexers";
 
 import { rulesFromBNF } from "./utilities/rules";
 import { findRuleByRuleName } from "./utilities/ruleName";

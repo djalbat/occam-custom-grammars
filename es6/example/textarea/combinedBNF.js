@@ -10,6 +10,12 @@ export default class CombinedBNFTextarea extends Textarea {
     return combinedBNF;
   }
 
+  setCombinedBNF(combinedBNF) {
+    const value = combinedBNF;  ///
+
+    this.setValue(value);
+  }
+
   clearCombinedBNF() {
     const value = "";
 
@@ -18,10 +24,12 @@ export default class CombinedBNFTextarea extends Textarea {
 
   parentContext() {
     const getCombinedBNF = this.getCombinedBNF.bind(this),
+          setCombinedBNF = this.setCombinedBNF.bind(this),
           clearCombinedBNF = this.clearCombinedBNF.bind(this);
 
     return ({
       getCombinedBNF,
+      setCombinedBNF,
       clearCombinedBNF
     });
   }

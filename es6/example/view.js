@@ -2,6 +2,12 @@
 
 import { Element } from "easy";
 import { ColumnsDiv } from "easy-layout";
+import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
+import { termDefaultCustomGrammarBNF as termDefaultBNF,
+         statementDefaultCustomGrammarBNF as statementDefaultBNF,
+         expressionDefaultCustomGrammarBNF as expressionDefaultBNF,
+         metastatementDefaultCustomGrammarBNF as metastatementDefaultBNF } from "occam-parsers";
+import { defaultCustomGrammarLexicalPattern as defaultLexicalPattern } from "occam-lexers";
 
 import Heading from "./heading";
 import ColumnDiv from "./div/column";
@@ -16,132 +22,18 @@ import LexicalPatternInput from "./input/lexicalPattern";
 import CombinedBNFTextarea from "./textarea/combinedBNF";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import TopmostRuleNameInput from "./input/topmostRuleName";
+import CombinedCustomGrammar from "../combinedCustomGrammar";
+import userDefinedCustomGrammar from "../userDefinedCustomGrammar";
+
+import { findRule } from "../utilities/rule";
+import { rulesAsString } from "../utilities/rules";
+import { florenceLexerFromCombinedCustomGrammar } from "../utilities/lexers";
+import { florenceParserFromCombinedCustomGrammar } from "../utilities/parsers";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
 
 export default class View extends Element {
-  keyUpHandler() {
+  initialContent = "";
 
-  }
-
-  changeHandler() {
-
-  }
-
-  childElements(properties) {
-    const keyUpHandler = this.keyUpHandler.bind(this),
-          changeHandler = this.changeHandler.bind(this);
-
-    return ([
-
-      <Heading>
-        Grammar utilities example
-      </Heading>,
-      <ColumnsDiv>
-        <SizeableDiv>
-          <SubHeading>
-            Name
-          </SubHeading>
-          <NameSelect onChange={changeHandler} />
-          <SubHeading>
-            Rule name
-          </SubHeading>
-          <RuleNameSelect onChange={changeHandler} />
-          <SubHeading>
-            Lexical pattern
-          </SubHeading>
-          <LexicalPatternInput onKeyUp={keyUpHandler} />
-          <SubHeading>
-            BNF
-          </SubHeading>
-          <BNFTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            Topmost ruleName
-          </SubHeading>
-          <TopmostRuleNameInput onKeyUp={keyUpHandler} />
-        </SizeableDiv>
-        <VerticalSplitterDiv />
-        <ColumnDiv>
-          <SubHeading>
-            Content
-          </SubHeading>
-          <ContentTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            Combined BNF
-          </SubHeading>
-          <CombinedBNFTextarea />
-          <SubHeading>
-            Parse tree
-          </SubHeading>
-          <ParseTreeTextarea />
-        </ColumnDiv>
-      </ColumnsDiv>
-
-    ]);
-  }
-
-  initialise(properties) {
-    this.assignContext();
-
-    this.changeHandler();
-
-    this.keyUpHandler();
-  }
-
-  static tagName = "div";
-
-  static fromClass(Class, properties) {
-    const exampleView = Element.fromClass(Class, properties);
-
-    exampleView.initialise(properties);
-
-    return exampleView
-  }
-}
-
-
-
-
-
-
-
-/*
-'use strict';
-
-const easy = require('easy'),
-      lexers = require('occam-lexers'), ///
-      parsers = require('occam-parsers'), ///
-      easyLayout = require('easy-layout'),
-      grammarUtilities = require('occam-grammar-utilities');
-
-const constants = require('../constants'),
-      NameSelect = require('./select/name'),
-      BNFTextarea = require('./textarea/bnf'),
-      ruleUtilities = require('../utilities/rule'),
-      rulesUtilities = require('../utilities/rules'),
-      RuleNameSelect = require('./select/ruleName'),
-      ErrorParagraph = require('./paragraph/error'),
-      lexersUtilities = require('../utilities/lexers'),
-      ContentTextarea = require('./textarea/content'),
-      parsersUtilities = require('../utilities/parsers'),
-      ParseTreeTextarea = require('./textarea/parseTree'),
-      CombinedBNFTextarea = require('./textarea/combinedBNF'),
-      LexicalPatternInput = require('./input/lexicalPattern'),
-      TopmostRuleNameInput = require('./input/topmostRuleName'),
-      MainVerticalSplitter = require('./verticalSplitter/main'),
-      CombinedCustomGrammar = require('../combinedCustomGrammar'),
-      userDefinedCustomGrammar = require('../userDefinedCustomGrammar');
-
-const { Element } = easy,
-      { findRule } = ruleUtilities,
-      { rulesAsString } = rulesUtilities,
-      { SizeableElement } = easyLayout,
-      { defaultLexicalPattern } = lexers,
-      { removeOrRenameIntermediateNodes } = grammarUtilities,
-      { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
-      { florenceParserFromCombinedCustomGrammar } = parsersUtilities,
-      { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } = constants,
-      { termDefaultBNF, statementDefaultBNF, expressionDefaultBNF, metastatementDefaultBNF  } = parsers;
-
-class View extends Element {
   keyUpHandler() {
     try {
       const name = this.getName();
@@ -181,17 +73,15 @@ class View extends Element {
         parseTree = node.asParseTree(tokens);
       }
 
-      this.setCombinedBNF(combinedBNF);
-
       this.setParseTree(parseTree);
 
-      this.hideError();
+      this.setCombinedBNF(combinedBNF);
     } catch (error) {
-      this.clearCombinedBNF();
+      console.log(error);
 
       this.clearParseTree();
 
-      this.showError(error);
+      this.clearCombinedBNF();
     }
   }
 
@@ -205,10 +95,10 @@ class View extends Element {
 
     if (name === DEFAULT_CUSTOM_GRAMMAR_NAME) {
       switch (ruleName) {
-        case 'term' : bnf = termDefaultBNF; break;
-        case 'statement' : bnf = statementDefaultBNF; break;
-        case 'expression' : bnf = expressionDefaultBNF; break;
-        case 'metastatement' : bnf = metastatementDefaultBNF; break;
+        case "term" : bnf = termDefaultBNF; break;
+        case "statement" : bnf = statementDefaultBNF; break;
+        case "expression" : bnf = expressionDefaultBNF; break;
+        case "metastatement" : bnf = metastatementDefaultBNF; break;
       }
 
       lexicalPattern = defaultLexicalPattern;
@@ -230,5 +120,78 @@ class View extends Element {
 
     this.setLexicalPatternReadOnly(readOnly);
   }
+
+  childElements(properties) {
+    const keyUpHandler = this.keyUpHandler.bind(this),
+          changeHandler = this.changeHandler.bind(this);
+
+    return ([
+
+      <Heading>
+        Grammar utilities example
+      </Heading>,
+      <ColumnsDiv>
+        <SizeableDiv>
+          <SubHeading>
+            Name
+          </SubHeading>
+          <NameSelect onChange={changeHandler} />
+          <SubHeading>
+            Rule name
+          </SubHeading>
+          <RuleNameSelect onChange={changeHandler} />
+          <SubHeading>
+            Lexical pattern
+          </SubHeading>
+          <LexicalPatternInput onKeyUp={keyUpHandler} />
+          <SubHeading>
+            BNF
+          </SubHeading>
+          <BNFTextarea onKeyUp={keyUpHandler} />
+          <SubHeading>
+            Topmost rule name
+          </SubHeading>
+          <TopmostRuleNameInput onKeyUp={keyUpHandler} />
+        </SizeableDiv>
+        <VerticalSplitterDiv />
+        <ColumnDiv>
+          <SubHeading>
+            Content
+          </SubHeading>
+          <ContentTextarea onKeyUp={keyUpHandler} />
+          <SubHeading>
+            Parse tree
+          </SubHeading>
+          <ParseTreeTextarea />
+          <SubHeading>
+            Combined BNF
+          </SubHeading>
+          <CombinedBNFTextarea />
+        </ColumnDiv>
+      </ColumnsDiv>
+
+    ]);
+  }
+
+  initialise(properties) {
+    this.assignContext();
+
+    const content = this.initialContent;
+
+    this.setContent(content);
+
+    this.changeHandler();
+
+    this.keyUpHandler();
+  }
+
+  static tagName = "div";
+
+  static fromClass(Class, properties) {
+    const exampleView = Element.fromClass(Class, properties);
+
+    exampleView.initialise(properties);
+
+    return exampleView
+  }
 }
-*/
