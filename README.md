@@ -77,7 +77,7 @@ const combinedCustomGrammar = ...
 
 The example allows you to define a custom grammar and see the resultant parse tree for any content you provide. To view it, open the `example.html` file in the root of the repository.
 
-To alter the custom grammar, change the option of the 'Name' select field to 'User defined'. This makes both the 'Lexical pattern' input field and 'BNF' textarea editable. Changing the 'Rule name' select field allows you to alter the BNF for terms, expressions, statements and metastatements. Note that there is already a lexical pattern and some BNF defined for illustrative purposes. Try the following content to see them in action, making sure to including a trailing carriage return:
+To alter the custom grammar, change the option of the 'Name' select field to 'User defined'. This makes both the 'Lexical pattern' input field and 'BNF' textarea editable. Changing the 'Rule name' select field allows you to alter the BNF for terms, expressions, statements and metastatements. Note that there is already a lexical pattern and some BNF defined for illustrative purposes. Try the following content to see them in action, making sure to include a trailing carriage return:
 
 ```
 Axiom (InsertOperation)

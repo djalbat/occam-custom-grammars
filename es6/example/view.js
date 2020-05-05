@@ -3,11 +3,6 @@
 import { Element } from "easy";
 import { ColumnsDiv } from "easy-layout";
 import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
-import { termDefaultCustomGrammarBNF as termDefaultBNF,
-         statementDefaultCustomGrammarBNF as statementDefaultBNF,
-         expressionDefaultCustomGrammarBNF as expressionDefaultBNF,
-         metastatementDefaultCustomGrammarBNF as metastatementDefaultBNF } from "occam-parsers";
-import { defaultCustomGrammarLexicalPattern as defaultLexicalPattern } from "occam-lexers";
 
 import Heading from "./heading";
 import ColumnDiv from "./div/column";
@@ -22,8 +17,9 @@ import LexicalPatternInput from "./input/lexicalPattern";
 import CombinedBNFTextarea from "./textarea/combinedBNF";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import TopmostRuleNameInput from "./input/topmostRuleName";
+import defaultCustomGrammar from "../defaultCustomGrammar";
 import CombinedCustomGrammar from "../combinedCustomGrammar";
-import userDefinedCustomGrammar from "../userDefinedCustomGrammar";
+import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
 
 import { findRule } from "../utilities/rule";
 import { rulesAsString } from "../utilities/rules";
@@ -87,30 +83,13 @@ export default class View extends Element {
 
   changeHandler() {
     const name = this.getName(),
-          ruleName = this.getRuleName();
-
-    let bnf,
-        readOnly,
-        lexicalPattern;
-
-    if (name === DEFAULT_CUSTOM_GRAMMAR_NAME) {
-      switch (ruleName) {
-        case "term" : bnf = termDefaultBNF; break;
-        case "statement" : bnf = statementDefaultBNF; break;
-        case "expression" : bnf = expressionDefaultBNF; break;
-        case "metastatement" : bnf = metastatementDefaultBNF; break;
-      }
-
-      lexicalPattern = defaultLexicalPattern;
-
-      readOnly = true;
-    } else {
-      bnf = userDefinedCustomGrammar.getBNF(ruleName);
-
-      lexicalPattern = userDefinedCustomGrammar.getLexicalPattern();
-
-      readOnly = false;
-    }
+          ruleName = this.getRuleName(),
+          readOnly = (name === DEFAULT_CUSTOM_GRAMMAR_NAME),
+          customGrammar = readOnly ?  ///
+                            defaultCustomGrammar :
+                              userDefinedCustomGrammar,
+          bnf = customGrammar.getBNF(ruleName),
+          lexicalPattern = customGrammar.getLexicalPattern();
 
     this.setBNF(bnf);
 

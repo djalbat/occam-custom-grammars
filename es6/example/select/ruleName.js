@@ -2,21 +2,32 @@
 
 import Select from "../select";
 
+import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME }  from "../../constants";
+
 export default class RuleNameSelect extends Select {
   childElements(properties) {
+    const termName = TERM_RULE_NAME,  ///
+          termValue = termName, ///
+          expressionName = EXPRESSION_RULE_NAME, ///
+          expressionValue = expressionName, ///
+          statementName = STATEMENT_RULE_NAME,  ///
+          statementValue = statementName, ///
+          metastatementName = METASTATEMENT_RULE_NAME, ///
+          metastatementValue = metastatementName; ///
+
     return ([
 
-      <option value="term" selected >
-        term
+      <option value={termValue} selected >
+        {termName}
       </option>,
-      <option value="term" selected >
-        expression
+      <option value={expressionValue} selected >
+        {expressionName}
       </option>,
-      <option value="term" selected >
-        statement
+      <option value={statementValue} selected >
+        {statementName}
       </option>,
-      <option value="term" selected >
-        metastatement
+      <option value={metastatementValue} selected >
+        {metastatementName}
       </option>,
 
     ]);

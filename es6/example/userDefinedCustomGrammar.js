@@ -1,8 +1,8 @@
 "use strict";
 
-import CustomGrammar from "./customGrammar";
+import CustomGrammar from "../customGrammar";
 
-import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "./constants";
+import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
       lexicalPattern = `<=|\\+|\\-|\\||insert|delete|empty`,

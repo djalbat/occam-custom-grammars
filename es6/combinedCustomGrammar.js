@@ -2,15 +2,13 @@
 
 import { arrayUtilities } from "necessary";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
-import { termDefaultCustomGrammarBNF as termDefaultBNF,
-         statementDefaultCustomGrammarBNF as statementDefaultBNF,
-         expressionDefaultCustomGrammarBNF as expressionDefaultBNF,
-         metastatementDefaultCustomGrammarBNF as metastatementDefaultBNF } from "occam-parsers";
-import { defaultCustomGrammarLexicalPattern as defaultLexicalPattern } from "occam-lexers";
+
+import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { rulesFromBNF } from "./utilities/rules";
 import { findRuleByRuleName } from "./utilities/ruleName";
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
+import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./constants";
 
 const { first, filter, unshift } = arrayUtilities;
 
@@ -45,7 +43,9 @@ export default class CombinedCustomGrammar {
 }
 
 function lexicalPatternFromCustomGrammars(customGrammars) {
-  const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars);
+  const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars),
+        defaultCustomGrammarLexicalPattern = defaultCustomGrammar.getLexicalPattern(),
+        defaultLexicalPattern = defaultCustomGrammarLexicalPattern; ///
 
   lexicalPatterns.unshift(defaultLexicalPattern);
 
@@ -56,21 +56,21 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
 }
 
 function rulesFromCustomGrammars(customGrammars) {
-  const metastatementRuleName = "metastatement",
-        statementRuleName = "statement",
-        expressionRuleName = "expression",
-        termRuleName = "term",
-        metastatementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(metastatementRuleName, customGrammars, metastatementDefaultBNF),
-        statementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(statementRuleName, customGrammars, statementDefaultBNF),
-        expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(expressionRuleName, customGrammars, expressionDefaultBNF),
-        termRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(termRuleName, customGrammars, termDefaultBNF),
+  const metastatementRuleName = METASTATEMENT_RULE_NAME,  ///
+        statementRuleName = STATEMENT_RULE_NAME,  ///
+        expressionRuleName = EXPRESSION_RULE_NAME,  ///
+        termRuleName = TERM_RULE_NAME,  ///
+        metastatementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(metastatementRuleName, customGrammars),
+        statementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(statementRuleName, customGrammars),
+        expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(expressionRuleName, customGrammars),
+        termRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(termRuleName, customGrammars),
         rules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules);
 
   return rules;
 }
 
 function addStartRule(rules) {
-  const startRulesBNF = " start ::= metastatement | statement | expression | term ; ",
+  const startRulesBNF = ` ${START_RULE_NAME} ::= ${METASTATEMENT_RULE_NAME} | ${STATEMENT_RULE_NAME} | ${EXPRESSION_RULE_NAME} | ${TERM_RULE_NAME} ; `,
         startRules = rulesFromBNF(startRulesBNF),
         firstStartRule = first(startRules),
         startRule = firstStartRule; ///
@@ -99,8 +99,10 @@ function remainingRulesFromRulesAndMainRule(rules, mainRule) {
   return remainingRules;
 }
 
-function mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs) {
-  const defaultRules = rulesFromBNF(defaultBNF),
+function mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs) {
+  const defaultCustomGrammarBNF = defaultCustomGrammar.getBNF(ruleName),
+        defaultBNF = defaultCustomGrammarBNF, ///
+        defaultRules = rulesFromBNF(defaultBNF),
         defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
         defaultMainRuleDefinitions = defaultMainRule.getDefinitions();
 
@@ -119,8 +121,10 @@ function mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs) {
   return mainRule;
 }
 
-function remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs) {
-  const defaultRules = rulesFromBNF(defaultBNF),
+function remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs) {
+  const defaultCustomGrammarBNF = defaultCustomGrammar.getBNF(ruleName),
+        defaultBNF = defaultCustomGrammarBNF, ///
+        defaultRules = rulesFromBNF(defaultBNF),
         defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
         defaultRemainingRules = remainingRulesFromRulesAndMainRule(defaultRules, defaultMainRule);
 
@@ -137,10 +141,10 @@ function remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs)
   return remainingRules;
 }
 
-function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars, defaultBNF) {
+function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars) {
   const bnfs = bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars),
-        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
-        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, defaultBNF, bnfs),
+        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs),
+        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs),
         rules = [].concat(mainRule).concat(remainingRules);
 
   return rules;
