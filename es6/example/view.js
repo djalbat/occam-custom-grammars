@@ -1,7 +1,7 @@
 "use strict";
 
 import { Element } from "easy";
-import { ColumnsDiv } from "easy-layout";
+import { RowsDiv, ColumnsDiv } from "easy-layout";
 import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
 
 import Heading from "./heading";
@@ -111,41 +111,45 @@ export default class View extends Element {
       </Heading>,
       <ColumnsDiv>
         <SizeableDiv>
-          <SubHeading>
-            Name
-          </SubHeading>
-          <NameSelect onChange={changeHandler} />
-          <SubHeading>
-            Rule name
-          </SubHeading>
-          <RuleNameSelect onChange={changeHandler} />
-          <SubHeading>
-            Lexical pattern
-          </SubHeading>
-          <LexicalPatternInput onKeyUp={keyUpHandler} />
-          <SubHeading>
-            BNF
-          </SubHeading>
-          <BNFTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            Topmost rule name
-          </SubHeading>
-          <TopmostRuleNameInput onKeyUp={keyUpHandler} />
+          <RowsDiv>
+            <SubHeading>
+              Name
+            </SubHeading>
+            <NameSelect onChange={changeHandler} />
+            <SubHeading>
+              Rule name
+            </SubHeading>
+            <RuleNameSelect onChange={changeHandler} />
+            <SubHeading>
+              Lexical pattern
+            </SubHeading>
+            <LexicalPatternInput onKeyUp={keyUpHandler} />
+            <SubHeading>
+              BNF
+            </SubHeading>
+            <BNFTextarea onKeyUp={keyUpHandler} />
+            <SubHeading>
+              Topmost rule name
+            </SubHeading>
+            <TopmostRuleNameInput onKeyUp={keyUpHandler} />
+          </RowsDiv>
         </SizeableDiv>
         <VerticalSplitterDiv />
         <ColumnDiv>
-          <SubHeading>
-            Content
-          </SubHeading>
-          <ContentTextarea onKeyUp={keyUpHandler} />
-          <SubHeading>
-            Parse tree
-          </SubHeading>
-          <ParseTreeTextarea />
-          <SubHeading>
-            Combined BNF
-          </SubHeading>
-          <CombinedBNFTextarea />
+          <RowsDiv>
+            <SubHeading>
+              Content
+            </SubHeading>
+            <ContentTextarea onKeyUp={keyUpHandler} />
+            <SubHeading>
+              Parse tree
+            </SubHeading>
+            <ParseTreeTextarea />
+            <SubHeading>
+              Combined BNF
+            </SubHeading>
+            <CombinedBNFTextarea />
+          </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
 
