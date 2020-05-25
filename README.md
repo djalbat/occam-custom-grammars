@@ -35,8 +35,10 @@ You will need to do this if you want to look at the example.
 
 ## Usage
 
+Custom grammars can be created by calling the `fromName(...)` method of the `CustomGrammar` class and then calling the requisite setters for other properties besides its name:
+
 ```
-import { CustomGrammar, CombinedCustomGrammar } from "occam-custom-grammars";
+import { CustomGrammar } from "occam-custom-grammars";
 
 const name = "User defined",
       customGrammar = CustomGrammar.fromName(name),
@@ -45,32 +47,33 @@ const name = "User defined",
 
         ...
       `,
-      lexicalPattern = ""->|=>"";
+      lexicalPattern = "->|=>";
 
 customGrammar.setBNF(ruleName, bnf);
 
 customGrammar.setLexicalPattern(lexicalPattern);
-
 ...
+```
+Arrays of Custom grammars cna then be combined:
+```
+import { CombinedCustomGrammar } from "occam-custom-grammars";
 
 const customGrammars = [
-        customGrammar
+
+        ...
+
       ],
       combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars);
-
-...
 ```
-Once combined, custom grammars can be passed to factory functions to create lexers and parsers:
+Once combined, custom grammars can be passed to utility functions in order to create lexers and parsers:
 ```
-const { lexers, parsers } = customGrammars,
-      { florenceLexerFromCombinedCustomGrammar } = lexers,
-      { florenceParserFromCombinedCustomGrammar } = parsers;
+const { lexersUtilities, parsersUtilities } = customGrammars,
+      { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
+      { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
 
 const combinedCustomGrammar = ...
       florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
       florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
-
-...
 ```
 
 ## Example
