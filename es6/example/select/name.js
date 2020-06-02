@@ -5,6 +5,13 @@ import Select from "../select";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../../constants";
 
 export default class NameSelect extends Select {
+  getName() {
+    const value = this.getValue(),
+          name = value; ///
+
+    return name;
+  }
+
   childElements(properties) {
     const defaultName = DEFAULT_CUSTOM_GRAMMAR_NAME,  ///
           defaultValue = defaultName, ///
@@ -24,7 +31,7 @@ export default class NameSelect extends Select {
   }
 
   parentContext() {
-    const getName = this.getSelectedOptionValue.bind(this); ///
+    const getName = this.getName.bind(this); ///
 
     return ({
       getName

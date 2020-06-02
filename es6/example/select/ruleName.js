@@ -5,6 +5,13 @@ import Select from "../select";
 import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME }  from "../../constants";
 
 export default class RuleNameSelect extends Select {
+  getRuleName() {
+    const value = this.getValue(),
+          ruleName = value; ///
+
+    return ruleName;
+  }
+
   childElements(properties) {
     const termName = TERM_RULE_NAME,  ///
           termValue = termName, ///
@@ -34,7 +41,7 @@ export default class RuleNameSelect extends Select {
   }
 
   parentContext() {
-    const getRuleName = this.getSelectedOptionValue.bind(this); ///
+    const getRuleName = this.getRuleName.bind(this); ///
 
     return ({
       getRuleName

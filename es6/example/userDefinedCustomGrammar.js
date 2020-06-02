@@ -1,6 +1,6 @@
 "use strict";
 
-import CustomGrammar from "../customGrammar";
+import { CustomGrammar } from "../index"; ///
 
 import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
 

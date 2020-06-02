@@ -3,6 +3,7 @@
 import { Element } from "easy";
 import { RowsDiv, ColumnsDiv } from "easy-layout";
 import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
+import { defaultCustomGrammar, CombinedCustomGrammar, lexersUtilities, parsersUtilities } from "../index";  ///
 
 import Heading from "./heading";
 import ColumnDiv from "./div/column";
@@ -17,15 +18,14 @@ import LexicalPatternInput from "./input/lexicalPattern";
 import CombinedBNFTextarea from "./textarea/combinedBNF";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import TopmostRuleNameInput from "./input/topmostRuleName";
-import defaultCustomGrammar from "../defaultCustomGrammar";
-import CombinedCustomGrammar from "../combinedCustomGrammar";
 import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
 
 import { findRule } from "../utilities/rule";
 import { rulesAsString } from "../utilities/rules";
-import { florenceLexerFromCombinedCustomGrammar } from "../utilities/lexers";
-import { florenceParserFromCombinedCustomGrammar } from "../utilities/parsers";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
+
+const { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
+      { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
 
 export default class View extends Element {
   initialContent = "";
