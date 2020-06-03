@@ -12,7 +12,7 @@ export default class NameSelect extends Select {
     return name;
   }
 
-  childElements(properties) {
+  childElements() {
     const defaultName = DEFAULT_CUSTOM_GRAMMAR_NAME,  ///
           defaultValue = defaultName, ///
           userDefinedName = USER_DEFINED_CUSTOM_GRAMMAR_NAME, ///

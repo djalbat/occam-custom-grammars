@@ -12,7 +12,7 @@ export default class RuleNameSelect extends Select {
     return ruleName;
   }
 
-  childElements(properties) {
+  childElements() {
     const termName = TERM_RULE_NAME,  ///
           termValue = termName, ///
           expressionName = EXPRESSION_RULE_NAME, ///

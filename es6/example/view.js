@@ -100,7 +100,7 @@ export default class View extends Element {
     this.setLexicalPatternReadOnly(readOnly);
   }
 
-  childElements(properties) {
+  childElements() {
     const keyUpHandler = this.keyUpHandler.bind(this),
           changeHandler = this.changeHandler.bind(this);
 
@@ -156,7 +156,7 @@ export default class View extends Element {
     ]);
   }
 
-  initialise(properties) {
+  initialise() {
     this.assignContext();
 
     const content = this.initialContent;
@@ -173,7 +173,7 @@ export default class View extends Element {
   static fromClass(Class, properties) {
     const exampleView = Element.fromClass(Class, properties);
 
-    exampleView.initialise(properties);
+    exampleView.initialise();
 
     return exampleView
   }
