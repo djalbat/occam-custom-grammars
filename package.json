@@ -1,7 +1,7 @@
 {
   "name": "occam-custom-grammars",
   "author": "James Smith",
-  "version": "4.0.26",
+  "version": "4.0.27",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/jecs-imperial/occam-custom-grammars",
   "description": "Occam's custom grammars.",
@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "necessary": "^4.1.10",
-    "occam-grammar-utilities": "^4.0.25",
-    "occam-lexers": "^11.0.53",
-    "occam-parsers": "^11.0.43"
+    "occam-grammar-utilities": "^4.0.28",
+    "occam-lexers": "^11.0.56",
+    "occam-parsers": "^11.0.46"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
@@ -23,8 +23,8 @@
     "browserify": "^16.5.1",
     "concurrently": "^5.2.0",
     "easy": "^11.1.7",
-    "easy-layout": "^5.0.4",
-    "easy-with-style": "^3.0.2",
+    "easy-layout": "^5.0.8",
+    "easy-with-style": "^3.0.7",
     "express": "^4.17.1",
     "juxtapose": "^3.0.2",
     "lively-cli": "^1.1.17",
