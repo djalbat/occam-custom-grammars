@@ -14,15 +14,16 @@ export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
 }
 
 export function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
-  const combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
+  const combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap(),
         bnfLexer = BNFLexer.fromNothing(),
         bnfParser = BNFParser.fromNothing(),
         tokens = bnfLexer.tokensFromBNF(bnf),
-        rules = bnfParser.rulesFromTokens(tokens);
+        rules = bnfParser.rulesFromTokens(tokens),
+        combinedCustomGrammarRules = Object.values(combinedCustomGrammarRuleMap);
 
   push(rules, combinedCustomGrammarRules);
 
-  const florenceParser = new FlorenceParser(rules);
+  const florenceParser = FlorenceParser.fromRules(rules);
 
   return florenceParser;
 }

@@ -10,33 +10,34 @@ import { findRuleByRuleName } from "./utilities/ruleName";
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
 import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./constants";
 
-const { first, filter, unshift } = arrayUtilities;
+const { first, unshift } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
-  constructor(lexicalPattern, rules) {
+  constructor(lexicalPattern, ruleMap) {
     this.lexicalPattern = lexicalPattern;
-    this.rules = rules;
+    this.ruleMap = ruleMap;
   }
   
   getLexicalPattern() {
     return this.lexicalPattern;
   }
 
-  getRules() {
-    return this.rules;
+  getRuleMap() {
+    return this.ruleMap;
   }
 
   static fromCustomGrammars(customGrammars) {
     const lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
-          rules = rulesFromCustomGrammars(customGrammars);
+          startRule = startRuleFromNothing(),
+          ruleMap = ruleMapFromCustomGrammars(customGrammars);
 
-    addStartRule(rules);
+    ruleMap[START_RULE_NAME] = startRule;
 
-    eliminateLeftRecursion(rules);
+    eliminateLeftRecursion(startRule, ruleMap);
 
-    removeStartRule(rules);
+    delete ruleMap[START_RULE_NAME];
 
-    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
+    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, ruleMap);
     
     return combinedCustomGrammar;
   }
@@ -55,7 +56,7 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
   return lexicalPattern;
 }
 
-function rulesFromCustomGrammars(customGrammars) {
+function ruleMapFromCustomGrammars(customGrammars) {
   const metastatementRuleName = METASTATEMENT_RULE_NAME,  ///
         statementRuleName = STATEMENT_RULE_NAME,  ///
         expressionRuleName = EXPRESSION_RULE_NAME,  ///
@@ -64,29 +65,25 @@ function rulesFromCustomGrammars(customGrammars) {
         statementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(statementRuleName, customGrammars),
         expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(expressionRuleName, customGrammars),
         termRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(termRuleName, customGrammars),
-        rules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules);
+        rules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules),
+        ruleMap = rules.reduce((ruleMap, rule) => {
+          const ruleName = rule.getName();
 
-  return rules;
+          ruleMap[ruleName] = rule;
+
+          return ruleMap;
+        }, []);
+
+  return ruleMap;
 }
 
-function addStartRule(rules) {
+function startRuleFromNothing() {
   const startRulesBNF = ` ${START_RULE_NAME} ::= ${METASTATEMENT_RULE_NAME} | ${STATEMENT_RULE_NAME} | ${EXPRESSION_RULE_NAME} | ${TERM_RULE_NAME} ; `,
         startRules = rulesFromBNF(startRulesBNF),
         firstStartRule = first(startRules),
         startRule = firstStartRule; ///
 
-  rules.unshift(startRule);
-}
-
-function removeStartRule(rules) {
-  const firstRule = first(rules),
-        startRule = firstRule;  ///
-
-  filter(rules, (rule) => {
-    if (rule !== startRule) {
-      return true;
-    }
-  });
+  return startRule;
 }
 
 function remainingRulesFromRulesAndMainRule(rules, mainRule) {

@@ -4,7 +4,8 @@ import { BasicParser } from "occam-parsers";
 
 export function rulesFromBNF(bnf) {
   const basicParser = BasicParser.fromBNF(bnf),
-        rules = basicParser.getRules();
+        ruleMap = basicParser.getRuleMap(),
+        rules = Object.values(ruleMap); ///
 
   return rules;
 }

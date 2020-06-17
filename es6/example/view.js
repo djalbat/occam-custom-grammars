@@ -14,13 +14,12 @@ import BNFTextarea from "./textarea/bnf";
 import RuleNameSelect from "./select/ruleName";
 import ContentTextarea from "./textarea/content";
 import ParseTreeTextarea from "./textarea/parseTree";
+import StartRuleNameInput from "./input/startRuleName";
 import LexicalPatternInput from "./input/lexicalPattern";
 import CombinedBNFTextarea from "./textarea/combinedBNF";
 import VerticalSplitterDiv from "./div/splitter/vertical";
-import TopmostRuleNameInput from "./input/topmostRuleName";
 import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
 
-import { findRule } from "../utilities/rule";
 import { rulesAsString } from "../utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
 
@@ -48,18 +47,19 @@ export default class View extends Element {
               userDefinedCustomGrammar
             ],
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-            combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
+            combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap(),
+            combinedCustomGrammarRules = Object.values(combinedCustomGrammarRuleMap),
             multiLine = true,
             combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
             combinedBNF = combinedCustomGrammarRulesString,  ///
             florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
             florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
-            topmostRuleName = this.getTopmostRuleName(),
-            rules = florenceParser.getRules(),
-            topmostRule = findRule(topmostRuleName, rules),
+            ruleMap = florenceParser.getRuleMap(),
+            startRuleName = this.getStartRuleName(),
+            startRule = ruleMap[startRuleName], ///
             content = this.getContent(),
             tokens = florenceLexer.tokenise(content),
-            node = florenceParser.parse(tokens, topmostRule);
+            node = florenceParser.parse(tokens, startRule);
 
       let parseTree = null;
 
@@ -129,9 +129,9 @@ export default class View extends Element {
             </SubHeading>
             <BNFTextarea onKeyUp={keyUpHandler} />
             <SubHeading>
-              Topmost rule name
+              Start rule name
             </SubHeading>
-            <TopmostRuleNameInput onKeyUp={keyUpHandler} />
+            <StartRuleNameInput onKeyUp={keyUpHandler} />
           </RowsDiv>
         </SizeableDiv>
         <VerticalSplitterDiv />
