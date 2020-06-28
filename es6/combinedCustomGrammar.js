@@ -87,9 +87,11 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
         defaultCustomGrammarLexicalPattern = defaultCustomGrammar.getLexicalPattern(),
         defaultLexicalPattern = defaultCustomGrammarLexicalPattern; ///
 
-  lexicalPatterns.unshift(defaultLexicalPattern);
+  lexicalPatterns.reverse();
 
-  const lexicalPatternsString = lexicalPatterns.reverse().join("|"), ///
+  lexicalPatterns.push(defaultLexicalPattern);
+
+  const lexicalPatternsString = lexicalPatterns.join("|"), ///
         lexicalPattern = `^(?:${lexicalPatternsString})`;
 
   return lexicalPattern;
