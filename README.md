@@ -76,6 +76,8 @@ const combinedCustomGrammar = ...
       florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
 ```
 
+Custom grammars should be provided in topological order, with dependencies coming before dependents.
+
 ## Example
 
 The example allows you to define a custom grammar and see the resultant parse tree for any content you provide. To view it, open the `index.html` file in the root of the repository.
