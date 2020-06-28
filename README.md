@@ -54,7 +54,7 @@ customGrammar.setBNF(ruleName, bnf);
 customGrammar.setLexicalPattern(lexicalPattern);
 ...
 ```
-Arrays of Custom grammars cna then be combined:
+Arrays of Custom grammars can then be combined:
 ```
 import { CombinedCustomGrammar } from "occam-custom-grammars";
 
