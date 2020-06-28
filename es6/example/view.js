@@ -7,6 +7,7 @@ import { defaultCustomGrammar, CombinedCustomGrammar, lexersUtilities, parsersUt
 
 import Heading from "./heading";
 import ColumnDiv from "./div/column";
+import Paragraph from "./paragraph";
 import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
 import SizeableDiv from "./div/sizeable";
@@ -19,6 +20,7 @@ import LexicalPatternInput from "./input/lexicalPattern";
 import CombinedBNFTextarea from "./textarea/combinedBNF";
 import VerticalSplitterDiv from "./div/splitter/vertical";
 import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
+import RemoveOrRenameIntermediateNodesCheckbox from "./checkbox/removeOrRenameIntermediateNodes"
 
 import { rulesAsString } from "../utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
@@ -64,7 +66,11 @@ export default class View extends Element {
       let parseTree = null;
 
       if (node !== null) {
-        removeOrRenameIntermediateNodes(node);
+        const removeOrRenameIntermediateNodesCheckboxChecked = this.isRemoveOrRenameIntermediateNodesCheckboxChecked();
+
+        if (removeOrRenameIntermediateNodesCheckboxChecked) {
+          removeOrRenameIntermediateNodes(node);
+        }
 
         parseTree = node.asParseTree(tokens);
       }
@@ -149,6 +155,10 @@ export default class View extends Element {
               Combined BNF
             </SubHeading>
             <CombinedBNFTextarea />
+            <Paragraph>
+              <RemoveOrRenameIntermediateNodesCheckbox onChange={keyUpHandler} checked />
+              Remove or rename intermediate nodes
+            </Paragraph>
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -178,3 +188,11 @@ export default class View extends Element {
     return exampleView
   }
 }
+
+
+/*
+
+
+
+
+ */
