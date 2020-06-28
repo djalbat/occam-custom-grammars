@@ -37,7 +37,7 @@ export function ruleMapFromRules(rules) {
     ruleMap[ruleName] = rule;
 
     return ruleMap;
-  }, []);
+  }, {});
 
   return ruleMap;
 }
