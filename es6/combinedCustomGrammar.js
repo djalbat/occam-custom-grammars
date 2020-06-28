@@ -10,7 +10,7 @@ import { rulesFromBNF, ruleMapFromRules, ruleNamesFromRules } from "./utilities/
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
 import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./constants";
 
-const { first, unshift } = arrayUtilities;
+const { first, filter, unshift } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(lexicalPattern, termRuleNames, ruleMap) {
@@ -90,6 +90,12 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
   lexicalPatterns.reverse();
 
   lexicalPatterns.push(defaultLexicalPattern);
+
+  filter(lexicalPatterns, (lexicalPattern) => {
+    if (lexicalPattern !== "") {
+      return true;
+    }
+  });
 
   const lexicalPatternsString = lexicalPatterns.join("|"), ///
         lexicalPattern = `^(?:${lexicalPatternsString})`;
