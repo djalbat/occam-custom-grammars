@@ -6,25 +6,20 @@ import { eliminateLeftRecursion } from "occam-grammar-utilities";
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { findRuleByRuleName } from "./utilities/ruleName";
-import { rulesFromBNF, ruleMapFromRules, ruleNamesFromRules } from "./utilities/rules";
+import { rulesFromBNF, ruleMapFromRules } from "./utilities/rules";
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
 import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./constants";
 
 const { first, filter, unshift } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
-  constructor(lexicalPattern, termRuleNames, ruleMap) {
+  constructor(lexicalPattern, ruleMap) {
     this.lexicalPattern = lexicalPattern;
-    this.termRuleNames = termRuleNames;
     this.ruleMap = ruleMap;
   }
   
   getLexicalPattern() {
     return this.lexicalPattern;
-  }
-
-  getTermRuleNames() {
-    return this.termRuleNames;
   }
 
   getRuleMap() {
@@ -39,7 +34,6 @@ export default class CombinedCustomGrammar {
           rules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules),
           startRule = startRuleFromNothing(),
           lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
-          termRuleNames = ruleNamesFromRules(termRules),
           ruleMap = ruleMapFromRules(rules);
 
     ruleMap[START_RULE_NAME] = startRule;
@@ -48,7 +42,7 @@ export default class CombinedCustomGrammar {
 
     delete ruleMap[START_RULE_NAME];
 
-    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, termRuleNames, ruleMap);
+    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, ruleMap);
     
     return combinedCustomGrammar;
   }

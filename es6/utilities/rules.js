@@ -41,13 +41,3 @@ export function ruleMapFromRules(rules) {
 
   return ruleMap;
 }
-
-export function ruleNamesFromRules(rules) {
-  const ruleNames = rules.map((rule) => {
-    const ruleName = rule.getName();
-
-    return ruleName;
-  });
-
-  return ruleNames;
-}
