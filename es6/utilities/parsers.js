@@ -1,8 +1,9 @@
 "use strict";
 
 import { BNFLexer } from "occam-lexers";
+import { BNFParser } from "occam-parsers";
+import { FlorenceParser } from "occam-grammars";
 import { arrayUtilities } from "necessary";
-import { BNFParser, FlorenceParser } from "occam-parsers";
 
 const { push } = arrayUtilities;
 

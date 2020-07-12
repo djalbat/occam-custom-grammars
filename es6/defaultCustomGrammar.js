@@ -1,14 +1,12 @@
 "use strict";
 
-import { defaultCustomGrammar as lexersDefaultCustomGrammar } from "occam-lexers";
-import { defaultCustomGrammar as parsersDefaultCustomGrammar } from "occam-parsers";
+import { defaultCustomGrammar } from "occam-grammars";
 
 import CustomGrammar from "./customGrammar";
 
 import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./constants";
 
-const { lexicalPattern } = lexersDefaultCustomGrammar,
-      { termBNF, expressionBNF, statementBNF, metastatementBNF } = parsersDefaultCustomGrammar;
+const { lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF } = defaultCustomGrammar;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME, ///
       json = {
@@ -18,7 +16,6 @@ const name = DEFAULT_CUSTOM_GRAMMAR_NAME, ///
         "expressionBNF": expressionBNF,
         "statementBNF": statementBNF,
         "metastatementBNF": metastatementBNF
-      },
-      defaultCustomGrammar = CustomGrammar.fromJSON(json);
+      };
 
-export default defaultCustomGrammar;
+export default CustomGrammar.fromJSON(json);  ///
