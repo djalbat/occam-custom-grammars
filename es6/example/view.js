@@ -113,7 +113,7 @@ export default class View extends Element {
     return ([
 
       <Heading>
-        Grammar utilities example
+        Custom grammars example
       </Heading>,
       <ColumnsDiv>
         <SizeableDiv>
@@ -188,11 +188,3 @@ export default class View extends Element {
     return exampleView
   }
 }
-
-
-/*
-
-
-
-
- */
