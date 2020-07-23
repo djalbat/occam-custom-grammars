@@ -91,7 +91,7 @@ Axiom (InsertOperation)
   Hence
     insert(n,t)(s) = s[...n] + t + s[n+m...]
 ```
-For the curious, the combined BNF is shown above the parse tree.
+For the curious, the combined BNF is shown below the parse tree.
 
 ## Building
 
