@@ -1,13 +1,13 @@
 {
   "name": "occam-custom-grammars",
   "author": "James Smith",
-  "version": "5.0.46",
+  "version": "5.0.47",
   "license": "MIT, Anti-996",
-  "homepage": "https://github.com/jecs-imperial/occam-custom-grammars",
+  "homepage": "https://github.com/djalbat/occam-custom-grammars",
   "description": "Occam's custom grammars.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jecs-imperial/occam-custom-grammars"
+    "url": "https://github.com/djalbat/occam-custom-grammars"
   },
   "dependencies": {
     "necessary": "^4.1.10",

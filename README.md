@@ -1,6 +1,6 @@
 # Occam Custom Grammars
 
-[Occam](https://github.com/jecs-imperial/occam)'s custom grammars.
+[Occam](https://github.com/djalbat/occam)'s custom grammars.
 
 ### Contents
 
@@ -25,7 +25,7 @@ With [npm](https://www.npmjs.com/):
 
 You can also clone the repository with [Git](https://git-scm.com/)...
 
-    git clone https://github.com/jecs-imperial/occam-custom-grammars.git
+    git clone https://github.com/djalbat/occam-custom-grammars.git
 
 ...and then install the dependencies with npm from within the project's root directory:
 
@@ -109,4 +109,3 @@ The example will then be available at http://localhost:8888/ and will reload aut
 ## Contact
 
 * james.smith@openmathematics.org
-* http://djalbat.com
