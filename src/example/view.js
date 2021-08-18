@@ -22,14 +22,15 @@ import VerticalSplitterDiv from "./div/splitter/vertical";
 import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
 import RemoveOrRenameIntermediateNodesCheckbox from "./checkbox/removeOrRenameIntermediateNodes"
 
+import { EMPTY_STRING } from "../constants";
 import { rulesAsString } from "../utilities/rules";
-import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
 const { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
 
 export default class View extends Element {
-  initialContent = "";
+  initialContent = EMPTY_STRING;
 
   keyUpHandler() {
     try {

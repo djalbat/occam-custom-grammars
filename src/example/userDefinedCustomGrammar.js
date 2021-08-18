@@ -2,9 +2,9 @@
 
 import { CustomGrammar } from "../index"; ///
 
-import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../constants";
+import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
-const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,  ///
+const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,
       lexicalPattern = `<=|\\+|\\-|\\||insert|delete|empty`,
       termBNF = `                term  ::=  operation
 

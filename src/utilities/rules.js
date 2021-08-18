@@ -2,6 +2,8 @@
 
 import { BasicParser } from "occam-parsers";
 
+import { EMPTY_STRING } from "../constants";
+
 export function rulesFromBNF(bnf) {
   const basicParser = BasicParser.fromBNF(bnf),
         ruleMap = basicParser.getRuleMap(),
@@ -25,7 +27,7 @@ export function rulesAsString(rules, multiLine) {
           rulesString += ruleString;
 
           return rulesString;
-        }, "").replace(/^\n\n/, "");
+        }, EMPTY_STRING).replace(/^\n\n/, EMPTY_STRING);
 
   return rulesString;
 }

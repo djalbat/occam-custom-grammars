@@ -1,5 +1,7 @@
 "use strict";
 
+import { TERM, STATEMENT, EXPRESSION, METASTATEMENT } from "./constants";
+
 export default class CustomGrammar {
   constructor(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
     this.name = name;
@@ -22,19 +24,23 @@ export default class CustomGrammar {
     let bnf;
 
     switch (ruleName) {
-      case "term":
+      case TERM:
         bnf = this.termBNF;
+
         break;
 
-      case "expression":
+      case EXPRESSION:
+
         bnf = this.expressionBNF;
         break;
 
-      case "statement":
+      case STATEMENT:
+
         bnf = this.statementBNF;
         break;
 
-      case "metastatement":
+      case METASTATEMENT:
+
         bnf = this.metastatementBNF;
         break;
     }
@@ -52,20 +58,24 @@ export default class CustomGrammar {
 
   setBNF(ruleName, bnf) {
     switch (ruleName) {
-      case "term":
+      case TERM:
         this.termBNF = bnf;
+
         break;
 
-      case "expression":
+      case EXPRESSION:
         this.expressionBNF = bnf;
+
         break;
 
-      case "statement":
+      case STATEMENT:
         this.statementBNF = bnf;
+
         break;
 
-      case "metastatement":
+      case METASTATEMENT:
         this.metastatementBNF = bnf;
+
         break;
     }
   }

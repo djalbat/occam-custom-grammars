@@ -5,10 +5,11 @@ import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
+import { EMPTY_STRING } from "./constants";
 import { findRuleByRuleName } from "./utilities/ruleName";
 import { rulesFromBNF, ruleMapFromRules } from "./utilities/rules";
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
-import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./constants";
+import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
 
 const { first, filter, unshift } = arrayUtilities;
 
@@ -86,7 +87,7 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
   lexicalPatterns.push(defaultLexicalPattern);
 
   filter(lexicalPatterns, (lexicalPattern) => {
-    if (lexicalPattern !== "") {
+    if (lexicalPattern !== EMPTY_STRING) {
       return true;
     }
   });

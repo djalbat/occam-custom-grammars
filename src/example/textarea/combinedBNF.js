@@ -2,6 +2,8 @@
 
 import Textarea from "../textarea";
 
+import { EMPTY_STRING } from "../../constants";
+
 export default class CombinedBNFTextarea extends Textarea {
   getCombinedBNF() {
     const value = this.getValue(),
@@ -17,7 +19,7 @@ export default class CombinedBNFTextarea extends Textarea {
   }
 
   clearCombinedBNF() {
-    const value = "";
+    const value = EMPTY_STRING;
 
     this.setValue(value);
   }

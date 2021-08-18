@@ -2,7 +2,7 @@
 
 import Select from "../select";
 
-import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../../constants";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../../grammarNames";
 
 export default class NameSelect extends Select {
   getName() {
@@ -13,9 +13,9 @@ export default class NameSelect extends Select {
   }
 
   childElements() {
-    const defaultName = DEFAULT_CUSTOM_GRAMMAR_NAME,  ///
+    const defaultName = DEFAULT_CUSTOM_GRAMMAR_NAME,
           defaultValue = defaultName, ///
-          userDefinedName = USER_DEFINED_CUSTOM_GRAMMAR_NAME, ///
+          userDefinedName = USER_DEFINED_CUSTOM_GRAMMAR_NAME,
           userDefinedValue = userDefinedName; ///
 
     return ([
