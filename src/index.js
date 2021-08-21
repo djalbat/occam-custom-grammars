@@ -1,6 +1,6 @@
 "use strict";
 
-export { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./constants";
+export { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
 
 export { default as CustomGrammar } from "./customGrammar";
 export { default as lexersUtilities } from "./utilities/lexers";
