@@ -98,25 +98,26 @@ export default class CustomGrammar {
   }
 
   toJSON() {
-    const json = {
-      "name": this.name,
-      "lexicalPattern": this.lexicalPattern,
-      "termBNF": this.termBNF,
-      "expressionBNF": this.expressionBNF,
-      "statementBNF": this.statementBNF,
-      "metastatementBNF": this.metastatementBNF
-    };
+    const name = this.name,
+          lexicalPattern = this.lexicalPattern,
+          termBNF = this.termBNF,
+          expressionBNF = this.expressionBNF,
+          statementBNF = this.statementBNF,
+          metastatementBNF = this.metastatementBNF,
+          json = {
+            name,
+            lexicalPattern,
+            termBNF,
+            expressionBNF,
+            statementBNF,
+            metastatementBNF
+          };
     
     return json;
   }
 
   static fromJSON(json) {
-    const name = json["name"],
-          lexicalPattern = json["lexicalPattern"],
-          termBNF = json["termBNF"],
-          expressionBNF = json["expressionBNF"],
-          statementBNF = json["statementBNF"],
-          metastatementBNF = json["metastatementBNF"],
+    const { name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF } = json,
           customGrammar = new CustomGrammar(name, lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
     return customGrammar;

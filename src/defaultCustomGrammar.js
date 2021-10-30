@@ -10,12 +10,12 @@ const { lexicalPattern, termBNF, expressionBNF, statementBNF, metastatementBNF }
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
-        "name": name,
-        "lexicalPattern": lexicalPattern,
-        "termBNF": termBNF,
-        "expressionBNF": expressionBNF,
-        "statementBNF": statementBNF,
-        "metastatementBNF": metastatementBNF
+        name,
+        lexicalPattern,
+        termBNF,
+        expressionBNF,
+        statementBNF,
+        metastatementBNF
       };
 
 export default CustomGrammar.fromJSON(json);  ///
