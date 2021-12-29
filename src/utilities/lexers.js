@@ -21,7 +21,7 @@ export function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combin
 
   rules.unshift(customGrammarRule);
 
-  const florenceLexer = new FlorenceLexer(rules);
+  const florenceLexer = FlorenceLexer.fromRules(rules);
 
   return florenceLexer;
 }

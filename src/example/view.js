@@ -1,13 +1,12 @@
 "use strict";
 
 import { Element } from "easy";
-import { RowsDiv, ColumnsDiv } from "easy-layout";
+import { RowsDiv, ColumnDiv } from "easy-layout";
 import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
 import { defaultCustomGrammar, CombinedCustomGrammar, lexersUtilities, parsersUtilities } from "../index";  ///
 
-import Heading from "./heading";
-import ColumnDiv from "./div/column";
 import Paragraph from "./paragraph";
+import ColumnsDiv from "./div/columns";
 import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
 import SizeableDiv from "./div/sizeable";
@@ -33,7 +32,7 @@ export default class View extends Element {
   initialContent = EMPTY_STRING;
 
   keyUpHandler() {
-    try {
+    // try {
       const name = this.getName();
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
@@ -79,13 +78,13 @@ export default class View extends Element {
       this.setParseTree(parseTree);
 
       this.setCombinedBNF(combinedBNF);
-    } catch (error) {
-      console.log(error);
-
-      this.clearParseTree();
-
-      this.clearCombinedBNF();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearParseTree();
+    //
+    //   this.clearCombinedBNF();
+    // }
   }
 
   changeHandler() {
@@ -113,9 +112,6 @@ export default class View extends Element {
 
     return ([
 
-      <Heading>
-        Custom grammars example
-      </Heading>,
       <ColumnsDiv>
         <SizeableDiv>
           <RowsDiv>
