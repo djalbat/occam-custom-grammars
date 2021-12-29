@@ -32,7 +32,7 @@ export default class View extends Element {
   initialContent = EMPTY_STRING;
 
   keyUpHandler() {
-    // try {
+    try {
       const name = this.getName();
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
@@ -78,13 +78,13 @@ export default class View extends Element {
       this.setParseTree(parseTree);
 
       this.setCombinedBNF(combinedBNF);
-    // } catch (error) {
-    //   console.log(error);
-    //
-    //   this.clearParseTree();
-    //
-    //   this.clearCombinedBNF();
-    // }
+    } catch (error) {
+      console.log(error);
+
+      this.clearParseTree();
+
+      this.clearCombinedBNF();
+    }
   }
 
   changeHandler() {
