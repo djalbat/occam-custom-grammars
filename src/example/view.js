@@ -1,12 +1,13 @@
 "use strict";
 
+import withStyle from "easy-with-style";  ///
+
 import { Element } from "easy";
-import { RowsDiv, ColumnDiv } from "easy-layout";
 import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
+import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { defaultCustomGrammar, CombinedCustomGrammar, lexersUtilities, parsersUtilities } from "../index";  ///
 
 import Paragraph from "./paragraph";
-import ColumnsDiv from "./div/columns";
 import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
 import SizeableDiv from "./div/sizeable";
@@ -17,7 +18,6 @@ import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
 import LexicalPatternInput from "./input/lexicalPattern";
 import CombinedBNFTextarea from "./textarea/combinedBNF";
-import VerticalSplitterDiv from "./div/splitter/vertical";
 import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
 import RemoveOrRenameIntermediateNodesCheckbox from "./checkbox/removeOrRenameIntermediateNodes"
 
@@ -28,7 +28,7 @@ import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from ".
 const { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
 
-export default class View extends Element {
+class View extends Element {
   initialContent = EMPTY_STRING;
 
   keyUpHandler() {
@@ -177,3 +177,8 @@ export default class View extends Element {
 
   static tagName = "div";
 }
+
+export default withStyle(View)`
+
+  padding: 1rem;
+`;
