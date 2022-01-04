@@ -176,6 +176,10 @@ class View extends Element {
   }
 
   static tagName = "div";
+
+  static defaultProperties = {
+    className: "view"
+  };
 }
 
 export default withStyle(View)`
