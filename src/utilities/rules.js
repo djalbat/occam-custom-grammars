@@ -1,13 +1,22 @@
 "use strict";
 
-import { BasicParser } from "occam-parsers";
+import { BNFLexer } from "occam-lexers";
+import { BNFParser, Rule } from "occam-parsers";
 
 import { EMPTY_STRING } from "../constants";
 
+const bnfLexer = BNFLexer.fromNothing(),
+      bnfParser = BNFParser.fromNothing();
+
 export function rulesFromBNF(bnf) {
-  const basicParser = BasicParser.fromBNF(bnf),
-        ruleMap = basicParser.getRuleMap(),
-        rules = Object.values(ruleMap); ///
+  let rules = [];
+
+  const tokens = bnfLexer.tokensFromBNF(bnf),
+        node = bnfParser.parse(tokens);
+
+  if (node !== null) {
+    rules = node.generateRules(Rule);
+  }
 
   return rules;
 }

@@ -39,21 +39,7 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,
 
 
       stringLength  ::=  "|" term "|" ;`,
-      expressionBNF = `          expression  ::=  arithmeticExpression
-
-                        ;
-
-
-arithmeticExpression  ::=  addition 
-
-                        |  subtraction 
-
-                        ;
-
-
-            addition  ::=  expression "+" expression ;
-
-         subtraction  ::=  expression "-" expression ;`,
+      expressionBNF = `          expression  ::`,
       statementBNF = `           statement  ::=  lessThanOrEqualTo
 
                         ;
