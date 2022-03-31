@@ -1,11 +1,10 @@
 "use strict";
 
-import { BNFLexer } from "occam-lexers";
-import { BNFParser } from "occam-parsers";
 import { FlorenceParser } from "occam-grammars";
-import { arrayUtilities } from "necessary";
+import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
-const { push } = arrayUtilities;
+import { FLORENCE_START_RULE_NAME } from "../constants";
+import { rulesFromBNF, ruleMapFromRules } from "../utilities/rules";
 
 export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
@@ -15,14 +14,14 @@ export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
 }
 
 export function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
-  const combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap(),
-        bnfLexer = BNFLexer.fromNothing(),
-        bnfParser = BNFParser.fromNothing(),
-        tokens = bnfLexer.tokensFromBNF(bnf),
-        rules = bnfParser.rulesFromTokens(tokens),
-        combinedCustomGrammarRules = Object.values(combinedCustomGrammarRuleMap);
+  const rules = rulesFromBNF(bnf),
+        ruleMap = ruleMapFromRules(rules),
+        startRule = ruleMap[FLORENCE_START_RULE_NAME],
+        combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap();
 
-  push(rules, combinedCustomGrammarRules);
+  Object.assign(ruleMap, combinedCustomGrammarRuleMap);
+
+  eliminateLeftRecursion(startRule, ruleMap);
 
   const florenceParser = FlorenceParser.fromRules(rules);
 

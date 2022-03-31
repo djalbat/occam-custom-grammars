@@ -1,7 +1,6 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
-import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
@@ -9,9 +8,9 @@ import { EMPTY_STRING } from "./constants";
 import { findRuleByRuleName } from "./utilities/ruleName";
 import { rulesFromBNF, ruleMapFromRules } from "./utilities/rules";
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
-import { START_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
+import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
 
-const { first, filter, unshift } = arrayUtilities;
+const { filter, unshift } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(lexicalPattern, ruleMap) {
@@ -32,16 +31,14 @@ export default class CombinedCustomGrammar {
           statementRules = statementRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           expressionRules = expressionRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           termRules = termRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          rules = [].concat(metastatementRules).concat(statementRules).concat(expressionRules).concat(termRules),
-          startRule = startRuleFromNothing(),
           lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
+          rules = [
+            ...metastatementRules,
+            ...statementRules,
+            ...expressionRules,
+            ...termRules
+          ],
           ruleMap = ruleMapFromRules(rules);
-
-    ruleMap[START_RULE_NAME] = startRule;
-
-    eliminateLeftRecursion(startRule, ruleMap);
-
-    delete ruleMap[START_RULE_NAME];
 
     const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, ruleMap);
     
@@ -96,15 +93,6 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
         lexicalPattern = `^(?:${lexicalPatternsString})`;
 
   return lexicalPattern;
-}
-
-function startRuleFromNothing() {
-  const startRulesBNF = ` ${START_RULE_NAME} ::= ${METASTATEMENT_RULE_NAME} | ${STATEMENT_RULE_NAME} | ${EXPRESSION_RULE_NAME} | ${TERM_RULE_NAME} ; `,
-        startRules = rulesFromBNF(startRulesBNF),
-        firstStartRule = first(startRules),
-        startRule = firstStartRule; ///
-
-  return startRule;
 }
 
 function remainingRulesFromRulesAndMainRule(rules, mainRule) {
