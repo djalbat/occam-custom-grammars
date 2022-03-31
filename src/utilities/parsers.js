@@ -14,14 +14,21 @@ export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
 }
 
 export function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
-  const rules = rulesFromBNF(bnf),
-        ruleMap = ruleMapFromRules(rules),
+  let rules = rulesFromBNF(bnf);
+
+  const ruleMap = ruleMapFromRules(rules),
         startRule = ruleMap[FLORENCE_START_RULE_NAME],
         combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap();
 
   Object.assign(ruleMap, combinedCustomGrammarRuleMap);
 
   eliminateLeftRecursion(startRule, ruleMap);
+
+  delete ruleMap[FLORENCE_START_RULE_NAME];
+
+  rules = Object.values(ruleMap);
+
+  rules.unshift(startRule);
 
   const florenceParser = FlorenceParser.fromRules(rules);
 

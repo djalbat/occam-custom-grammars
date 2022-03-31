@@ -21,7 +21,6 @@ import CombinedBNFTextarea from "./textarea/combinedBNF";
 import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
 import RemoveOrRenameIntermediateNodesCheckbox from "./checkbox/removeOrRenameIntermediateNodes"
 
-import { EMPTY_STRING } from "../constants";
 import { rulesAsString } from "../utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
@@ -29,8 +28,6 @@ const { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
 
 class View extends Element {
-  initialContent = EMPTY_STRING;
-
   keyUpHandler() {
     try {
       const name = this.getName();
@@ -49,11 +46,6 @@ class View extends Element {
               userDefinedCustomGrammar
             ],
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-            combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap(),
-            combinedCustomGrammarRules = Object.values(combinedCustomGrammarRuleMap),
-            multiLine = true,
-            combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
-            combinedBNF = combinedCustomGrammarRulesString,  ///
             florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
             florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
             ruleMap = florenceParser.getRuleMap(),
@@ -76,6 +68,12 @@ class View extends Element {
       }
 
       this.setParseTree(parseTree);
+
+      const combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap(),
+            combinedCustomGrammarRules = Object.values(combinedCustomGrammarRuleMap),
+            multiLine = true,
+            combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
+            combinedBNF = combinedCustomGrammarRulesString;  ///
 
       this.setCombinedBNF(combinedBNF);
     } catch (error) {
@@ -166,7 +164,9 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const content = this.initialContent;
+    const { initialContent } = this.constructor;
+
+    const content = initialContent; ///
 
     this.setContent(content);
 
@@ -174,6 +174,12 @@ class View extends Element {
 
     this.keyUpHandler();
   }
+
+  static initialContent = `Rule (Explosion)
+  Conclusion
+    ρ |- R::S
+  
+`;
 
   static tagName = "div";
 

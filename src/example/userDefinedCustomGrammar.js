@@ -5,7 +5,7 @@ import { CustomGrammar } from "../index"; ///
 import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,
-      lexicalPattern = `<=|\\+|\\-|\\||insert|delete|empty`,
+      lexicalPattern = `<=|\\+|\\-|\\|-|\\||insert|delete|empty`,
       termBNF = `                term  ::=  operation
 
                         |  operator
