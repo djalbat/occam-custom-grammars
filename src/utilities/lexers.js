@@ -5,23 +5,15 @@ import { FlorenceLexer } from "occam-grammars";
 
 export function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = FlorenceLexer,
-        florenceLexer = florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar);
+        rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
+        florenceLexer = FlorenceLexer.fromRules(rules);
 
   return florenceLexer;
 }
 
 export function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
-  const combinedCustomGrammarLexicalPattern = combinedCustomGrammar.getLexicalPattern(),
-        custom = combinedCustomGrammarLexicalPattern, ///
-        customGrammarEntry = {
-          custom
-        },
-        customGrammarRule =  Rule.fromEntry(customGrammarEntry),
-        rules = entries.map((entry) => Rule.fromEntry(entry));
-
-  rules.unshift(customGrammarRule);
-
-  const florenceLexer = FlorenceLexer.fromRules(rules);
+  const rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
+        florenceLexer = FlorenceLexer.fromRules(rules);
 
   return florenceLexer;
 }
@@ -30,3 +22,21 @@ export default {
   florenceLexerFromCombinedCustomGrammar,
   florenceLexerFromEntriesAndCombinedCustomGrammar
 };
+
+function rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
+  const combinedCustomGrammarLexicalPattern = combinedCustomGrammar.getLexicalPattern(),
+        custom = combinedCustomGrammarLexicalPattern, ///
+        customGrammarEntry = {
+          custom
+        },
+        customGrammarRule =  Rule.fromEntry(customGrammarEntry),
+        rules = entries.map((entry) => {
+          const rule = Rule.fromEntry(entry);
+
+          return rule;
+        });
+
+  rules.unshift(customGrammarRule);
+
+  return rules;
+}

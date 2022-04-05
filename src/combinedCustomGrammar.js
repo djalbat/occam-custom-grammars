@@ -5,25 +5,25 @@ import { arrayUtilities } from "necessary";
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { EMPTY_STRING } from "./constants";
+import { rulesFromBNF } from "./utilities/rules";
 import { findRuleByRuleName } from "./utilities/ruleName";
-import { rulesFromBNF, ruleMapFromRules } from "./utilities/rules";
 import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
 import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
 
 const { filter, unshift } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
-  constructor(lexicalPattern, ruleMap) {
+  constructor(lexicalPattern, rules) {
     this.lexicalPattern = lexicalPattern;
-    this.ruleMap = ruleMap;
+    this.rules = rules;
   }
   
   getLexicalPattern() {
     return this.lexicalPattern;
   }
 
-  getRuleMap() {
-    return this.ruleMap;
+  getRules() {
+    return this.rules;
   }
 
   static fromCustomGrammars(customGrammars) {
@@ -37,10 +37,9 @@ export default class CombinedCustomGrammar {
             ...statementRules,
             ...expressionRules,
             ...termRules
-          ],
-          ruleMap = ruleMapFromRules(rules);
+          ];
 
-    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, ruleMap);
+    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
     
     return combinedCustomGrammar;
   }

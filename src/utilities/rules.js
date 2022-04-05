@@ -40,15 +40,3 @@ export function rulesAsString(rules, multiLine) {
 
   return rulesString;
 }
-
-export function ruleMapFromRules(rules) {
-  const ruleMap = rules.reduce((ruleMap, rule) => {
-    const ruleName = rule.getName();
-
-    ruleMap[ruleName] = rule;
-
-    return ruleMap;
-  }, {});
-
-  return ruleMap;
-}

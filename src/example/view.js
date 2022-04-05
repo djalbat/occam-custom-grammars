@@ -69,8 +69,7 @@ class View extends Element {
 
       this.setParseTree(parseTree);
 
-      const combinedCustomGrammarRuleMap = combinedCustomGrammar.getRuleMap(),
-            combinedCustomGrammarRules = Object.values(combinedCustomGrammarRuleMap),
+      const combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
             multiLine = true,
             combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
             combinedBNF = combinedCustomGrammarRulesString;  ///
