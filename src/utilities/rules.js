@@ -9,14 +9,11 @@ const bnfLexer = BNFLexer.fromNothing(),
       bnfParser = BNFParser.fromNothing();
 
 export function rulesFromBNF(bnf) {
-  let rules = [];
-
   const tokens = bnfLexer.tokensFromBNF(bnf),
-        node = bnfParser.parse(tokens);
-
-  if (node !== null) {
-    rules = node.generateRules(Rule);
-  }
+        node = bnfParser.parse(tokens),
+        rules = (node !== null) ?
+                  node.generateRules(Rule) :
+                    [];
 
   return rules;
 }

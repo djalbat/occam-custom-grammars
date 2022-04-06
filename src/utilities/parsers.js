@@ -3,9 +3,7 @@
 import { FlorenceParser } from "occam-grammars";
 import { parserUtilities } from "occam-grammar-utilities";
 
-import { rulesFromBNF } from "../utilities/rules";
-
-const { parserFromRules } = parserUtilities;
+const { rulesFromBNF, parserFromRules } = parserUtilities;
 
 export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
