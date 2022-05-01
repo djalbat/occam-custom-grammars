@@ -1,16 +1,13 @@
 "use strict";
 
-import { arrayUtilities } from "necessary";
+import { parserUtilities } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { EMPTY_STRING } from "./constants";
-import { rulesFromBNF } from "./utilities/rules";
-import { findRuleByRuleName } from "./utilities/ruleName";
-import { lexicalPatternsFromCustomGrammars, bnfsFromRuleNameAndCustomGrammars } from "./utilities/customGrammars";
 import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
 
-const { filter, unshift } = arrayUtilities;
+const { rulesFromBNF } = parserUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(lexicalPattern, rules) {
@@ -74,19 +71,20 @@ function termRulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
 }
 
 function lexicalPatternFromCustomGrammars(customGrammars) {
-  const lexicalPatterns = lexicalPatternsFromCustomGrammars(customGrammars),
-        defaultCustomGrammarLexicalPattern = defaultCustomGrammar.getLexicalPattern(),
-        defaultLexicalPattern = defaultCustomGrammarLexicalPattern; ///
+  const lexicalPatterns = customGrammars.reduce((lexicalPatterns, customGrammar) => {
+          const lexicalPattern = customGrammar.getLexicalPattern();
+
+          if (lexicalPattern !== EMPTY_STRING) {
+            lexicalPatterns.push(lexicalPattern);
+          }
+
+          return lexicalPatterns;
+        }, []),
+        defaultCustomGrammarLexicalPattern = defaultCustomGrammar.getLexicalPattern();
+
+  lexicalPatterns.unshift(defaultCustomGrammarLexicalPattern);
 
   lexicalPatterns.reverse();
-
-  lexicalPatterns.push(defaultLexicalPattern);
-
-  filter(lexicalPatterns, (lexicalPattern) => {
-    if (lexicalPattern !== EMPTY_STRING) {
-      return true;
-    }
-  });
 
   const lexicalPatternsString = lexicalPatterns.join("|"), ///
         lexicalPattern = `^(?:${lexicalPatternsString})`;
@@ -94,63 +92,62 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
   return lexicalPattern;
 }
 
-function remainingRulesFromRulesAndMainRule(rules, mainRule) {
-  const remainingRules = rules.filter((rule) => {
-    if (rule !== mainRule) {
-      return true;
-    }
-  });
-
-  return remainingRules;
-}
-
-function mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs) {
-  const defaultCustomGrammarBNF = defaultCustomGrammar.getBNF(ruleName),
-        defaultBNF = defaultCustomGrammarBNF, ///
-        defaultRules = rulesFromBNF(defaultBNF),
-        defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
-        defaultMainRuleDefinitions = defaultMainRule.getDefinitions();
-
-  bnfs.forEach((bnf) => {
-    const rules = rulesFromBNF(bnf),
-          mainRule = findRuleByRuleName(ruleName, rules),
-          mainRuleDefinitions = (mainRule !== null) ?
-                                  mainRule.getDefinitions() :
-                                    [];
-
-    unshift(defaultMainRuleDefinitions, mainRuleDefinitions);
-  });
-
-  const mainRule = defaultMainRule; ///
-
-  return mainRule;
-}
-
-function remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs) {
-  const defaultCustomGrammarBNF = defaultCustomGrammar.getBNF(ruleName),
-        defaultBNF = defaultCustomGrammarBNF, ///
-        defaultRules = rulesFromBNF(defaultBNF),
-        defaultMainRule = findRuleByRuleName(ruleName, defaultRules),
-        defaultRemainingRules = remainingRulesFromRulesAndMainRule(defaultRules, defaultMainRule);
-
-  bnfs.forEach((bnf) => {
-    const rules = rulesFromBNF(bnf),
-          mainRule = findRuleByRuleName(ruleName, rules),
-          remainingRules = remainingRulesFromRulesAndMainRule(rules, mainRule);
-
-    unshift(defaultRemainingRules, remainingRules);
-  });
-
-  const remainingRules = defaultRemainingRules; ///
-
-  return remainingRules;
-}
-
 function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars) {
-  const bnfs = bnfsFromRuleNameAndCustomGrammars(ruleName, customGrammars),
-        mainRule = mainRuleFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs),
-        remainingRules = remainingRulesFromRuleNameDefaultBNFAndBNFs(ruleName, bnfs),
-        rules = [].concat(mainRule).concat(remainingRules);
+  const bnfs = customGrammars.reduce((bnfs, customGrammar) => {
+          const bnf = customGrammar.getBNF(ruleName);
+
+          if (bnf !== EMPTY_STRING) {
+            bnfs.push(bnf);
+          }
+
+          return bnfs;
+        }, []),
+        defaultCustomGrammarBNF = defaultCustomGrammar.getBNF(ruleName);
+
+  bnfs.unshift(defaultCustomGrammarBNF);
+
+  const bnf = bnfs.join(EMPTY_STRING),
+        rules = rulesFromBNF(bnf);
+
+  let outerIndex = 0,
+      length = rules.length;
+
+  while (outerIndex < length) {
+    const outerRule = rules[outerIndex],
+          outerRuleName = outerRule.getName();
+
+    let outerRuleDefinitions = outerRule.getDefinitions();
+
+    let innerIndex = outerIndex + 1;
+
+    while (innerIndex < length) {
+      const innerRule = rules[innerIndex],
+            innerRuleName = innerRule.getName();
+
+      if (innerRuleName === outerRuleName) {
+        const innerRuleDefinitions = innerRule.getDefinitions();
+
+        outerRuleDefinitions = [
+          ...innerRuleDefinitions,
+          ...outerRuleDefinitions
+        ];
+
+        outerRule.setDefinitions(outerRuleDefinitions);
+
+        const start = innerIndex, ///
+              deleteCount = 1;
+
+        rules.splice(start, deleteCount);
+
+        length = rules.length;
+      } else {
+        innerIndex++;
+      }
+    }
+
+    outerIndex++;
+    length = rules.length;
+  }
 
   return rules;
 }

@@ -3,11 +3,9 @@
 import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
-import { removeOrRenameIntermediateNodes } from "occam-grammar-utilities";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { defaultCustomGrammar, CombinedCustomGrammar, lexersUtilities, parsersUtilities } from "../index";  ///
 
-import Paragraph from "./paragraph";
 import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
 import SizeableDiv from "./div/sizeable";
@@ -17,12 +15,12 @@ import ContentTextarea from "./textarea/content";
 import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
 import LexicalPatternInput from "./input/lexicalPattern";
-import CombinedBNFTextarea from "./textarea/combinedBNF";
-import userDefinedCustomGrammar from "./userDefinedCustomGrammar";
-import RemoveOrRenameIntermediateNodesCheckbox from "./checkbox/removeOrRenameIntermediateNodes"
+import FlorenceBNFTextarea from "./textarea/florenceBNF";
+import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
+import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
-import { rulesAsString } from "../utilities/rules";
-import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
+import { rulesAsString, rulesFromParser } from "../utilities/rules";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
 
 const { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
@@ -32,18 +30,29 @@ class View extends Element {
     try {
       const name = this.getName();
 
-      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
         const bnf = this.getBNF(),
               ruleName = this.getRuleName(),
               lexicalPattern = this.getLexicalPattern();
 
-        userDefinedCustomGrammar.setBNF(ruleName, bnf);
+        userDefinedCustomGrammar1.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar.setLexicalPattern(lexicalPattern);
+        userDefinedCustomGrammar1.setLexicalPattern(lexicalPattern);
+      }
+
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
+        const bnf = this.getBNF(),
+              ruleName = this.getRuleName(),
+              lexicalPattern = this.getLexicalPattern();
+
+        userDefinedCustomGrammar2.setBNF(ruleName, bnf);
+
+        userDefinedCustomGrammar2.setLexicalPattern(lexicalPattern);
       }
 
       const customGrammars = [
-              userDefinedCustomGrammar
+              userDefinedCustomGrammar1,
+              userDefinedCustomGrammar2
             ],
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
             florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
@@ -58,40 +67,53 @@ class View extends Element {
       let parseTree = null;
 
       if (node !== null) {
-        const removeOrRenameIntermediateNodesCheckboxChecked = this.isRemoveOrRenameIntermediateNodesCheckboxChecked();
-
-        if (removeOrRenameIntermediateNodesCheckboxChecked) {
-          removeOrRenameIntermediateNodes(node);
-        }
-
         parseTree = node.asParseTree(tokens);
       }
 
       this.setParseTree(parseTree);
 
-      const combinedCustomGrammarRules = combinedCustomGrammar.getRules(),
+      const florenceRules = rulesFromParser(florenceParser),
             multiLine = true,
-            combinedCustomGrammarRulesString = rulesAsString(combinedCustomGrammarRules, multiLine),
-            combinedBNF = combinedCustomGrammarRulesString;  ///
+            rulesString = rulesAsString(florenceRules, multiLine),
+            florenceBNF = rulesString;  ///
 
-      this.setCombinedBNF(combinedBNF);
+      this.setFlorenceBNF(florenceBNF);
     } catch (error) {
       console.log(error);
 
       this.clearParseTree();
 
-      this.clearCombinedBNF();
+      this.clearFlorenceBNF();
     }
   }
 
   changeHandler() {
+    let readOnly, customGrammar;
+
     const name = this.getName(),
-          ruleName = this.getRuleName(),
-          readOnly = (name === DEFAULT_CUSTOM_GRAMMAR_NAME),
-          customGrammar = readOnly ?  ///
-                            defaultCustomGrammar :
-                              userDefinedCustomGrammar,
-          bnf = customGrammar.getBNF(ruleName),
+          ruleName = this.getRuleName();
+
+    switch (name) {
+      case DEFAULT_CUSTOM_GRAMMAR_NAME:
+        readOnly = true;
+        customGrammar = defaultCustomGrammar;
+
+        break;
+
+      case USER_DEFINED_CUSTOM_GRAMMAR_NAME_1:
+        readOnly = false;
+        customGrammar = userDefinedCustomGrammar1;
+
+        break;
+
+      case USER_DEFINED_CUSTOM_GRAMMAR_NAME_2:
+        readOnly = false;
+        customGrammar = userDefinedCustomGrammar2;
+
+        break;
+    }
+
+    const bnf = customGrammar.getBNF(ruleName),
           lexicalPattern = customGrammar.getLexicalPattern();
 
     this.setBNF(bnf);
@@ -146,13 +168,9 @@ class View extends Element {
             </SubHeading>
             <ParseTreeTextarea />
             <SubHeading>
-              Combined BNF
+              Florence BNF
             </SubHeading>
-            <CombinedBNFTextarea />
-            <Paragraph>
-              <RemoveOrRenameIntermediateNodesCheckbox onChange={keyUpHandler} checked />
-              Remove or rename intermediate nodes
-            </Paragraph>
+            <FlorenceBNFTextarea />
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
@@ -190,4 +208,5 @@ class View extends Element {
 export default withStyle(View)`
 
   padding: 1rem;
+  
 `;
