@@ -3,7 +3,7 @@
 import { FlorenceParser } from "occam-grammars";
 import { parserUtilities } from "occam-grammar-utilities";
 
-const { rulesFromBNF, parserFromRules } = parserUtilities;
+const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
 
 export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
@@ -20,9 +20,17 @@ export function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCusto
   return florenceParser;
 }
 
+export function florenceParserFromBNFStartRuleNameAndCombinedCustomGrammar(bnf, startRuleName, combinedCustomGrammar) {
+  const rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
+        florenceParser = parserFromRulesAndStartRuleName(FlorenceParser, rules, startRuleName);
+
+  return florenceParser;
+}
+
 export default {
   florenceParserFromCombinedCustomGrammar,
-  florenceParserFromBNFAndCombinedCustomGrammar
+  florenceParserFromBNFAndCombinedCustomGrammar,
+  florenceParserFromBNFStartRuleNameAndCombinedCustomGrammar
 };
 
 function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
