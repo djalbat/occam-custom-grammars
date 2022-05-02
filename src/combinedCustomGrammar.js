@@ -74,7 +74,7 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
   const lexicalPatterns = customGrammars.reduce((lexicalPatterns, customGrammar) => {
           const lexicalPattern = customGrammar.getLexicalPattern();
 
-          if (lexicalPattern !== EMPTY_STRING) {
+          if (lexicalPattern) {  ///
             lexicalPatterns.push(lexicalPattern);
           }
 
@@ -96,7 +96,7 @@ function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars) 
   const bnfs = customGrammars.reduce((bnfs, customGrammar) => {
           const bnf = customGrammar.getBNF(ruleName);
 
-          if (bnf !== EMPTY_STRING) {
+          if (bnf) {  ///
             bnfs.push(bnf);
           }
 
