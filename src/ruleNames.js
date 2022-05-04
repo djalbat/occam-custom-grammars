@@ -1,8 +1,6 @@
 "use strict";
 
-import { TERM, STATEMENT, EXPRESSION, METASTATEMENT } from "./constants";
-
-export const TERM_RULE_NAME = TERM;
-export const STATEMENT_RULE_NAME = STATEMENT;
-export const EXPRESSION_RULE_NAME = EXPRESSION;
-export const METASTATEMENT_RULE_NAME = METASTATEMENT;
+export const TERM_RULE_NAME = "term";
+export const STATEMENT_RULE_NAME = "statement";
+export const EXPRESSION_RULE_NAME = "expression";
+export const METASTATEMENT_RULE_NAME = "metastatement";

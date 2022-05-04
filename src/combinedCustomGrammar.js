@@ -5,7 +5,6 @@ import { parserUtilities } from "occam-grammar-utilities";
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { EMPTY_STRING } from "./constants";
-import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
 
 const { rulesFromBNF } = parserUtilities;
 
@@ -24,50 +23,13 @@ export default class CombinedCustomGrammar {
   }
 
   static fromCustomGrammars(customGrammars) {
-    const metastatementRules = metastatementRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          statementRules = statementRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          expressionRules = expressionRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          termRules = termRulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
-          rules = [
-            ...metastatementRules,
-            ...statementRules,
-            ...expressionRules,
-            ...termRules
-          ];
+    const lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
+          rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars);
 
     const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
     
     return combinedCustomGrammar;
   }
-}
-
-function metastatementRulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
-  const metastatementRuleName = METASTATEMENT_RULE_NAME,  ///
-        metastatementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(metastatementRuleName, customGrammars);
-
-  return metastatementRules;
-}
-
-function statementRulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
-  const statementRuleName = STATEMENT_RULE_NAME,  ///
-        statementRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(statementRuleName, customGrammars);
-
-  return statementRules;
-}
-
-function expressionRulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
-  const expressionRuleName = EXPRESSION_RULE_NAME,  ///
-        expressionRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(expressionRuleName, customGrammars);
-
-  return expressionRules;
-}
-
-function termRulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
-  const termRuleName = TERM_RULE_NAME,  ///
-        termRules = rulesFromRuleNameCustomGrammarsAndDefaultBNF(termRuleName, customGrammars);
-
-  return termRules;
 }
 
 function lexicalPatternFromCustomGrammars(customGrammars) {
@@ -92,23 +54,25 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
   return lexicalPattern;
 }
 
-function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars) {
-  const bnfs = customGrammars.reduce((bnfs, customGrammar) => {
-          const bnf = customGrammar.getBNF(ruleName);
+function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
+  const bnfs = customGrammars.map((customGrammar) => {
+          const bnf = customGrammar.getBNF();
 
-          if (bnf) {  ///
-            bnfs.push(bnf);
-          }
-
-          return bnfs;
-        }, []),
-        defaultCustomGrammarBNF = defaultCustomGrammar.getBNF(ruleName);
+          return bnf;
+        }),
+        defaultCustomGrammarBNF = defaultCustomGrammar.getBNF();
 
   bnfs.unshift(defaultCustomGrammarBNF);
 
   const bnf = bnfs.join(EMPTY_STRING),
         rules = rulesFromBNF(bnf);
 
+  combineRules(rules)
+
+  return rules;
+}
+
+function combineRules(rules) {
   let outerIndex = 0,
       length = rules.length;
 
@@ -148,6 +112,4 @@ function rulesFromRuleNameCustomGrammarsAndDefaultBNF(ruleName, customGrammars) 
     outerIndex++;
     length = rules.length;
   }
-
-  return rules;
 }
