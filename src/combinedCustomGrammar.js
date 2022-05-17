@@ -33,6 +33,8 @@ export default class CombinedCustomGrammar {
 }
 
 function lexicalPatternFromCustomGrammars(customGrammars) {
+  customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+
   const lexicalPatterns = customGrammars.reduce((lexicalPatterns, customGrammar) => {
           const lexicalPattern = customGrammar.getLexicalPattern();
 
@@ -41,10 +43,7 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
           }
 
           return lexicalPatterns;
-        }, []),
-        defaultCustomGrammarLexicalPattern = defaultCustomGrammar.getLexicalPattern();
-
-  lexicalPatterns.unshift(defaultCustomGrammarLexicalPattern);
+        }, []);
 
   lexicalPatterns.reverse();
 
@@ -55,16 +54,14 @@ function lexicalPatternFromCustomGrammars(customGrammars) {
 }
 
 function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
+  customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+
   const bnfs = customGrammars.map((customGrammar) => {
           const bnf = customGrammar.getBNF();
 
           return bnf;
         }),
-        defaultCustomGrammarBNF = defaultCustomGrammar.getBNF();
-
-  bnfs.unshift(defaultCustomGrammarBNF);
-
-  const bnf = bnfs.join(EMPTY_STRING),
+        bnf = bnfs.join(EMPTY_STRING),
         rules = rulesFromBNF(bnf);
 
   combineRules(rules)
