@@ -74,10 +74,12 @@ function combineRules(rules) {
       length = rules.length;
 
   while (outerIndex < length) {
-    const outerRule = rules[outerIndex],
-          outerRuleName = outerRule.getName();
+    let outerRule = rules[outerIndex];
 
-    let outerRuleDefinitions = outerRule.getDefinitions();
+    const outerRuleName = outerRule.getName(),
+          outerRuleAmbiguous = outerRule.isAmbiguous(),
+          outerRuleDefinitions = outerRule.getDefinitions(),
+          outerRuleNonTerminalNode = outerRule.getNonTerminalNode();
 
     let innerIndex = outerIndex + 1;
 
@@ -86,17 +88,29 @@ function combineRules(rules) {
             innerRuleName = innerRule.getName();
 
       if (innerRuleName === outerRuleName) {
-        const innerRuleDefinitions = innerRule.getDefinitions();
+        const innerRuleDefinitions = innerRule.getDefinitions(),
+              name = outerRuleName, ///
+              ambiguous = outerRuleAmbiguous, ///
+              definitions = [
+                ...innerRuleDefinitions,
+                ...outerRuleDefinitions
+              ],
+              NonTerminalNode = outerRuleNonTerminalNode; ///
 
-        outerRuleDefinitions = [
-          ...innerRuleDefinitions,
-          ...outerRuleDefinitions
-        ];
+        const { constructor: Rule } = outerRule,
+              rule = new Rule(name, ambiguous, definitions, NonTerminalNode);
 
-        outerRule.setDefinitions(outerRuleDefinitions);
+        let start;
 
-        const start = innerIndex, ///
-              deleteCount = 1;
+        const deleteCount = 1;
+
+        start = outerIndex; ///
+
+        outerRule = rule; ///
+
+        rules.splice(start, deleteCount, outerRule);
+
+        start = innerIndex; ///
 
         rules.splice(start, deleteCount);
 
@@ -107,6 +121,7 @@ function combineRules(rules) {
     }
 
     outerIndex++;
+
     length = rules.length;
   }
 }
