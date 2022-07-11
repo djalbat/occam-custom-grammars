@@ -1,12 +1,12 @@
 "use strict";
 
-import { parserUtilities } from "occam-grammar-utilities";
+import { rulesUtilities } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { EMPTY_STRING } from "./constants";
 
-const { rulesFromBNF } = parserUtilities;
+const { rulesFromBNF } = rulesUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(lexicalPattern, rules) {
@@ -24,9 +24,8 @@ export default class CombinedCustomGrammar {
 
   static fromCustomGrammars(customGrammars) {
     const lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
-          rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars);
-
-    const combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
+          rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
+          combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
     
     return combinedCustomGrammar;
   }
@@ -74,12 +73,10 @@ function combineRules(rules) {
       length = rules.length;
 
   while (outerIndex < length) {
-    let outerRule = rules[outerIndex];
+    const outerRule = rules[outerIndex],
+          outerRuleName = outerRule.getName();
 
-    const outerRuleName = outerRule.getName(),
-          outerRuleAmbiguous = outerRule.isAmbiguous(),
-          outerRuleDefinitions = outerRule.getDefinitions(),
-          outerRuleNonTerminalNode = outerRule.getNonTerminalNode();
+    let outerRuleDefinitions = outerRule.getDefinitions();
 
     let innerIndex = outerIndex + 1;
 
@@ -88,29 +85,17 @@ function combineRules(rules) {
             innerRuleName = innerRule.getName();
 
       if (innerRuleName === outerRuleName) {
-        const innerRuleDefinitions = innerRule.getDefinitions(),
-              name = outerRuleName, ///
-              ambiguous = outerRuleAmbiguous, ///
-              definitions = [
-                ...innerRuleDefinitions,
-                ...outerRuleDefinitions
-              ],
-              NonTerminalNode = outerRuleNonTerminalNode; ///
+        const innerRuleDefinitions = innerRule.getDefinitions();
 
-        const { constructor: Rule } = outerRule,
-              rule = new Rule(name, ambiguous, definitions, NonTerminalNode);
+        outerRuleDefinitions = [  ///
+          ...innerRuleDefinitions,
+          ...outerRuleDefinitions
+        ];
 
-        let start;
+        outerRule.replaceAllDefinitions(...outerRuleDefinitions);
 
-        const deleteCount = 1;
-
-        start = outerIndex; ///
-
-        outerRule = rule; ///
-
-        rules.splice(start, deleteCount, outerRule);
-
-        start = innerIndex; ///
+        const start = innerIndex, ///
+              deleteCount = 1;
 
         rules.splice(start, deleteCount);
 
