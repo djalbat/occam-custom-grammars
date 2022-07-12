@@ -1,12 +1,12 @@
 "use strict";
 
-import { rulesUtilities } from "occam-grammar-utilities";
+import { parserUtilities } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { EMPTY_STRING } from "./constants";
 
-const { rulesFromBNF } = rulesUtilities;
+const { rulesFromBNF } = parserUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(lexicalPattern, rules) {

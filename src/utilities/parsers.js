@@ -1,10 +1,9 @@
 "use strict";
 
 import { FlorenceParser } from "occam-grammars";
-import { rulesUtilities, parserUtilities } from "occam-grammar-utilities";
+import { parserUtilities } from "occam-grammar-utilities";
 
-const { rulesFromBNF } = rulesUtilities,
-      { parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
+const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
 
 export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
