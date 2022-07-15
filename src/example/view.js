@@ -28,7 +28,7 @@ const { rulesAsString } = rulesUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
 
 class View extends Element {
-  keyUpHandler() {
+  keyUpHandler = (event, element) => {
     try {
       const name = this.getName();
 
@@ -89,7 +89,7 @@ class View extends Element {
     }
   }
 
-  changeHandler() {
+  changeHandler = (event, element) => {
     let readOnly, customGrammar;
 
     const name = this.getName(),
