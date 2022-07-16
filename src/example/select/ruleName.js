@@ -2,7 +2,7 @@
 
 import Select from "../select";
 
-import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME }  from "../../ruleNames";
+import { TYPE_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME }  from "../../ruleNames";
 
 export default class RuleNameSelect extends Select {
   getRuleName() {
@@ -13,17 +13,22 @@ export default class RuleNameSelect extends Select {
   }
 
   childElements() {
-    const termName = TERM_RULE_NAME,
-          termValue = termName, ///
+    const typeName = TYPE_RULE_NAME,
+          termName = TERM_RULE_NAME,
           expressionName = EXPRESSION_RULE_NAME,
-          expressionValue = expressionName, ///
           statementName = STATEMENT_RULE_NAME,
-          statementValue = statementName, ///
           metastatementName = METASTATEMENT_RULE_NAME,
+          typeValue = typeName, ///
+          termValue = termName, ///
+          expressionValue = expressionName, ///
+          statementValue = statementName, ///
           metastatementValue = metastatementName; ///
 
     return ([
 
+      <option value={typeValue} selected >
+        {typeName}
+      </option>,
       <option value={termValue} selected >
         {termName}
       </option>,
