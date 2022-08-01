@@ -4,52 +4,69 @@ import { parserUtilities } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
-import { EMPTY_STRING } from "./constants";
+import { EMPTY_STRING, VERTICAL_BAR } from "./constants";
+import { TYPE_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
 
 const { rulesFromBNF } = parserUtilities;
 
 export default class CombinedCustomGrammar {
-  constructor(lexicalPattern, rules) {
-    this.lexicalPattern = lexicalPattern;
+  constructor(rules, patternMap) {
     this.rules = rules;
+    this.patternMap = patternMap;
   }
   
-  getLexicalPattern() {
-    return this.lexicalPattern;
-  }
-
   getRules() {
     return this.rules;
   }
 
+  getPatternMap() {
+    return this.patternMap;
+  }
+
   static fromCustomGrammars(customGrammars) {
-    const lexicalPattern = lexicalPatternFromCustomGrammars(customGrammars),
-          rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          combinedCustomGrammar = new CombinedCustomGrammar(lexicalPattern, rules);
+    const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
+          patternMap = patternMapFromCustomGrammars(customGrammars),
+          combinedCustomGrammar = new CombinedCustomGrammar(rules, patternMap);
     
     return combinedCustomGrammar;
   }
 }
 
-function lexicalPatternFromCustomGrammars(customGrammars) {
+function patternFromCustomGrammars(customGrammars, patternName) {
   customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
 
-  const lexicalPatterns = customGrammars.reduce((lexicalPatterns, customGrammar) => {
-          const lexicalPattern = customGrammar.getLexicalPattern();
+  const patterns = customGrammars.reduce((patterns, customGrammar) => {
+    const pattern = customGrammar.getPattern(patternName);
 
-          if (lexicalPattern) {  ///
-            lexicalPatterns.push(lexicalPattern);
-          }
+    if (pattern) {  ///
+      patterns.push(pattern);
+    }
 
-          return lexicalPatterns;
-        }, []);
+    return patterns;
+  }, []);
 
-  lexicalPatterns.reverse();
+  patterns.reverse();
 
-  const lexicalPatternsString = lexicalPatterns.join("|"), ///
-        lexicalPattern = `^(?:${lexicalPatternsString})`;
+  const patternsString = patterns.join(VERTICAL_BAR), ///
+        pattern = `^(?:${patternsString})`;
 
-  return lexicalPattern;
+  return pattern;
+}
+
+function patternMapFromCustomGrammars(customGrammars) {
+  const patternNames = [
+          TYPE_PATTERN_NAME,
+          OPERATOR_PATTERN_NAME
+        ],
+        patternMap = patternNames.reduce((patternMap, patternName) => {
+          const pattern = patternFromCustomGrammars(customGrammars, patternName);
+
+          patternMap[patternName] = pattern;
+
+          return patternMap;
+        }, {});
+
+  return patternMap;
 }
 
 function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {

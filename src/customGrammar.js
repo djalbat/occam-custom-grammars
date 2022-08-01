@@ -1,14 +1,8 @@
 "use strict";
 
 import { EMPTY_STRING } from "./constants";
+import { TYPE_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
 import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
-
-const ruleNames = [
-  TERM_RULE_NAME,
-  EXPRESSION_RULE_NAME,
-  STATEMENT_RULE_NAME,
-  METASTATEMENT_RULE_NAME
-];
 
 export default class CustomGrammar {
   constructor(name, typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
@@ -25,14 +19,6 @@ export default class CustomGrammar {
     return this.name;
   }
 
-  getTypePattern() {
-    return this.typePattern;
-  }
-
-  getOperatorPattern() {
-    return this.operatorPattern;
-  }
-
   getBNF(ruleName = null) {
     let bnf;
 
@@ -43,10 +29,16 @@ export default class CustomGrammar {
       case METASTATEMENT_RULE_NAME: bnf = this.metastatementBNF; break;
 
       default: {
-        const combinedBNF = ruleNames.reduce((combinedBNF, ruleName) => {
+        const ruleNames = [
+                TERM_RULE_NAME,
+                EXPRESSION_RULE_NAME,
+                STATEMENT_RULE_NAME,
+                METASTATEMENT_RULE_NAME
+              ],
+              combinedBNF = ruleNames.reduce((combinedBNF, ruleName) => {
           const bnf = this.getBNF(ruleName);
 
-          if (bnf !== null) {
+          if (bnf !== EMPTY_STRING) {
             combinedBNF = `${combinedBNF}
             
 ${bnf}`;
@@ -64,16 +56,28 @@ ${bnf}`;
     return bnf;
   }
 
+  getPattern(patternName) {
+    let pattern;
+
+    switch (patternName) {
+      case TYPE_PATTERN_NAME: pattern = this.typePattern; break;
+      case OPERATOR_PATTERN_NAME: pattern = this.operatorPattern; break;
+    }
+
+    return pattern;
+  }
+
+  getPatterns() {
+    const patterns = [
+      this.typePattern,
+      this.operatorPattern
+    ];
+
+    return patterns;
+  }
+
   setName(name) {
     this.name = name;
-  }
-
-  setTypePattern(typePattern) {
-    this.typePattern = typePattern;
-  }
-
-  setOperatorPattern(operatorPattern) {
-    this.operatorPattern = operatorPattern;
   }
 
   setBNF(ruleName, bnf) {
@@ -100,30 +104,36 @@ ${bnf}`;
     }
   }
 
-  resetTypePattern() {
-    const typePattern = null;
-    
-    this.setTypePattern(typePattern);
-  }
+  setPattern(patternName, pattern) {
+    switch (patternName) {
+      case TYPE_PATTERN_NAME:
+        this.typePattern = pattern;
 
-  resetOperatorPattern() {
-    const operatorPattern = null;
+        break;
 
-    this.setOperatorPattern(operatorPattern);
+      case OPERATOR_PATTERN_NAME:
+        this.operatorPattern = pattern;
+
+        break;
+    }
   }
 
   resetBNF(ruleName) {
-    const bnf = null;
+    const bnf = EMPTY_STRING;
 
     this.setBNF(ruleName, bnf);
   }
 
-  update(ruleName, bnf, typePattern, operatorPattern) {
+  resetPattern(patternName) {
+    const pattern = EMPTY_STRING;
+
+    this.setPattern(patternName, pattern);
+  }
+
+  update(ruleName, bnf, patternName, pattern) {
     this.setBNF(ruleName, bnf);
 
-    this.setTypePattern(typePattern);
-
-    this.setOperatorPattern(operatorPattern);
+    this.setPattern(patternName, pattern);
   }
 
   toJSON() {
@@ -155,12 +165,12 @@ ${bnf}`;
   }
 
   static fromName(name) {
-    const typePattern = null,
-          operatorPattern = null,
-          termBNF = null,
-          expressionBNF = null,
-          statementBNF = null,
-          metastatementBNF = null,
+    const typePattern = EMPTY_STRING,
+          operatorPattern = EMPTY_STRING,
+          termBNF = EMPTY_STRING,
+          expressionBNF = EMPTY_STRING,
+          statementBNF = EMPTY_STRING,
+          metastatementBNF = EMPTY_STRING,
           customGrammar = new CustomGrammar(name, typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
     return customGrammar;
