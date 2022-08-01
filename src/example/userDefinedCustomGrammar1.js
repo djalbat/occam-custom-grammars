@@ -5,7 +5,8 @@ import { CustomGrammar } from "../index"; ///
 import { USER_DEFINED_CUSTOM_GRAMMAR_NAME_1 } from "../grammarNames";
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
-      lexicalPattern = ``,
+      typePattern = "",
+      operatorPattern = "",
       typeBNF = `type ::= _ ;`,
       termBNF = `term ::= _ ;`,
       expressionBNF = `expression ::= arithmeticExpression ;
@@ -19,7 +20,8 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
       metastatementBNF = `subproof ::= _ ;`,
       json = {
         name,
-        lexicalPattern,
+        typePattern,
+        operatorPattern,
         typeBNF,
         termBNF,
         expressionBNF,

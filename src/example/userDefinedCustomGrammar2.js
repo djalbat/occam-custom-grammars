@@ -5,16 +5,16 @@ import { CustomGrammar } from "../index"; ///
 import { USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
-      lexicalPattern = ``,
-      typeBNF = `type ::= _ ;`,
+      typePattern = "",
+      operatorPattern = "",
       termBNF = `term ::= _ ;`,
       expressionBNF = `arithmeticExpression ::= arithmeticExpression "+" arithmeticExpression ;`,
       statementBNF = ``,
       metastatementBNF = ``,
       json = {
         name,
-        lexicalPattern,
-        typeBNF,
+        typePattern,
+        operatorPattern,
         termBNF,
         expressionBNF,
         statementBNF,

@@ -1,10 +1,9 @@
 "use strict";
 
 import { EMPTY_STRING } from "./constants";
-import { TYPE_RULE_NAME, TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
+import { TERM_RULE_NAME, EXPRESSION_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME } from "./ruleNames";
 
 const ruleNames = [
-  TYPE_RULE_NAME,
   TERM_RULE_NAME,
   EXPRESSION_RULE_NAME,
   STATEMENT_RULE_NAME,
@@ -12,10 +11,10 @@ const ruleNames = [
 ];
 
 export default class CustomGrammar {
-  constructor(name, lexicalPattern, typeBNF, termBNF, expressionBNF, statementBNF, metastatementBNF) {
+  constructor(name, typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF) {
     this.name = name;
-    this.lexicalPattern = lexicalPattern;
-    this.typeBNF = typeBNF;
+    this.typePattern = typePattern;
+    this.operatorPattern = operatorPattern;
     this.termBNF = termBNF;
     this.expressionBNF = expressionBNF;
     this.statementBNF = statementBNF;
@@ -26,15 +25,18 @@ export default class CustomGrammar {
     return this.name;
   }
 
-  getLexicalPattern() {
-    return this.lexicalPattern;
+  getTypePattern() {
+    return this.typePattern;
+  }
+
+  getOperatorPattern() {
+    return this.operatorPattern;
   }
 
   getBNF(ruleName = null) {
     let bnf;
 
     switch (ruleName) {
-      case TYPE_RULE_NAME: bnf = this.typeBNF; break;
       case TERM_RULE_NAME: bnf = this.termBNF; break;
       case EXPRESSION_RULE_NAME: bnf = this.expressionBNF; break;
       case STATEMENT_RULE_NAME: bnf = this.statementBNF; break;
@@ -66,17 +68,16 @@ ${bnf}`;
     this.name = name;
   }
 
-  setLexicalPattern(lexicalPattern) {
-    this.lexicalPattern = lexicalPattern;
+  setTypePattern(typePattern) {
+    this.typePattern = typePattern;
+  }
+
+  setOperatorPattern(operatorPattern) {
+    this.operatorPattern = operatorPattern;
   }
 
   setBNF(ruleName, bnf) {
     switch (ruleName) {
-      case TYPE_RULE_NAME:
-        this.typeBNF = bnf;
-
-        break;
-
       case TERM_RULE_NAME:
         this.termBNF = bnf;
 
@@ -99,10 +100,16 @@ ${bnf}`;
     }
   }
 
-  resetLexicalPattern() { 
-    const lexicalPattern = null;
+  resetTypePattern() {
+    const typePattern = null;
     
-    this.setLexicalPattern(lexicalPattern);
+    this.setTypePattern(typePattern);
+  }
+
+  resetOperatorPattern() {
+    const operatorPattern = null;
+
+    this.setOperatorPattern(operatorPattern);
   }
 
   resetBNF(ruleName) {
@@ -111,23 +118,26 @@ ${bnf}`;
     this.setBNF(ruleName, bnf);
   }
 
-  update(ruleName, bnf, lexicalPattern) {
+  update(ruleName, bnf, typePattern, operatorPattern) {
     this.setBNF(ruleName, bnf);
-    this.setLexicalPattern(lexicalPattern);
+
+    this.setTypePattern(typePattern);
+
+    this.setOperatorPattern(operatorPattern);
   }
 
   toJSON() {
     const name = this.name,
-          lexicalPattern = this.lexicalPattern,
-          typeBNF = this.typeBNF,
+          typePattern = this.typePattern,
+          operatorPattern = this.operatorPattern,
           termBNF = this.termBNF,
           expressionBNF = this.expressionBNF,
           statementBNF = this.statementBNF,
           metastatementBNF = this.metastatementBNF,
           json = {
             name,
-            lexicalPattern,
-            typeBNF,
+            typePattern,
+            operatorPattern,
             termBNF,
             expressionBNF,
             statementBNF,
@@ -138,20 +148,20 @@ ${bnf}`;
   }
 
   static fromJSON(json) {
-    const { name, lexicalPattern, typeBNF, termBNF, expressionBNF, statementBNF, metastatementBNF } = json,
-          customGrammar = new CustomGrammar(name, lexicalPattern, typeBNF, termBNF, expressionBNF, statementBNF, metastatementBNF);
+    const { name, typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF } = json,
+          customGrammar = new CustomGrammar(name, typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
     return customGrammar;
   }
 
   static fromName(name) {
-    const lexicalPattern = null,
-          typeBNF = null,
+    const typePattern = null,
+          operatorPattern = null,
           termBNF = null,
           expressionBNF = null,
           statementBNF = null,
           metastatementBNF = null,
-          customGrammar = new CustomGrammar(name, lexicalPattern, typeBNF, termBNF, expressionBNF, statementBNF, metastatementBNF);
+          customGrammar = new CustomGrammar(name, typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF);
 
     return customGrammar;
   }

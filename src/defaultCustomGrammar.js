@@ -6,13 +6,13 @@ import CustomGrammar from "./customGrammar";
 
 import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
 
-const { lexicalPattern, typeBNF, termBNF, expressionBNF, statementBNF, metastatementBNF } = defaultCustomGrammar;
+const { typePattern, operatorPattern, termBNF, expressionBNF, statementBNF, metastatementBNF } = defaultCustomGrammar;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
         name,
-        lexicalPattern,
-        typeBNF,
+        typePattern,
+        operatorPattern,
         termBNF,
         expressionBNF,
         statementBNF,

@@ -13,10 +13,11 @@ import SizeableDiv from "./div/sizeable";
 import BNFTextarea from "./textarea/bnf";
 import RuleNameSelect from "./select/ruleName";
 import ContentTextarea from "./textarea/content";
+import TypePatternInput from "./input/typePattern";
 import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
-import LexicalPatternInput from "./input/lexicalPattern";
 import FlorenceBNFTextarea from "./textarea/florenceBNF";
+import OperatorPatternInput from "./input/operatorPattern";
 import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
 import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
@@ -35,21 +36,27 @@ class View extends Element {
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
         const bnf = this.getBNF(),
               ruleName = this.getRuleName(),
-              lexicalPattern = this.getLexicalPattern();
+              typePattern = this.getTypePattern(),
+              operatorPattern = this.getOperatorPattern();
 
         userDefinedCustomGrammar1.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar1.setLexicalPattern(lexicalPattern);
+        userDefinedCustomGrammar1.setTypePattern(typePattern);
+
+        userDefinedCustomGrammar1.setOperatorPattern(operatorPattern);
       }
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
         const bnf = this.getBNF(),
               ruleName = this.getRuleName(),
-              lexicalPattern = this.getLexicalPattern();
+              typePattern = this.getTypePattern(),
+              operatorPattern = this.getOperatorPattern();
 
         userDefinedCustomGrammar2.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar2.setLexicalPattern(lexicalPattern);
+        userDefinedCustomGrammar2.setTypePattern(typePattern);
+
+        userDefinedCustomGrammar2.setOperatorPattern(operatorPattern);
       }
 
       const customGrammars = [
@@ -116,15 +123,20 @@ class View extends Element {
     }
 
     const bnf = customGrammar.getBNF(ruleName),
-          lexicalPattern = customGrammar.getLexicalPattern();
+          typePattern = customGrammar.getTypePattern(),
+          operatorPattern = customGrammar.getOperatorPattern();
 
     this.setBNF(bnf);
 
     this.setBNFReadOnly(readOnly);
 
-    this.setLexicalPattern(lexicalPattern);
+    this.setTypePattern(typePattern);
 
-    this.setLexicalPatternReadOnly(readOnly);
+    this.setOperatorPattern(operatorPattern);
+
+    this.setTypePatternReadOnly(readOnly);
+
+    this.setOperatorPatternReadOnly(readOnly);
   }
 
   childElements() {
@@ -145,9 +157,13 @@ class View extends Element {
             </SubHeading>
             <RuleNameSelect onChange={changeHandler} />
             <SubHeading>
-              Lexical pattern
+              Type pattern
             </SubHeading>
-            <LexicalPatternInput onKeyUp={keyUpHandler} />
+            <TypePatternInput onKeyUp={keyUpHandler} />
+            <SubHeading>
+              Operator pattern
+            </SubHeading>
+            <OperatorPatternInput onKeyUp={keyUpHandler} />
             <SubHeading>
               BNF
             </SubHeading>
