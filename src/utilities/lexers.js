@@ -24,19 +24,18 @@ export default {
 };
 
 function rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
-  const combinedCustomGrammarLexicalPattern = combinedCustomGrammar.getLexicalPattern(),
-        custom = combinedCustomGrammarLexicalPattern, ///
-        customGrammarEntry = {
-          custom
-        },
-        customGrammarRule =  Rule.fromEntry(customGrammarEntry),
-        rules = entries.map((entry) => {
+  const customGrammarEntries = combinedCustomGrammar.getEntries();
+
+  entries = [ ///
+    ...customGrammarEntries,
+    ...entries
+  ];
+
+  const rules = entries.map((entry) => {
           const rule = Rule.fromEntry(entry);
 
           return rule;
         });
-
-  rules.unshift(customGrammarRule);
 
   return rules;
 }

@@ -38,7 +38,7 @@ function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
 
   const combinedCustomGrammarRules = combinedCustomGrammar.getRules();
 
-  rules = [
+  rules = [ ///
     ...rules,
     ...combinedCustomGrammarRules
   ];

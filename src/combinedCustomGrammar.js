@@ -10,29 +10,29 @@ import { TYPE_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
 const { rulesFromBNF } = parserUtilities;
 
 export default class CombinedCustomGrammar {
-  constructor(rules, patternMap) {
+  constructor(rules, entries) {
     this.rules = rules;
-    this.patternMap = patternMap;
+    this.entries = entries;
   }
   
   getRules() {
     return this.rules;
   }
 
-  getPatternMap() {
-    return this.patternMap;
+  getEntries() {
+    return this.entries;
   }
 
   static fromCustomGrammars(customGrammars) {
     const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
-          patternMap = patternMapFromCustomGrammars(customGrammars),
-          combinedCustomGrammar = new CombinedCustomGrammar(rules, patternMap);
+          entries = entriesFromCustomGrammars(customGrammars),
+          combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
     
     return combinedCustomGrammar;
   }
 }
 
-function patternFromCustomGrammars(customGrammars, patternName) {
+function entryFromCustomGrammars(customGrammars, patternName) {
   customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
 
   const patterns = customGrammars.reduce((patterns, customGrammar) => {
@@ -50,23 +50,25 @@ function patternFromCustomGrammars(customGrammars, patternName) {
   const patternsString = patterns.join(VERTICAL_BAR), ///
         pattern = `^(?:${patternsString})`;
 
-  return pattern;
+  const entry = {};
+
+  entry[patternName] = pattern;
+
+  return entry;
 }
 
-function patternMapFromCustomGrammars(customGrammars) {
+function entriesFromCustomGrammars(customGrammars) {
   const patternNames = [
           TYPE_PATTERN_NAME,
           OPERATOR_PATTERN_NAME
         ],
-        patternMap = patternNames.reduce((patternMap, patternName) => {
-          const pattern = patternFromCustomGrammars(customGrammars, patternName);
+        entries = patternNames.map((patternName) => {
+          const entry = entryFromCustomGrammars(customGrammars, patternName);
 
-          patternMap[patternName] = pattern;
+          return entry;
+       });
 
-          return patternMap;
-        }, {});
-
-  return patternMap;
+  return entries;
 }
 
 function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
