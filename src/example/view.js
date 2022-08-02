@@ -181,11 +181,7 @@ class View extends Element {
     this.keyUpHandler();
   }
 
-  static initialContent = `Rule (Explosion)
-  Conclusion
-    ρ |- R::S
-  
-`;
+  static initialContent = `Integer`;
 
   static tagName = "div";
 

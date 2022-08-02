@@ -49,7 +49,7 @@ function entryFromCustomGrammars(customGrammars, patternName) {
 
   const patternsString = patterns.join(VERTICAL_BAR), ///
         pattern = (patternName === TYPE_PATTERN_NAME) ?
-                    `^(?:${patternsString})\b` :
+                    `^(?:${patternsString})\\b` :
                       `^(?:${patternsString})`;
 
   const entry = {};

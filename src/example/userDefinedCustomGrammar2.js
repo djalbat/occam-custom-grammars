@@ -7,8 +7,8 @@ import { USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
       typePattern = "",
       operatorPattern = "",
-      termBNF = `term ::= _ ;`,
-      expressionBNF = `arithmeticExpression ::= arithmeticExpression "+" arithmeticExpression ;`,
+      termBNF = ``,
+      expressionBNF = ``,
       statementBNF = ``,
       metastatementBNF = ``,
       json = {
