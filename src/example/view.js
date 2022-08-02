@@ -11,13 +11,13 @@ import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
 import SizeableDiv from "./div/sizeable";
 import BNFTextarea from "./textarea/bnf";
+import PatternInput from "./input/pattern";
 import RuleNameSelect from "./select/ruleName";
 import ContentTextarea from "./textarea/content";
-import TypePatternInput from "./input/typePattern";
+import PatternNameSelect from "./select/patternName";
 import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
 import FlorenceBNFTextarea from "./textarea/florenceBNF";
-import OperatorPatternInput from "./input/operatorPattern";
 import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
 import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
@@ -31,32 +31,20 @@ const { rulesAsString } = rulesUtilities,
 class View extends Element {
   keyUpHandler = (event, element) => {
     try {
-      const name = this.getName();
+      const name = this.getName(),
+            bnf = this.getBNF(),
+            pattern = this.getPattern(),
+            ruleName = this.getRuleName(),
+            patternName = this.getPatternName();
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
-        const bnf = this.getBNF(),
-              ruleName = this.getRuleName(),
-              typePattern = this.getTypePattern(),
-              operatorPattern = this.getOperatorPattern();
-
         userDefinedCustomGrammar1.setBNF(ruleName, bnf);
-
-        userDefinedCustomGrammar1.setTypePattern(typePattern);
-
-        userDefinedCustomGrammar1.setOperatorPattern(operatorPattern);
+        userDefinedCustomGrammar1.setPattern(patternName, pattern);
       }
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
-        const bnf = this.getBNF(),
-              ruleName = this.getRuleName(),
-              typePattern = this.getTypePattern(),
-              operatorPattern = this.getOperatorPattern();
-
         userDefinedCustomGrammar2.setBNF(ruleName, bnf);
-
-        userDefinedCustomGrammar2.setTypePattern(typePattern);
-
-        userDefinedCustomGrammar2.setOperatorPattern(operatorPattern);
+        userDefinedCustomGrammar2.setPattern(patternName, pattern);
       }
 
       const customGrammars = [
@@ -97,46 +85,35 @@ class View extends Element {
   }
 
   changeHandler = (event, element) => {
-    let readOnly, customGrammar;
+    let customGrammar;
 
     const name = this.getName(),
-          ruleName = this.getRuleName();
+          ruleName = this.getRuleName(),
+          patternName = this.getPatternName();
 
     switch (name) {
       case DEFAULT_CUSTOM_GRAMMAR_NAME:
-        readOnly = true;
         customGrammar = defaultCustomGrammar;
 
         break;
 
       case USER_DEFINED_CUSTOM_GRAMMAR_NAME_1:
-        readOnly = false;
         customGrammar = userDefinedCustomGrammar1;
 
         break;
 
       case USER_DEFINED_CUSTOM_GRAMMAR_NAME_2:
-        readOnly = false;
         customGrammar = userDefinedCustomGrammar2;
 
         break;
     }
 
     const bnf = customGrammar.getBNF(ruleName),
-          typePattern = customGrammar.getTypePattern(),
-          operatorPattern = customGrammar.getOperatorPattern();
+          pattern = customGrammar.getPattern(patternName);
 
     this.setBNF(bnf);
 
-    this.setBNFReadOnly(readOnly);
-
-    this.setTypePattern(typePattern);
-
-    this.setOperatorPattern(operatorPattern);
-
-    this.setTypePatternReadOnly(readOnly);
-
-    this.setOperatorPatternReadOnly(readOnly);
+    this.setPattern(pattern);
   }
 
   childElements() {
@@ -149,27 +126,21 @@ class View extends Element {
         <SizeableDiv>
           <RowsDiv>
             <SubHeading>
-              Name
+              Custom grammar
             </SubHeading>
             <NameSelect onChange={changeHandler} />
             <SubHeading>
-              Rule name
-            </SubHeading>
-            <RuleNameSelect onChange={changeHandler} />
-            <SubHeading>
-              Type pattern
-            </SubHeading>
-            <TypePatternInput onKeyUp={keyUpHandler} />
-            <SubHeading>
-              Operator pattern
-            </SubHeading>
-            <OperatorPatternInput onKeyUp={keyUpHandler} />
-            <SubHeading>
               BNF
             </SubHeading>
+            <RuleNameSelect onChange={changeHandler} />
             <BNFTextarea onKeyUp={keyUpHandler} />
             <SubHeading>
-              Start rule name
+              Pattern
+            </SubHeading>
+            <PatternNameSelect onChange={changeHandler} />
+            <PatternInput onKeyUp={keyUpHandler} />
+            <SubHeading>
+              Start rule
             </SubHeading>
             <StartRuleNameInput onKeyUp={keyUpHandler} />
           </RowsDiv>

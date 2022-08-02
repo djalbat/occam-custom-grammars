@@ -18,13 +18,11 @@ export default class BNFTextarea extends Textarea {
 
   parentContext() {
     const getBNF = this.getBNF.bind(this),
-          setBNF = this.setBNF.bind(this),
-          setBNFReadOnly = this.setReadOnly.bind(this);
+          setBNF = this.setBNF.bind(this);
 
     return ({
       getBNF,
-      setBNF,
-      setBNFReadOnly
+      setBNF
     });
   }
 

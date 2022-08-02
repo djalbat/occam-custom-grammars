@@ -10,5 +10,10 @@ export default withStyle(Select)`
   padding: 0.25rem;
   font-size: 1.2rem;
   font-family: monospace;
+  margin-bottom: 0.8rem;
+  
+  :last-child {
+    margin-bottom: 0;
+  }
 
 `;
