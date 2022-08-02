@@ -48,7 +48,7 @@ function entryFromCustomGrammars(customGrammars, patternName) {
   patterns.reverse();
 
   const patternsString = patterns.join(VERTICAL_BAR), ///
-        pattern = `^(?:${patternsString})`;
+        pattern = `^(?:${patternsString})\b`;
 
   const entry = {};
 
