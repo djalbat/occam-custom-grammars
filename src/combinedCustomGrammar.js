@@ -1,6 +1,6 @@
 "use strict";
 
-import { parserUtilities } from "occam-grammar-utilities";
+import { parserUtilities } from "occam-parsers";
 
 import defaultCustomGrammar from "./defaultCustomGrammar";
 

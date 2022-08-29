@@ -1,7 +1,7 @@
 "use strict";
 
 import { FlorenceParser } from "occam-grammars";
-import { parserUtilities } from "occam-grammar-utilities";
+import { parserUtilities, eliminateLeftRecursion } from "occam-grammar-utilities";
 
 const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
 
@@ -42,6 +42,8 @@ function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
     ...rules,
     ...combinedCustomGrammarRules
   ];
+
+  rules = eliminateLeftRecursion(rules);  ///
 
   return rules;
 }
