@@ -1,7 +1,9 @@
 "use strict";
 
-import { Rule } from "occam-lexers";
+import { lexerUtilities } from "occam-lexers";
 import { FlorenceLexer } from "occam-grammars";
+
+const { rulesFromEntries } = lexerUtilities;
 
 export function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = FlorenceLexer,
@@ -31,11 +33,7 @@ function rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar
     ...entries
   ];
 
-  const rules = entries.map((entry) => {
-          const rule = Rule.fromEntry(entry);
-
-          return rule;
-        });
+  const rules = rulesFromEntries(entries);
 
   return rules;
 }
