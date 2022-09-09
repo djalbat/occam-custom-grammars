@@ -59,39 +59,9 @@ function entryFromCustomGrammars(customGrammars, patternName) {
   return entry;
 }
 
-function entriesFromCustomGrammars(customGrammars) {
-  const patternNames = [
-          TYPE_PATTERN_NAME,
-          OPERATOR_PATTERN_NAME
-        ],
-        entries = patternNames.map((patternName) => {
-          const entry = entryFromCustomGrammars(customGrammars, patternName);
-
-          return entry;
-       });
-
-  return entries;
-}
-
-function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
-  customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
-
-  const bnfs = customGrammars.map((customGrammar) => {
-          const bnf = customGrammar.getBNF();
-
-          return bnf;
-        }),
-        bnf = bnfs.join(EMPTY_STRING),
-        rules = rulesFromBNF(bnf);
-
-  combineRules(rules)
-
-  return rules;
-}
-
 function combineRules(rules) {
   let outerIndex = 0,
-      length = rules.length;
+        length = rules.length;
 
   while (outerIndex < length) {
     const outerRule = rules[outerIndex],
@@ -130,4 +100,34 @@ function combineRules(rules) {
 
     length = rules.length;
   }
+}
+
+function entriesFromCustomGrammars(customGrammars) {
+  const patternNames = [
+          TYPE_PATTERN_NAME,
+          OPERATOR_PATTERN_NAME
+        ],
+        entries = patternNames.map((patternName) => {
+          const entry = entryFromCustomGrammars(customGrammars, patternName);
+
+          return entry;
+       });
+
+  return entries;
+}
+
+function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
+  customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+
+  const bnfs = customGrammars.map((customGrammar) => {
+          const bnf = customGrammar.getBNF();
+
+          return bnf;
+        }),
+        bnf = bnfs.join(EMPTY_STRING),
+        rules = rulesFromBNF(bnf);
+
+  combineRules(rules)
+
+  return rules;
 }
