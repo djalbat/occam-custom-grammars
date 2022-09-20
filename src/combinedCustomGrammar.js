@@ -5,7 +5,7 @@ import { parserUtilities } from "occam-parsers";
 import defaultCustomGrammar from "./defaultCustomGrammar";
 
 import { EMPTY_STRING, VERTICAL_BAR } from "./constants";
-import { TYPE_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
+import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
 
 const { rulesFromBNF } = parserUtilities;
 
@@ -51,6 +51,7 @@ function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
 function entriesFromCustomGrammars(customGrammars) {
   const patternNames = [
           TYPE_PATTERN_NAME,
+          SYMBOL_PATTERN_NAME,
           OPERATOR_PATTERN_NAME
         ],
         entries = patternNames.map((patternName) => {
@@ -76,7 +77,7 @@ function entryFromCustomGrammars(customGrammars, patternName) {
   patterns.reverse();
 
   const patternsString = patterns.join(VERTICAL_BAR), ///
-        pattern = (patternName === TYPE_PATTERN_NAME) ?
+        pattern = ((patternName === TYPE_PATTERN_NAME) || (patternName === SYMBOL_PATTERN_NAME))?
                    `^(?:${patternsString})\\b` :
                      `^(?:${patternsString})`;
 
