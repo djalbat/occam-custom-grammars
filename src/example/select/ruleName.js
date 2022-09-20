@@ -13,26 +13,28 @@ export default class RuleNameSelect extends Select {
   }
 
   childElements() {
-    const termName = TERM_RULE_NAME,
-          statementName = STATEMENT_RULE_NAME,
-          metastatementName = METASTATEMENT_RULE_NAME,
-          termValue = termName, ///
-          statementValue = statementName, ///
-          metastatementValue = metastatementName; ///
+    const ruleNames = [
+            TERM_RULE_NAME,
+            STATEMENT_RULE_NAME,
+            METASTATEMENT_RULE_NAME
+          ],
+          options = ruleNames.map((ruleName, index) => {
+            const value = ruleName,
+                  selected = (index === 2);
 
-    return ([
+            return (
 
-      <option value={termValue} selected >
-        {termName}
-      </option>,
-      <option value={statementValue}>
-        {statementName}
-      </option>,
-      <option value={metastatementValue}>
-        {metastatementName}
-      </option>
+              <option value={value} selected={selected} >
+                {ruleName}
+              </option>
 
-    ]);
+            );
+          }),
+          childElements = [
+            ...options
+          ];
+
+    return childElements;
   }
 
   parentContext() {

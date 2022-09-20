@@ -13,26 +13,28 @@ export default class NameSelect extends Select {
   }
 
   childElements() {
-    const defaultName = DEFAULT_CUSTOM_GRAMMAR_NAME,
-          userDefinedName1 = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
-          userDefinedName2 = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
-          defaultValue = defaultName, ///
-          userDefinedValue1 = userDefinedName1, ///
-          userDefinedValue2 = userDefinedName2; ///
+    const names = [
+            DEFAULT_CUSTOM_GRAMMAR_NAME,
+            USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
+            USER_DEFINED_CUSTOM_GRAMMAR_NAME_2
+          ],
+          options = names.map((name, index) => {
+            const value = name,
+                  selected = (index === 0);
 
-    return ([
+            return (
 
-      <option value={defaultValue} selected >
-        {defaultName}
-      </option>,
-      <option value={userDefinedValue1}>
-        {userDefinedName1}
-      </option>,
-      <option value={userDefinedValue2}>
-        {userDefinedName2}
-      </option>
+              <option value={value} selected={selected} >
+                {name}
+              </option>
 
-    ]);
+            );
+          }),
+          childElements = [
+            ...options
+          ];
+
+    return childElements;
   }
 
   parentContext() {

@@ -23,8 +23,10 @@ export default class CombinedCustomGrammar {
     return this.entries;
   }
 
-  static fromCustomGrammars(customGrammars, defaultCustomGrammar = defaultCustomGrammar) {
-    customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+  static fromCustomGrammars(customGrammars, includeDefault = true) {
+    if (includeDefault) {
+      customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+    }
 
     const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
