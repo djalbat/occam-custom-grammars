@@ -6,16 +6,17 @@ import CustomGrammar from "./customGrammar";
 
 import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
 
-const { typePattern, operatorPattern, termBNF, statementBNF, metastatementBNF } = defaultCustomGrammar;
+const { typePattern, symbolPatter, operatorPattern, termBNF, statementBNF, metastatementBNF } = defaultCustomGrammar;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
         name,
-        typePattern,
-        operatorPattern,
         termBNF,
         statementBNF,
-        metastatementBNF
+        metastatementBNF,
+        typePattern,
+        symbolPatter,
+        operatorPattern
       };
 
 export default CustomGrammar.fromJSON(json);  ///
