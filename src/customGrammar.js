@@ -175,4 +175,10 @@ ${bnf}`;
 
     return customGrammar;
   }
+
+  static fromNameTermBNFStatementBNFMetastatementBNFTypePatternSymbolPatternAndOperatorPattern(name, termBNF, statementBNF, metastatementBNF, typePattern, symbolPattern, operatorPattern) {
+    const customGrammar = new CustomGrammar(name, termBNF, statementBNF, metastatementBNF, typePattern, symbolPattern, operatorPattern);
+
+    return customGrammar;
+  }
 }
