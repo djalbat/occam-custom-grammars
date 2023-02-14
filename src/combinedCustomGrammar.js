@@ -23,6 +23,20 @@ export default class CombinedCustomGrammar {
     return this.entries;
   }
 
+  static fromNothing(includeDefault = true) {
+    let customGrammars = [];
+
+    if (includeDefault) {
+      customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+    }
+
+    const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
+          entries = entriesFromCustomGrammars(customGrammars),
+          combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
+
+    return combinedCustomGrammar;
+  }
+
   static fromCustomGrammars(customGrammars, includeDefault = true) {
     if (includeDefault) {
       customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///

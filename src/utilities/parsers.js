@@ -4,7 +4,18 @@ import { FlorenceParser } from "occam-grammars";
 import { parserUtilities } from "occam-parsers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
+import CombinedCustomGrammar from "../combinedCustomGrammar";
+
 const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
+
+export function florenceParserFromNothing() {
+  const { bnf } = FlorenceParser,
+        combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
+        rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
+        florenceParser = parserFromRules(FlorenceParser, rules);
+
+  return florenceParser;
+}
 
 export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { bnf } = FlorenceParser,
@@ -29,6 +40,7 @@ export function florenceParserFromBNFStartRuleNameAndCombinedCustomGrammar(bnf, 
 }
 
 export default {
+  florenceParserFromNothing,
   florenceParserFromCombinedCustomGrammar,
   florenceParserFromBNFAndCombinedCustomGrammar,
   florenceParserFromBNFStartRuleNameAndCombinedCustomGrammar
