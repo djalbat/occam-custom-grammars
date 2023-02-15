@@ -49,12 +49,12 @@ judgement                            ::=   reference "::" metastatement ;`;
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
         name,
-        termBNF,
-        statementBNF,
-        metastatementBNF,
         typePattern,
         symbolPattern,
-        operatorPattern
+        operatorPattern,
+        termBNF,
+        statementBNF,
+        metastatementBNF
       };
 
 const defaultCustomGrammar = CustomGrammar.fromJSON(json);
