@@ -28,9 +28,7 @@ export const statementBNF = `statement!                           ::=   "(" meta
 
 typeInference                        ::=   statement "|-" typeAssertion ;
 
-typeAssertion                        ::=   term ":" type ;
-
-substitution                         ::=   "[" term "for" variable "]" ;`;
+typeAssertion                        ::=   term ":" type ;`;
 
 export const metastatementBNF = `metastatement!                       ::=   "(" metastatement ")" 
            
@@ -40,7 +38,7 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable 
+                                       |   metavariable substitution?
 
                                        |   variable "undefined"
 
