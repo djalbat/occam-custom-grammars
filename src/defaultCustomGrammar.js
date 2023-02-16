@@ -14,7 +14,11 @@ export const termBNF = `term!                                ::=   variable ;`;
 
 export const statementBNF = `statement!                           ::=   "(" metaArgument ")" 
                                                   
+                                       |   statement substitution
+
                                        |   argument "=" argument
+
+                                       |   variable "undefined"
 
                                        |   typeInference
 
@@ -24,7 +28,9 @@ export const statementBNF = `statement!                           ::=   "(" meta
 
 typeInference                        ::=   statement "|-" typeAssertion ;
 
-typeAssertion                        ::=   term ":" type ;`;
+typeAssertion                        ::=   term ":" type ;
+
+substitution                         ::=   "[" term "for" variable "]" ;`;
 
 export const metastatementBNF = `metastatement!                       ::=   "(" metastatement ")" 
            
