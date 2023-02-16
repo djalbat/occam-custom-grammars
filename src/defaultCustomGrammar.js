@@ -42,6 +42,8 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
        
                                        |   metavariable 
 
+                                       |   variable "undefined"
+
                                        ;
 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
