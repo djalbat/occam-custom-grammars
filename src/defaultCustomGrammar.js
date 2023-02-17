@@ -16,14 +16,12 @@ export const statementBNF = `statement!                           ::=   "(" meta
                                                   
                                        |   argument "=" argument
 
-                                       |   statement "contains" variable
-
-                                       |   variable "undefined"
-
                                        |   typeInference
 
                                        |   typeAssertion 
                                                   
+                                       |   variable "undefined"
+
                                        ;
 
 typeInference                        ::=   statement "|-" typeAssertion ;
@@ -38,8 +36,6 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable "contains" variable
-
                                        |   variable "undefined"
 
                                        ;
