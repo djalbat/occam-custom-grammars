@@ -20,6 +20,8 @@ export const statementBNF = `statement!                           ::=   "(" meta
 
                                        |   typeAssertion 
                                                   
+                                       |   statement ( inclusion | substitution )?
+                                                  
                                        |   variable "undefined"
 
                                        ;
@@ -36,7 +38,9 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable
+                                       |   metavariable ( inclusion | substitution )?
+
+                                       |   metavariable substitution?
 
                                        |   variable "undefined"
 
