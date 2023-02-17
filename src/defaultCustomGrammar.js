@@ -14,8 +14,6 @@ export const termBNF = `term!                                ::=   variable ;`;
 
 export const statementBNF = `statement!                           ::=   "(" metaArgument ")" 
                                                   
-                                       |   statement substitution
-
                                        |   argument "=" argument
 
                                        |   variable "undefined"
@@ -38,8 +36,6 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable substitution?
-
                                        |   variable "undefined"
 
                                        ;
