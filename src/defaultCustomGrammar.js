@@ -36,6 +36,8 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
            
                                        |   proofAssertion
        
+                                       |   metavariable
+
                                        |   variable "undefined"
 
                                        ;
