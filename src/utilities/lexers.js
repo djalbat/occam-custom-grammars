@@ -5,13 +5,13 @@ import { lexerUtilities } from "occam-lexers";
 
 import CombinedCustomGrammar from "../customGrammar/combined";
 
-const { rulesFromEntries } = lexerUtilities;
+const { lexerFromRules, rulesFromEntries } = lexerUtilities;
 
 export function florenceLexerFromNothing() {
   const { entries } = FlorenceLexer,
         combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
         rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        florenceLexer = FlorenceLexer.fromRules(rules);
+        florenceLexer = lexerFromRules(FlorenceLexer, rules);
 
   return florenceLexer;
 }
@@ -19,14 +19,14 @@ export function florenceLexerFromNothing() {
 export function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = FlorenceLexer,
         rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        florenceLexer = FlorenceLexer.fromRules(rules);
+        florenceLexer = lexerFromRules(FlorenceLexer, rules);
 
   return florenceLexer;
 }
 
 export function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
   const rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        florenceLexer = FlorenceLexer.fromRules(rules);
+        florenceLexer = lexerFromRules(FlorenceLexer, rules);
 
   return florenceLexer;
 }
