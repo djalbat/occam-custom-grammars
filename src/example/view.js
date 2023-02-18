@@ -32,7 +32,7 @@ const { rulesAsString } = rulesUtilities,
 
 class View extends Element {
   keyUpHandler = (event, element) => {
-    try {
+    // try {
       // const name = this.getName(),
       //       bnf = this.getBNF(),
       //       pattern = this.getPattern(),
@@ -78,13 +78,13 @@ class View extends Element {
             florenceBNF = rulesString;  ///
 
       this.setFlorenceBNF(florenceBNF);
-    } catch (error) {
-      console.log(error);
-
-      this.clearParseTree();
-
-      this.clearFlorenceBNF();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearParseTree();
+    //
+    //   this.clearFlorenceBNF();
+    // }
   }
 
   changeHandler = (event, element) => {
