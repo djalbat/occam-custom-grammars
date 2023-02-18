@@ -3,7 +3,7 @@
 import { FlorenceLexer } from "occam-grammars";
 import { lexerUtilities } from "occam-lexers";
 
-import CombinedCustomGrammar from "../combinedCustomGrammar";
+import CombinedCustomGrammar from "../customGrammar/combined";
 
 const { rulesFromEntries } = lexerUtilities;
 

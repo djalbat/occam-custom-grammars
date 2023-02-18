@@ -4,7 +4,7 @@ import { FlorenceParser } from "occam-grammars";
 import { parserUtilities } from "occam-parsers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
-import CombinedCustomGrammar from "../combinedCustomGrammar";
+import CombinedCustomGrammar from "../customGrammar/combined";
 
 const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
 

@@ -2,14 +2,14 @@
 
 import { parserUtilities } from "occam-parsers";
 
-import defaultCustomGrammar from "./customGrammar/default";
+import defaultCustomGrammar from "../customGrammar/default";
 
-import { EMPTY_STRING, VERTICAL_BAR } from "./constants";
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
+import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
+import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "../patternNames";
 
 const { rulesFromBNF } = parserUtilities;
 
-export default class CombinedCustomGrammar {
+export default class Combined {
   constructor(rules, entries) {
     this.rules = rules;
     this.entries = entries;
@@ -32,7 +32,7 @@ export default class CombinedCustomGrammar {
 
     const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
-          combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
+          combinedCustomGrammar = new Combined(rules, entries);
 
     return combinedCustomGrammar;
   }
@@ -44,7 +44,7 @@ export default class CombinedCustomGrammar {
 
     const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
-          combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
+          combinedCustomGrammar = new Combined(rules, entries);
     
     return combinedCustomGrammar;
   }

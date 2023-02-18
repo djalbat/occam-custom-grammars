@@ -9,4 +9,4 @@ export { default as CustomGrammar } from "./customGrammar";
 export { default as lexersUtilities } from "./utilities/lexers";
 export { default as parsersUtilities } from "./utilities/parsers";
 export { default as defaultCustomGrammar } from "./customGrammar/default";
-export { default as CombinedCustomGrammar } from "./combinedCustomGrammar";
+export { default as CombinedCustomGrammar } from "./customGrammar/combined";
