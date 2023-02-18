@@ -22,9 +22,8 @@ import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
 import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
 import { rulesFromParser } from "../utilities/rules";
+import { temporaryLexer, temporaryParser } from "../temp";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
-
-import { florenceLexer, florenceParser } from "../temp";
 
 const { rulesAsString } = rulesUtilities,
       { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
@@ -57,12 +56,12 @@ class View extends Element {
       //       florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
       //       florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
 
-      const ruleMap = florenceParser.getRuleMap(),
+      const ruleMap = temporaryParser.getRuleMap(),
             startRuleName = this.getStartRuleName(),
             startRule = ruleMap[startRuleName], ///
             content = this.getContent(),
-            tokens = florenceLexer.tokenise(content),
-            node = florenceParser.parse(tokens, startRule);
+            tokens = temporaryLexer.tokenise(content),
+            node = temporaryParser.parse(tokens, startRule);
 
       let parseTree = null;
 

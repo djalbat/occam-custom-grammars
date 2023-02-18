@@ -17,7 +17,7 @@ const entries = [
 
 rules = rulesFromEntries(entries);
 
-export const florenceLexer = CommonLexer.fromRules(class extends BasicLexer { static EndOfLineToken = EndOfLineSignificantToken; }, rules); ///
+export const temporaryLexer = CommonLexer.fromRules(class extends BasicLexer { static EndOfLineToken = EndOfLineSignificantToken; }, rules); ///
 
 const bnf = `
 
@@ -41,4 +41,4 @@ rules = rulesFromBNF(bnf);
 
 rules = eliminateLeftRecursion(rules);  ///
 
-export const florenceParser = CommonParser.fromRules(BasicParser, rules); ///
+export const temporaryParser = CommonParser.fromRules(BasicParser, rules); ///
