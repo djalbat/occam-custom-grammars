@@ -1,8 +1,8 @@
 "use strict";
 
-import CustomGrammar from "./customGrammar";
+import CustomGrammar from "../customGrammar";
 
-import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
 export const typePattern = "Object";
 

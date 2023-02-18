@@ -10,11 +10,19 @@ export default class StartRuleNameInput extends Input {
     return startRuleName;
   }
 
+  setStartRuleName(startRuleName) {
+    const value = startRuleName;  ///
+
+    this.setValue(value);
+  }
+
   parentContext() {
-    const getStartRuleName = this.getStartRuleName.bind(this);
+    const getStartRuleName = this.getStartRuleName.bind(this),
+          setStartRuleName = this.setStartRuleName.bind(this);
 
     return ({
-      getStartRuleName
+      getStartRuleName,
+      setStartRuleName
     });
   }
 

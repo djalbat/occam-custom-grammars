@@ -1,7 +1,7 @@
 "use strict";
 
-import { lexerUtilities } from "occam-lexers";
 import { FlorenceLexer } from "occam-grammars";
+import { lexerUtilities } from "occam-lexers";
 
 import CombinedCustomGrammar from "../combinedCustomGrammar";
 

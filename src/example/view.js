@@ -5,7 +5,7 @@ import withStyle from "easy-with-style";  ///
 import { Element } from "easy";
 import { rulesUtilities } from "occam-parsers";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
-import { defaultCustomGrammar, CombinedCustomGrammar, lexersUtilities, parsersUtilities } from "../index";  ///
+import { lexersUtilities, parsersUtilities, defaultCustomGrammar, CombinedCustomGrammar } from "../index";  ///
 
 import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
@@ -24,6 +24,8 @@ import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 import { rulesFromParser } from "../utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
 
+import { florenceLexer, florenceParser } from "../temp";
+
 const { rulesAsString } = rulesUtilities,
       { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
       { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
@@ -31,30 +33,31 @@ const { rulesAsString } = rulesUtilities,
 class View extends Element {
   keyUpHandler = (event, element) => {
     try {
-      const name = this.getName(),
-            bnf = this.getBNF(),
-            pattern = this.getPattern(),
-            ruleName = this.getRuleName(),
-            patternName = this.getPatternName();
+      // const name = this.getName(),
+      //       bnf = this.getBNF(),
+      //       pattern = this.getPattern(),
+      //       ruleName = this.getRuleName(),
+      //       patternName = this.getPatternName();
 
-      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
-        userDefinedCustomGrammar1.setBNF(ruleName, bnf);
-        userDefinedCustomGrammar1.setPattern(patternName, pattern);
-      }
+      // if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
+      //   userDefinedCustomGrammar1.setBNF(ruleName, bnf);
+      //   userDefinedCustomGrammar1.setPattern(patternName, pattern);
+      // }
+      //
+      // if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
+      //   userDefinedCustomGrammar2.setBNF(ruleName, bnf);
+      //   userDefinedCustomGrammar2.setPattern(patternName, pattern);
+      // }
 
-      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
-        userDefinedCustomGrammar2.setBNF(ruleName, bnf);
-        userDefinedCustomGrammar2.setPattern(patternName, pattern);
-      }
+      // const customGrammars = [
+      //         userDefinedCustomGrammar1,
+      //         userDefinedCustomGrammar2
+      //       ],
+      //       combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
+      //       florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+      //       florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
 
-      const customGrammars = [
-              userDefinedCustomGrammar1,
-              userDefinedCustomGrammar2
-            ],
-            combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-            florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
-            ruleMap = florenceParser.getRuleMap(),
+      const ruleMap = florenceParser.getRuleMap(),
             startRuleName = this.getStartRuleName(),
             startRule = ruleMap[startRuleName], ///
             content = this.getContent(),
@@ -170,18 +173,25 @@ class View extends Element {
   initialise() {
     this.assignContext();
 
-    const { initialContent } = this.constructor;
+    const { initialContent, initialStartRuleName } = this.constructor;
 
-    const content = initialContent; ///
+    const content = initialContent, ///
+          startRuleName = initialStartRuleName; ///
 
     this.setContent(content);
+
+    this.setStartRuleName(startRuleName);
 
     this.changeHandler();
 
     this.keyUpHandler();
   }
 
-  static initialContent = `Integer`;
+  static initialStartRuleName = "";
+
+  static initialContent = `Axiom (PredecessorsOfSuccessorsOfNaturalNumbers)
+  n = predecessor(successor(n))
+`;
 
   static tagName = "div";
 
