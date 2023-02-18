@@ -11,16 +11,7 @@ let rules;
 
 const entries = [
   {
-    "special": "^(?:,|::|:|\\|-|\\|=|\\(|\\)|\\[|\\]|\\.\\.\\.)"
-  },
-  {
-    "primary-keyword": "^(?:Axiom)\\b"
-  },
-  {
-    "name": "^[A-Za-zΑ-Ωα-ω_0-9]+"
-  },
-  {
-    "unassigned": "^[^\\s]+"
+    "unassigned": "."
   }
 ];
 
@@ -28,26 +19,22 @@ rules = rulesFromEntries(entries);
 
 export const florenceLexer = CommonLexer.fromRules(class extends BasicLexer { static EndOfLineToken = EndOfLineSignificantToken; }, rules); ///
 
-const bnf = ` 
-      
-  document                             ::=   axiom ;
+const bnf = `
 
-  axiom                                ::=   "Axiom" "(" label ")" <END_OF_LINE> consequence ;
+  U ::= S... <END_OF_LINE> ;
+
+  S ::= V
   
-  consequence                          ::=   unqualifiedStatement ;
+      | T
   
-  unqualifiedStatement!                ::=   statement... <END_OF_LINE> ;
+      | S X?
+                 
+      ;
   
-  argument                             ::=   term | type ;
+  T ::= S A ;
   
-  label                                ::=   [name] ;
-  
-  statement!                           ::=   argument "=" argument
-  
-                                         |   statement ( inclusion | substitution )?
-                                                    
-                                         ;
-     
+  V ::= [unassigned] ;
+    
 `;
 
 rules = rulesFromBNF(bnf);

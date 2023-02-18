@@ -189,8 +189,7 @@ class View extends Element {
 
   static initialStartRuleName = "";
 
-  static initialContent = `Axiom (PredecessorsOfSuccessorsOfNaturalNumbers)
-  n = predecessor(successor(n))
+  static initialContent = `n = p(s(n))
 `;
 
   static tagName = "div";
