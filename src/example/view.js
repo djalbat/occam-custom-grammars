@@ -22,7 +22,7 @@ import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
 import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
 import { rulesFromParser } from "../utilities/rules";
-import { temporaryLexer, temporaryParser } from "../temp";
+import { temporaryLexer, temporaryParser } from "./temp";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
 
 const { rulesAsString } = rulesUtilities,
