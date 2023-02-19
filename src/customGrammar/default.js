@@ -20,8 +20,6 @@ export const statementBNF = `statement!                           ::=   "(" meta
 
                                        |   typeAssertion 
                                                   
-                                       |   statement ( inclusion | substitution )?
-                                                  
                                        |   variable "undefined"
 
                                        ;
