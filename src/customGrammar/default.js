@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "=";
+export const operatorPattern = "⊢|⊧";
 
 export const termBNF = `term!                                ::=   variable ;`;
 
@@ -24,7 +24,7 @@ export const statementBNF = `statement!                           ::=   "(" meta
 
                                        ;
 
-typeInference                        ::=   statement "|-" typeAssertion ;
+typeInference                        ::=   statement "⊢" typeAssertion ;
 
 typeAssertion                        ::=   term ":" type ;`;
 
@@ -48,7 +48,7 @@ ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement
 
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
-proofAssertion                       ::=   context "|=" judgement ;
+proofAssertion                       ::=   context "⊧" judgement ;
  
 judgement                            ::=   reference "::" metastatement ;`;
 
