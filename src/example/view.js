@@ -22,7 +22,6 @@ import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
 import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
 import { rulesFromParser } from "../utilities/rules";
-import { temporaryLexer, temporaryParser } from "./temp";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
 
 const { rulesAsString } = rulesUtilities,
@@ -31,37 +30,37 @@ const { rulesAsString } = rulesUtilities,
 
 class View extends Element {
   keyUpHandler = (event, element) => {
-    // try {
-      // const name = this.getName(),
-      //       bnf = this.getBNF(),
-      //       pattern = this.getPattern(),
-      //       ruleName = this.getRuleName(),
-      //       patternName = this.getPatternName();
+    try {
+      const name = this.getName(),
+            bnf = this.getBNF(),
+            pattern = this.getPattern(),
+            ruleName = this.getRuleName(),
+            patternName = this.getPatternName();
 
-      // if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
-      //   userDefinedCustomGrammar1.setBNF(ruleName, bnf);
-      //   userDefinedCustomGrammar1.setPattern(patternName, pattern);
-      // }
-      //
-      // if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
-      //   userDefinedCustomGrammar2.setBNF(ruleName, bnf);
-      //   userDefinedCustomGrammar2.setPattern(patternName, pattern);
-      // }
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
+        userDefinedCustomGrammar1.setBNF(ruleName, bnf);
+        userDefinedCustomGrammar1.setPattern(patternName, pattern);
+      }
 
-      // const customGrammars = [
-      //         userDefinedCustomGrammar1,
-      //         userDefinedCustomGrammar2
-      //       ],
-      //       combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-      //       florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-      //       florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar),
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
+        userDefinedCustomGrammar2.setBNF(ruleName, bnf);
+        userDefinedCustomGrammar2.setPattern(patternName, pattern);
+      }
 
-      const ruleMap = temporaryParser.getRuleMap(),
+      const customGrammars = [
+              userDefinedCustomGrammar1,
+              userDefinedCustomGrammar2
+            ],
+            combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
+            florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
+
+      const ruleMap = florenceParser.getRuleMap(),
             startRuleName = this.getStartRuleName(),
             startRule = ruleMap[startRuleName], ///
             content = this.getContent(),
-            tokens = temporaryLexer.tokenise(content),
-            node = temporaryParser.parse(tokens, startRule);
+            tokens = florenceLexer.tokenise(content),
+            node = florenceParser.parse(tokens, startRule);
 
       let parseTree = null;
 
@@ -77,13 +76,13 @@ class View extends Element {
             florenceBNF = rulesString;  ///
 
       this.setFlorenceBNF(florenceBNF);
-    // } catch (error) {
-    //   console.log(error);
-    //
-    //   this.clearParseTree();
-    //
-    //   this.clearFlorenceBNF();
-    // }
+    } catch (error) {
+      console.log(error);
+
+      this.clearParseTree();
+
+      this.clearFlorenceBNF();
+    }
   }
 
   changeHandler = (event, element) => {
@@ -188,7 +187,9 @@ class View extends Element {
 
   static initialStartRuleName = "";
 
-  static initialContent = `n = p(s(n))
+  static initialContent = `Rule (blah)
+  Conclusion
+    A
 `;
 
   static tagName = "div";
