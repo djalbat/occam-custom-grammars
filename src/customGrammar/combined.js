@@ -1,5 +1,6 @@
 "use strict";
 
+import { arrayUtilities } from "necessary";
 import { parserUtilities } from "occam-parsers";
 
 import defaultCustomGrammar from "../customGrammar/default";
@@ -7,7 +8,8 @@ import defaultCustomGrammar from "../customGrammar/default";
 import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
 import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "../patternNames";
 
-const { rulesFromBNF } = parserUtilities;
+const { unshift } = arrayUtilities,
+      { rulesFromBNF } = parserUtilities;
 
 export default class Combined {
   constructor(rules, entries) {
@@ -112,8 +114,6 @@ function combineRules(rules) {
     const outerRule = rules[outerIndex],
           outerRuleName = outerRule.getName();
 
-    let outerRuleDefinitions = outerRule.getDefinitions();
-
     let innerIndex = outerIndex + 1;
 
     while (innerIndex < length) {
@@ -121,14 +121,10 @@ function combineRules(rules) {
             innerRuleName = innerRule.getName();
 
       if (innerRuleName === outerRuleName) {
-        const innerRuleDefinitions = innerRule.getDefinitions();
+        const innerRuleDefinitions = innerRule.getDefinitions(),
+              outerRuleDefinitions = outerRule.getDefinitions();
 
-        outerRuleDefinitions = [  ///
-          ...innerRuleDefinitions,
-          ...outerRuleDefinitions
-        ];
-
-        outerRule.replaceAllDefinitions(...outerRuleDefinitions);
+        unshift(outerRuleDefinitions, innerRuleDefinitions);
 
         const start = innerIndex, ///
               deleteCount = 1;
