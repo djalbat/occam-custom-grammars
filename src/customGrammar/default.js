@@ -8,21 +8,25 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧";
+export const operatorPattern = "⊧|is|for|omits|contains|undefined";
 
 export const termBNF = `term!                                ::=   variable ;`;
 
 export const statementBNF = `statement!                           ::=   "(" metaArgument ")" 
                                                   
-                                       |   argument "=" argument
+                                       |   equality
 
                                        |   typeAssertion 
                                                   
-                                       |   variable "undefined"
+                                       |   undefinedAssertion
 
                                        ;
+                                       
+equality                             ::=   argument "=" argument ;
 
-typeAssertion                        ::=   term ":" type ;`;
+typeAssertion                        ::=   term ":" type ;
+
+undefinedAssertion                   ::=   variable "is" "undefined" ;`;
 
 export const metastatementBNF = `metastatement!                       ::=   "(" metastatement ")" 
            
@@ -36,8 +40,6 @@ export const metastatementBNF = `metastatement!                       ::=   "(" 
 
                                        |   metavariable substitution?
 
-                                       |   variable "undefined"
-
                                        ;
 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
@@ -46,7 +48,11 @@ contextDefinition                    ::=   context "=" ( judgement | context ) (
 
 proofAssertion                       ::=   context "⊧" judgement ;
  
-judgement                            ::=   reference "::" metastatement ;`;
+judgement                            ::=   reference "::" metastatement ;
+
+inclusion                            ::=   ( "omits" | "includes" ) variable ;
+
+substitution                         ::=   "[" term "for" variable "]" ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
