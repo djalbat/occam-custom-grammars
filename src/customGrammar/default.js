@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊢|⊧";
+export const operatorPattern = "⊧";
 
 export const termBNF = `term!                                ::=   variable ;`;
 
@@ -16,15 +16,11 @@ export const statementBNF = `statement!                           ::=   "(" meta
                                                   
                                        |   argument "=" argument
 
-                                       |   typeInference
-
                                        |   typeAssertion 
                                                   
                                        |   variable "undefined"
 
                                        ;
-
-typeInference                        ::=   statement "⊢" typeAssertion ;
 
 typeAssertion                        ::=   term ":" type ;`;
 
