@@ -1,7 +1,7 @@
 {
   "name": "occam-custom-grammars",
   "author": "James Smith",
-  "version": "5.0.560",
+  "version": "5.0.561",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/occam-custom-grammars",
   "description": "Occam's custom grammars.",
@@ -10,16 +10,16 @@
     "url": "https://github.com/djalbat/occam-custom-grammars"
   },
   "dependencies": {
-    "necessary": "^13.1.1",
-    "occam-grammar-utilities": "^8.0.70",
-    "occam-grammars": "^1.0.507",
-    "occam-lexers": "^19.0.66",
-    "occam-parsers": "^19.0.69"
+    "necessary": "^13.1.4",
+    "occam-grammar-utilities": "^8.0.71",
+    "occam-grammars": "^1.0.508",
+    "occam-lexers": "^19.0.67",
+    "occam-parsers": "^19.0.70"
   },
   "devDependencies": {
     "@swc/core": "^1.2.50",
     "easy": "^15.1.1",
-    "easy-layout": "^6.0.82",
+    "easy-layout": "^6.0.83",
     "easy-with-style": "^3.0.271",
     "esbuild": "^0.9.6",
     "express": "^4.17.1",
