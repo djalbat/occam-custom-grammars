@@ -24,7 +24,7 @@ export const statementBNF = `statement!                           ::=   "(" meta
                                        
 equality                             ::=   argument "=" argument ;
 
-typeAssertion                        ::=   term ":" type ;
+typeAssertion                        ::=   term... ":" type ;
 
 undefinedAssertion                   ::=   variable "is" "undefined" ;`;
 
@@ -52,7 +52,7 @@ judgement                            ::=   reference "::" metastatement ;
 
 inclusion                            ::=   ( "omits" | "includes" ) variable ;
 
-substitution                         ::=   "[" term "for" variable "]" ;`;
+substitution                         ::=   "[" term... "for" variable "]" ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
