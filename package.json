@@ -1,7 +1,7 @@
 {
   "name": "occam-custom-grammars",
   "author": "James Smith",
-  "version": "5.0.586",
+  "version": "5.0.587",
   "license": "MIT, Anti-996",
   "homepage": "https://github.com/djalbat/occam-custom-grammars",
   "description": "Occam's custom grammars.",
@@ -12,7 +12,7 @@
   "dependencies": {
     "necessary": "^13.1.4",
     "occam-grammar-utilities": "^8.0.91",
-    "occam-grammars": "^1.0.530",
+    "occam-grammars": "^1.0.532",
     "occam-lexers": "^19.0.67",
     "occam-parsers": "^19.1.1"
   },
