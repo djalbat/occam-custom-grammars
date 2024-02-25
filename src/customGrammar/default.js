@@ -10,9 +10,9 @@ export const symbolPattern = "";
 
 export const operatorPattern = "⊧|is|for|omits|contains|undefined";
 
-export const termBNF = `term!                                ::=   variable ;`;
+export const termBNF = `term                                 ::=   variable ;`;
 
-export const statementBNF = `statement!                           ::=   "(" metaArgument ")" 
+export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
                                                   
                                        |   equality
 
@@ -28,7 +28,7 @@ typeAssertion                        ::=   term... ":" type ;
 
 undefinedAssertion                   ::=   variable "is" "undefined" ;`;
 
-export const metastatementBNF = `metastatement!                       ::=   "(" metastatement ")" 
+export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
            
                                        |   ruleSubproofAssertion         
                                         
