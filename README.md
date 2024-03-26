@@ -64,6 +64,7 @@ const name = "User defined",
       bnf = `
 
         ...
+        
       `,
       lexicalPattern = "->|=>";
 
