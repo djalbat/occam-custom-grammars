@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|for|omits|contains|undefined";
+export const operatorPattern = "⊧|is|for|contains|undefined";
 
 export const termBNF = `term                                 ::=   "(" argument ")"
 
@@ -38,9 +38,7 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable ( inclusion | substitution )?
-
-                                       |   metavariable substitution?
+                                       |   metavariable ( containment | substitution )?
 
                                        ;
 
@@ -54,9 +52,9 @@ proofAssertion                       ::=   context "⊧" judgement ;
 
 judgement                            ::=   reference "::" metastatement ;
 
-inclusion                            ::=   ( "omits" | "includes" ) variable ;
+containment                          ::=   "contains" variable ;
 
-substitution                         ::=   "[" term... "for" variable "]" ;`;
+substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
