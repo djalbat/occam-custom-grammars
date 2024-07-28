@@ -18,22 +18,20 @@ export const termBNF = `term                                 ::=   "(" argument 
 
 export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
                                                   
-                                       |   equality
-
                                        |   typeAssertion 
                                                   
-                                       |   undefinedAssertion
+                                       |   equality
 
                                        ;
-                                       
-equality                             ::=   argument "=" argument ;
 
 typeAssertion                        ::=   term... ":" type ;
-
-undefinedAssertion                   ::=   variable "is" "undefined" ;`;
+                                       
+equality                             ::=   argument "=" argument ;`;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
            
+                                       |   undefinedAssertion
+
                                        |   ruleSubproofAssertion         
                                         
                                        |   contextDefinition 
@@ -46,12 +44,14 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
 
                                        ;
 
+undefinedAssertion                   ::=   variable "is" "undefined" ;
+ 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
 proofAssertion                       ::=   context "⊧" judgement ;
- 
+
 judgement                            ::=   reference "::" metastatement ;
 
 inclusion                            ::=   ( "omits" | "includes" ) variable ;
