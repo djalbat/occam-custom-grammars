@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|for|omits|contains|undefined";
+export const operatorPattern = "⊧|is|for|omits|contains|defined|undefined";
 
 export const termBNF = `term                                 ::=   "(" argument ")"
 
@@ -30,7 +30,7 @@ equality                             ::=   argument "=" argument ;`;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
            
-                                       |   undefinedAssertion
+                                       |   definitionalAssertion
 
                                        |   ruleSubproofAssertion         
                                         
@@ -42,7 +42,7 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
 
                                        ;
 
-undefinedAssertion                   ::=   variable "is" "undefined" ;
+definitionalAssertion                ::=   variable "is" ( "defined" | "undefined" ) ;
  
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
