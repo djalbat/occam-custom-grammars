@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|for|contains|undefined";
+export const operatorPattern = "⊧|is|for|omits|contains|undefined";
 
 export const termBNF = `term                                 ::=   "(" argument ")"
 
@@ -52,7 +52,7 @@ proofAssertion                       ::=   context "⊧" judgement ;
 
 judgement                            ::=   reference "::" metastatement ;
 
-containment                          ::=   "contains" variable ;
+containment                          ::=   ( "omits" | "contains" ) variable ;
 
 substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;`;
 
