@@ -189,10 +189,10 @@ class View extends Element {
 
   static initialContent = `Rule (blah)
   Conclusion
-    P contains u
+    u is omitted from P
   
 Axiom (blah)
-  x = x contains x
+  x = x is contained in x
 `;
 
   static tagName = "div";

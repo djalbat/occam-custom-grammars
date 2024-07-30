@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|for|omits|contains|defined|undefined";
+export const operatorPattern = "⊧|is|in|for|from|omitted|contained|defined|undefined";
 
 export const termBNF = `term                                 ::=   "(" argument ")"
 
@@ -18,7 +18,7 @@ export const termBNF = `term                                 ::=   "(" argument 
 
 export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
                                                   
-                                       |   statement containment 
+                                       |   containment statement 
                                                   
                                        |   typeAssertion 
                                                   
@@ -40,7 +40,9 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable ( substitution | containment )?
+                                       |   containment metastatement
+
+                                       |   metavariable substitution?
        
                                        ;
 
@@ -54,7 +56,7 @@ proofAssertion                       ::=   context "⊧" judgement ;
 
 substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;
 
-containment                          ::=   ( "contains" | "omits" ) argument ;
+containment                          ::=   argument "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
 
 judgement                            ::=   reference "::" metastatement ;`;
 
