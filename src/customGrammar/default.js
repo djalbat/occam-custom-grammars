@@ -18,6 +18,8 @@ export const termBNF = `term                                 ::=   "(" argument 
 
 export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
                                                   
+                                       |   statement containment 
+                                                  
                                        |   typeAssertion 
                                                   
                                        |   equality
@@ -38,8 +40,8 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   metavariable ( containment | substitution )?
-
+                                       |   metavariable ( substitution | containment )?
+       
                                        ;
 
 definitionalAssertion                ::=   variable "is" ( "defined" | "undefined" ) ;
@@ -50,11 +52,11 @@ contextDefinition                    ::=   context "=" ( judgement | context ) (
 
 proofAssertion                       ::=   context "⊧" judgement ;
 
-judgement                            ::=   reference "::" metastatement ;
+substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;
 
-containment                          ::=   ( "omits" | "contains" ) variable ;
+containment                          ::=   ( "contains" | "omits" ) argument ;
 
-substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;`;
+judgement                            ::=   reference "::" metastatement ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
