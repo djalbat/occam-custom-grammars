@@ -18,7 +18,7 @@ export const termBNF = `term                                 ::=   "(" argument 
 
 export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
                                                   
-                                       |   containment statement 
+                                       |   containment metaArgument 
                                                   
                                        |   typeAssertion 
                                                   
