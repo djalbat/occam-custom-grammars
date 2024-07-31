@@ -18,14 +18,14 @@ export const termBNF = `term                                 ::=   "(" argument 
 
 export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
                                                   
-                                       |   containment metaArgument 
-                                                  
-                                       |   argument defining
-
                                        |   typeAssertion 
                                                   
                                        |   equality
 
+                                       |   argument defining
+
+                                       |   argument containment metaArgument 
+                                                  
                                        ;
 
 typeAssertion                        ::=   term... ":" type ;
@@ -42,7 +42,7 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
        
                                        |   argument defining
 
-                                       |   containment metastatement
+                                       |   argument containment metastatement
 
                                        |   metavariable substitution?
        
@@ -56,7 +56,7 @@ proofAssertion                       ::=   context "⊧" judgement ;
 
 substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;
 
-containment                          ::=   argument "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
+containment                          ::=   "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
 
 defining                             ::=   "is" ( "defined" | "undefined" ) ;
 
