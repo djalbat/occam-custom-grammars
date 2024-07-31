@@ -20,6 +20,8 @@ export const statementBNF = `statement                            ::=   "(" meta
                                                   
                                        |   containment metaArgument 
                                                   
+                                       |   argument defining
+
                                        |   typeAssertion 
                                                   
                                        |   equality
@@ -32,22 +34,20 @@ equality                             ::=   argument "=" argument ;`;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
            
-                                       |   definitionalAssertion
-
                                        |   ruleSubproofAssertion         
                                         
                                        |   contextDefinition 
            
                                        |   proofAssertion
        
+                                       |   argument defining
+
                                        |   containment metastatement
 
                                        |   metavariable substitution?
        
                                        ;
 
-definitionalAssertion                ::=   variable "is" ( "defined" | "undefined" ) ;
- 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
@@ -57,6 +57,8 @@ proofAssertion                       ::=   context "⊧" judgement ;
 substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;
 
 containment                          ::=   argument "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
+
+defining                             ::=   "is" ( "defined" | "undefined" ) ;
 
 judgement                            ::=   reference "::" metastatement ;`;
 
