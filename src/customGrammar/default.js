@@ -54,7 +54,7 @@ contextDefinition                    ::=   context "=" ( judgement | context ) (
 
 proofAssertion                       ::=   context "⊧" judgement ;
 
-substitution                         ::=   <NO_WHITESPACE>"[" term... "for" term... "]" ;
+substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;
 
 containment                          ::=   "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
 
