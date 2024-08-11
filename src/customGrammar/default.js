@@ -22,15 +22,19 @@ export const statementBNF = `statement                            ::=   "(" meta
 
                                        |   typeAssertion 
                                                   
-                                       |   argument defining
+                                       |   definingAssertion
 
-                                       |   argument containment metaArgument 
+                                       |   containmentAssertion 
                                                   
                                        ;
 
-typeAssertion                        ::=   term... ":" type ;
+equality                             ::=   argument "=" argument ;
                                        
-equality                             ::=   argument "=" argument ;`;
+typeAssertion                        ::=   term... ":" type ;
+
+definingAssertion                    ::=   term... "is" ( "defined" | "undefined" ) ;
+
+containmentAssertion                 ::=   term... "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) metaArgument ;`;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
            
@@ -40,13 +44,17 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
            
                                        |   proofAssertion
        
-                                       |   argument defining
+                                       |   definingMetaAssertion
 
-                                       |   argument containment metastatement
+                                       |   containmentMetaAssertion
 
                                        |   metavariable substitution?
        
                                        ;
+
+containmentMetaAssertion             ::=   term... "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) metastatement ;
+
+definingMetaAssertion                ::=   term... "is" ( "defined" | "undefined" ) ;
 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
@@ -55,10 +63,6 @@ contextDefinition                    ::=   context "=" ( judgement | context ) (
 proofAssertion                       ::=   context "⊧" judgement ;
 
 substitution                         ::=   <NO_WHITESPACE>"[" term... "for" variable "]" ;
-
-containment                          ::=   "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
-
-defining                             ::=   "is" ( "defined" | "undefined" ) ;
 
 judgement                            ::=   reference "::" metastatement ;`;
 
