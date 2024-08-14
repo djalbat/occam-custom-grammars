@@ -10,13 +10,13 @@ export const symbolPattern = "";
 
 export const operatorPattern = "⊧|is|in|for|from|omitted|contained|defined|undefined";
 
-export const termBNF = `term                                 ::=   "(" argument ")"
+export const termBNF = `term                                 ::=   "(" argument... ")"
 
                                        |  variable 
                                        
                                        ;`;
 
-export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
+export const statementBNF = `statement                            ::=   "(" metaArgument... ")" 
                                                   
                                        |   equality
 
@@ -24,15 +24,15 @@ export const statementBNF = `statement                            ::=   "(" meta
                                                   
                                        |   term... defining
 
-                                       |   term... containment metaArgument 
+                                       |   term... containment metaArgument... 
                                                   
                                        ;
 
 typeAssertion                        ::=   term... ":" type ;
                                        
-equality                             ::=   argument "=" argument ;`;
+equality                             ::=   argument... "=" argument... ;`;
 
-export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
+export const metastatementBNF = `metastatement                        ::=   "(" metastatement... ")" 
            
                                        |   ruleSubproofAssertion         
                                         
@@ -42,13 +42,13 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
        
                                        |   term... defining
 
-                                       |   term... containment metastatement
+                                       |   term... containment metastatement...
 
                                        |   metavariable substitution?
        
                                        ;
 
-ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
+ruleSubproofAssertion                ::=   "[" metastatements... "]" "..." metastatement... ;
 
 contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
 
@@ -60,7 +60,9 @@ containment                          ::=   "is" ( ( "contained" "in" ) | ( "omit
 
 defining                             ::=   "is" ( "defined" | "undefined" ) ;
 
-judgement                            ::=   reference "::" metastatement ;`;
+metastatements                       ::=   metastatement ( "," metastatement )* ;
+
+judgement                            ::=   reference "::" metastatement... ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
