@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|in|for|from|omitted|contained|defined|undefined";
+export const operatorPattern = "⊧|is|in|for|omitted|contained|defined|undefined";
 
 export const termBNF = `term                                 ::=   "(" argument ")"
 
