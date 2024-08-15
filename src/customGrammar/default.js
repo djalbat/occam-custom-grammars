@@ -38,11 +38,13 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
 
                                        |   ruleSubproofAssertion         
        
-                                       |   term containment metastatement
+                                       |   context
+
+                                       |   judgement
 
                                        |   term defining
                                         
-                                       |   context
+                                       |   term containment metastatement
 
                                        |   metavariable substitution?
        
