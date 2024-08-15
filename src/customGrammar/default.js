@@ -34,33 +34,35 @@ equality                             ::=   argument "=" argument ;`;
 
 export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
            
-                                       |   ruleSubproofAssertion         
-                                        
-                                       |   contextDefinition 
-           
-                                       |   proofAssertion
-       
-                                       |   term defining
+                                       |   metaEquality
 
+                                       |   ruleSubproofAssertion         
+       
                                        |   term containment metastatement
+
+                                       |   term defining
+                                        
+                                       |   context
 
                                        |   metavariable substitution?
        
                                        ;
+                                       
+metaEquality                         ::=   metastatement "=" metastatement ;
 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
-contextDefinition                    ::=   metastatement "=" ( judgement | metastatement ) ( "," ( judgement | metastatement ) )* ;
-
-proofAssertion                       ::=   metastatement "⊧" judgement ;
+judgement                            ::=   metastatement "⊧" declaration ;
 
 substitution                         ::=   <NO_WHITESPACE>"[" term "for" variable "]" ;
-
+ 
 containment                          ::=   "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
 
 defining                             ::=   "is" ( "defined" | "undefined" ) ;
 
-judgement                            ::=   reference "::" metastatement ;`;
+context                              ::=   declaration ( "," declaration )* ;
+
+declaration                          ::=   reference "::" metastatement ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
