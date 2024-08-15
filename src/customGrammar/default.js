@@ -10,61 +10,63 @@ export const symbolPattern = "";
 
 export const operatorPattern = "⊧|is|in|for|omitted|contained|defined|undefined";
 
-export const termBNF = `term                                 ::=   "(" argument ")"
+export const termBNF = `term                                 ::=  "(" argument ")"
 
                                        |  variable 
                                        
                                        ;`;
 
-export const statementBNF = `statement                            ::=   "(" metaArgument ")" 
+export const statementBNF = `statement                            ::=  "(" metaArgument ")" 
                                                   
-                                       |   equality
+                                       |  equality
 
-                                       |   typeAssertion 
+                                       |  typeAssertion 
                                                   
-                                       |   term defining
+                                       |  term defining
 
-                                       |   term containment metaArgument 
+                                       |  term containment metaArgument 
                                                   
                                        ;
 
-typeAssertion                        ::=   term ":" type ;
-                                       
-equality                             ::=   argument "=" argument ;`;
+equality                             ::=  argument "=" argument ;
 
-export const metastatementBNF = `metastatement                        ::=   "(" metastatement ")" 
+typeAssertion                        ::=  term ":" type ;
+                                       
+containment                          ::=  "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
+
+defining                             ::=  "is" ( "defined" | "undefined" ) ;`;
+
+export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
-                                       |   metaEquality
+                                       |  metaEquality
 
-                                       |   ruleSubproofAssertion         
+                                       |  ruleSubproofAssertion         
        
-                                       |   context
+                                       |  context
 
-                                       |   judgement
+                                       |  judgement
 
-                                       |   term defining
+                                       |  statement
+
+                                       |  term defining
                                         
-                                       |   term containment metastatement
+                                       |  term containment metastatement
 
-                                       |   metavariable substitution?
+                                       |  metavariable substitution?
        
                                        ;
                                        
-metaEquality                         ::=   metastatement "=" metastatement ;
+metaEquality                         ::=  metastatement "=" metastatement ;
 
-ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
+ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
-judgement                            ::=   metastatement "⊧" declaration ;
+context                              ::=  declaration ( "," declaration )* ;
 
-substitution                         ::=   <NO_WHITESPACE>"[" term "for" variable "]" ;
+judgement                            ::=  metastatement "⊧" declaration ;
  
-containment                          ::=   "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
+declaration                          ::=  reference "::" metastatement ;
 
-defining                             ::=   "is" ( "defined" | "undefined" ) ;
-
-context                              ::=   declaration ( "," declaration )* ;
-
-declaration                          ::=   reference "::" metastatement ;`;
+substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
