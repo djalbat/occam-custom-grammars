@@ -50,9 +50,9 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
 
 ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "" metastatement ;
 
-contextDefinition                    ::=   context "=" ( judgement | context ) ( "," ( judgement | context ) )* ;
+contextDefinition                    ::=   metastatement "=" ( judgement | metastatement ) ( "," ( judgement | metastatement ) )* ;
 
-proofAssertion                       ::=   context "⊧" judgement ;
+proofAssertion                       ::=   metastatement "⊧" judgement ;
 
 substitution                         ::=   <NO_WHITESPACE>"[" term "for" variable "]" ;
 
