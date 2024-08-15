@@ -48,7 +48,7 @@ export const metastatementBNF = `metastatement                        ::=   "(" 
        
                                        ;
 
-ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "" metastatement ;
+ruleSubproofAssertion                ::=   "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
 contextDefinition                    ::=   metastatement "=" ( judgement | metastatement ) ( "," ( judgement | metastatement ) )* ;
 
