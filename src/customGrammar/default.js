@@ -48,10 +48,6 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
 
                                        |  statement
 
-                                       |  term defining
-                                        
-                                       |  term containment metastatement
-
                                        |  metavariable substitution?
        
                                        ;
