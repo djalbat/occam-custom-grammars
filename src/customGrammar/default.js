@@ -24,7 +24,7 @@ export const statementBNF = `statement                            ::=  "(" metaA
                                                   
                                        |  term defining
 
-                                       |  term containment metaArgument 
+                                       |  term containment metastatement 
                                                   
                                        ;
 
