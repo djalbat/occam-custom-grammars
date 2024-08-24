@@ -60,7 +60,7 @@ context                              ::=  declaration ( "," declaration )* ;
 
 judgement                            ::=  metastatement "⊧" declaration ;
  
-declaration                          ::=  label "::" metastatement ;
+declaration                          ::=  metavariable "::" metastatement ;
 
 substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
 
