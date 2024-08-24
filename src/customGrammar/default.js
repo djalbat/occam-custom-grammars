@@ -58,7 +58,7 @@ ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement 
 
 context                              ::=  declaration ( "," declaration )* ;
 
-judgement                            ::=  metastatement "⊧" declaration ;
+judgement                            ::=  metavariable "⊧" declaration ;
  
 declaration                          ::=  metavariable "::" metastatement ;
 
