@@ -41,14 +41,14 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
                                        |  metaEquality
 
                                        |  ruleSubproofAssertion         
+
+                                       |  metavariable substitution?
        
                                        |  context
 
                                        |  judgement
 
                                        |  statement
-
-                                       |  metavariable substitution?
        
                                        ;
                                        
@@ -56,13 +56,13 @@ metaEquality                         ::=  metastatement "=" metastatement ;
 
 ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
+substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;
+
 context                              ::=  declaration ( "," declaration )* ;
 
-judgement                            ::=  metavariable "⊧" declaration ;
+judgement                            ::=  metavariable "⊧" metastatement ;
  
-declaration                          ::=  metavariable "::" metastatement ;
-
-substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
+declaration                          ::=  metavariable "::" metastatement ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
