@@ -58,7 +58,7 @@ ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement 
 
 substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;
 
-context                              ::=  ( declaration | "..."<NO_WHITESPACE>metavariable ) ( "," ( declaration | "..."<NO_WHITESPACE>metavariable ) )* ;
+context                              ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
 
 judgement                            ::=  metavariable "⊧" metastatement ;
  
