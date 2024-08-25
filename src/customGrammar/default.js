@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|in|for|omitted|contained|defined|undefined";
+export const operatorPattern = "≔|⊧|is|in|for|omitted|contained|defined|undefined";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
@@ -38,31 +38,31 @@ defining                             ::=  "is" ( "defined" | "undefined" ) ;`;
 
 export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
-                                       |  metaEquality
-
                                        |  ruleSubproofAssertion         
-
-                                       |  metavariable substitution?
        
-                                       |  context
+                                       |  frameDefinition
+
+                                       |  frame
 
                                        |  judgement
 
                                        |  statement
+
+                                       |  metavariable substitution?
        
                                        ;
                                        
-metaEquality                         ::=  metastatement "=" metastatement ;
-
 ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
-substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;
-
-context                              ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
+frameDefinition                      ::=  metavariable "≔" frame ;
 
 judgement                            ::=  metavariable "⊧" metastatement ;
  
-declaration                          ::=  metavariable "::" metastatement ;`;
+declaration                          ::=  metavariable "::" metastatement ;
+
+substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;
+
+frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
