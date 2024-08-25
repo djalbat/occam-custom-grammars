@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "≔|⊧|is|in|for|omitted|contained|defined|undefined";
+export const operatorPattern = "⊧|is|in|for|omitted|contained|defined|undefined";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
@@ -40,29 +40,23 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
            
                                        |  ruleSubproofAssertion         
        
-                                       |  frameDefinition
-
-                                       |  frame
-
                                        |  judgement
 
-                                       |  statement
-
                                        |  metavariable substitution?
+
+                                       |  statement
        
                                        ;
                                        
 ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
-frameDefinition                      ::=  metavariable "≔" frame ;
+judgement                            ::=  metavariable "⊧" frame ;
 
-judgement                            ::=  metavariable "⊧" metastatement ;
+frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
 declaration                          ::=  metavariable "::" metastatement ;
 
-substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;
-
-frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;`;
+substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
