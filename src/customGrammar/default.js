@@ -54,7 +54,7 @@ judgement                            ::=  metavariable "⊧" frame ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
-declaration                          ::=  metavariable "::" metastatement ;
+declaration                          ::=  reference "::" metastatement ;
 
 substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
 
