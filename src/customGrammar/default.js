@@ -38,7 +38,7 @@ defining                             ::=  "is" ( "defined" | "undefined" ) ;`;
 
 export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
-                                       |  ruleSubproofAssertion         
+                                       |  subproofAssertion         
        
                                        |  judgement
 
@@ -48,7 +48,7 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
        
                                        ;
                                        
-ruleSubproofAssertion                ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
+subproofAssertion                    ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
 judgement                            ::=  metavariable "⊧" frame ;
 
