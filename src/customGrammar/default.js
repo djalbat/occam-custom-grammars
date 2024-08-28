@@ -34,7 +34,7 @@ typeAssertion                        ::=  term ":" type ;
 
 definedAssertion                     ::=  term "is" "not"? "defined" ;
                                        
-containedAssertion                   ::=  variable "is" "not"? "contained" "in" metastatement ;`;
+containedAssertion                   ::=  term "is" "not"? "contained" "in" metastatement ;`;
 
 export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
