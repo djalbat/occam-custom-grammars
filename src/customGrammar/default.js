@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|in|for|omitted|contained|defined|undefined";
+export const operatorPattern = "⊧|is|in|for|defined|contained|not";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
@@ -22,25 +22,25 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  typeAssertion 
                                                   
-                                       |  term defining
+                                       |  definedAssertion
 
-                                       |  term containment metastatement 
+                                       |  containedAssertion 
                                                   
                                        ;
 
 equality                             ::=  argument "=" argument ;
 
 typeAssertion                        ::=  term ":" type ;
-                                       
-containment                          ::=  "is" ( ( "contained" "in" ) | ( "omitted" "from" ) ) ;
 
-defining                             ::=  "is" ( "defined" | "undefined" ) ;`;
+definedAssertion                     ::=  "is" "not"? "defined" ;
+                                       
+containedAssertion                   ::=  "is" "not"? "contained" "in" ;`;
 
 export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
                                        |  subproofAssertion         
        
-                                       |  judgement
+                                       |  frameAssertion
 
                                        |  metavariable substitution?
 
@@ -50,7 +50,7 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
                                        
 subproofAssertion                    ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
-judgement                            ::=  metavariable "⊧" frame ;
+frameAssertion                       ::=  metavariable "⊧" frame ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
