@@ -32,9 +32,9 @@ equality                             ::=  argument "=" argument ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  "is" "not"? "defined" ;
+definedAssertion                     ::=  term "is" "not"? "defined" ;
                                        
-containedAssertion                   ::=  "is" "not"? "contained" "in" ;`;
+containedAssertion                   ::=  variable "is" "not"? "contained" "in" metastatement ;`;
 
 export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
