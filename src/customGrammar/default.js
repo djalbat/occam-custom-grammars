@@ -44,8 +44,6 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
 
                                        |  metavariable substitution?
 
-                                       |  statement
-       
                                        ;
                                        
 subproofAssertion                    ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
