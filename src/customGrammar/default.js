@@ -42,6 +42,10 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
        
                                        |  frameAssertion
 
+                                       |  definedAssertion
+
+                                       |  containedAssertion 
+                                                  
                                        |  metavariable substitution?
 
                                        ;
