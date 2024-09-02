@@ -22,33 +22,33 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  typeAssertion 
                                                   
-                                       |  definedAssertion
+                                       |  term "is" "not"? "defined" ;
 
-                                       |  containedAssertion 
+                                       |  term "is" "not"? "contained" "in" metaArgument ; 
                                                   
                                        ;
 
 equality                             ::=  argument "=" argument ;
 
-typeAssertion                        ::=  term ":" type ;
-
-definedAssertion                     ::=  term "is" "not"? "defined" ;
-                                       
-containedAssertion                   ::=  term "is" "not"? "contained" "in" ( metaArgument | metastatement ) ;`;
+typeAssertion                        ::=  term ":" type ;`;
 
 export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
            
+                                       |  judgement
+
                                        |  subproofAssertion         
        
-                                       |  frameAssertion
+                                       |  term "is" "not"? "defined" ;
 
+                                       |  term "is" "not"? "contained" "in" metaArgument ; 
+                                                  
                                        |  metavariable substitution?
 
                                        ;
                                        
 subproofAssertion                    ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
 
-frameAssertion                       ::=  metavariable "⊧" frame ;
+judgement                            ::=  metavariable "⊧" frame ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
