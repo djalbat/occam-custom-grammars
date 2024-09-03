@@ -20,39 +20,35 @@ export const statementBNF = `statement                            ::=  "(" metaA
                                                   
                                        |  equality
 
+                                       |  judgement
+
                                        |  typeAssertion 
                                                   
-                                       |  term "is" "not"? "defined"
+                                       |  definedAssertion  
 
-                                       |  term "is" "not"? "contained" "in" metaArgument ; 
+                                       |  containedAssertion   
                                                   
+                                       |  subproofAssertion         
+       
+                                       |  metavariable substitution?
+
                                        ;
 
 equality                             ::=  argument "=" argument ;
 
-typeAssertion                        ::=  term ":" type ;`;
-
-export const metastatementBNF = `metastatement                        ::=  "(" metastatement ")" 
-           
-                                       |  judgement
-
-                                       |  subproofAssertion         
-       
-                                       |  term "is" "not"? "defined"
-
-                                       |  term "is" "not"? "contained" "in" metastatement
-                                                  
-                                       |  metavariable substitution?
-
-                                       ;
-                                       
-subproofAssertion                    ::=  "[" metastatement ( "," metastatement )* "]" "..." metastatement ;
-
 judgement                            ::=  metavariable "⊧" frame ;
+
+typeAssertion                        ::=  term ":" type ;
+
+definedAssertion                     ::=  term "is" "not"? "defined" ;
+
+containedAssertion                   ::=  term "is" "not"? "contained" "in" metaArgument ;
+
+subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
-declaration                          ::=  reference "::" metastatement ;
+declaration                          ::=  reference "::" statement ;
 
 substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
 
@@ -63,8 +59,7 @@ const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
         symbolPattern,
         operatorPattern,
         termBNF,
-        statementBNF,
-        metastatementBNF
+        statementBNF
       };
 
 const defaultCustomGrammar = CustomGrammar.fromJSON(json);

@@ -2,7 +2,7 @@
 
 import Select from "../select";
 
-import { TERM_RULE_NAME, STATEMENT_RULE_NAME, METASTATEMENT_RULE_NAME }  from "../../ruleNames";
+import { TERM_RULE_NAME, STATEMENT_RULE_NAME }  from "../../ruleNames";
 
 export default class RuleNameSelect extends Select {
   getRuleName() {
@@ -15,8 +15,7 @@ export default class RuleNameSelect extends Select {
   childElements() {
     const ruleNames = [
             TERM_RULE_NAME,
-            STATEMENT_RULE_NAME,
-            METASTATEMENT_RULE_NAME
+            STATEMENT_RULE_NAME
           ],
           options = ruleNames.map((ruleName, index) => {
             const value = ruleName,
