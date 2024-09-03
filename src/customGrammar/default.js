@@ -40,7 +40,7 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
        
                                        |  term "is" "not"? "defined"
 
-                                       |  term "is" "not"? "contained" "in" metastatement ; 
+                                       |  term "is" "not"? "contained" "in" metastatement
                                                   
                                        |  metavariable substitution?
 
