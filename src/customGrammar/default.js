@@ -22,7 +22,7 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  typeAssertion 
                                                   
-                                       |  term "is" "not"? "defined" ;
+                                       |  term "is" "not"? "defined"
 
                                        |  term "is" "not"? "contained" "in" metaArgument ; 
                                                   
@@ -38,9 +38,9 @@ export const metastatementBNF = `metastatement                        ::=  "(" m
 
                                        |  subproofAssertion         
        
-                                       |  term "is" "not"? "defined" ;
+                                       |  term "is" "not"? "defined"
 
-                                       |  term "is" "not"? "contained" "in" metaArgument ; 
+                                       |  term "is" "not"? "contained" "in" metastatement ; 
                                                   
                                        |  metavariable substitution?
 
