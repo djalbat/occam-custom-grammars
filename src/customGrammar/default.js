@@ -20,8 +20,6 @@ export const statementBNF = `statement                            ::=  "(" metaA
                                                   
                                        |  equality
 
-                                       |  judgement
-
                                        |  typeAssertion 
                                                   
                                        |  definedAssertion  
@@ -30,21 +28,23 @@ export const statementBNF = `statement                            ::=  "(" metaA
                                                   
                                        |  subproofAssertion         
        
+                                       |  judgement
+
                                        |  metavariable substitution?
 
                                        ;
 
-equality                             ::=  argument "=" argument ;
-
-judgement                            ::=  metavariable "⊧" frame ;
+equality                             ::=  term "=" term ;
 
 typeAssertion                        ::=  term ":" type ;
 
 definedAssertion                     ::=  term "is" "not"? "defined" ;
 
-containedAssertion                   ::=  term "is" "not"? "contained" "in" metaArgument ;
+containedAssertion                   ::=  term "is" "not"? "contained" "in" statement ;
 
-subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
+subproofAssertion                    ::=  "[" metavariable ( "," metavariable )* "]" "..." metavariable ;
+
+judgement                            ::=  metavariable "⊧" frame ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
