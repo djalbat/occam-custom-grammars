@@ -42,11 +42,11 @@ definedAssertion                     ::=  term "is" "not"? "defined" ;
 
 containedAssertion                   ::=  term "is" "not"? "contained" "in" statement ;
 
-subproofAssertion                    ::=  "[" metavariable ( "," metavariable )* "]" "..." metavariable ;
+subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-judgement                            ::=  metavariable "⊧" frame ;
+judgement                            ::=  statement "⊧" frame ;
 
-frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
+frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>statement ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>statement ) ) )* ;
  
 declaration                          ::=  reference "::" statement ;
 
