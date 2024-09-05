@@ -50,7 +50,7 @@ frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>
  
 declaration                          ::=  reference "::" statement ;
 
-substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
+substitution                         ::=  <NO_WHITESPACE>"[" term "for" term "]" ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
