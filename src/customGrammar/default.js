@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "⊧|is|in|for|defined|contained|not";
+export const operatorPattern = "::|\\[\\[|\\]\\]|\\[|\\]|\\.\\.\\.|\\|=|=|is|in|for|defined|contained|not";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
@@ -44,13 +44,13 @@ containedAssertion                   ::=  term "is" "not"? "contained" "in" stat
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-judgement                            ::=  metavariable "⊧" frame ;
+judgement                            ::=  metavariable "|=" frame ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
 declaration                          ::=  metavariable "::" statement ;
 
-substitution                         ::=  <NO_WHITESPACE>"[" term "for" variable "]" ;`;
+substitution                         ::=  <NO_WHITESPACE>( ( "[" term "for" variable "]" ) | ( "[[" statement "for" metavariable "]]" ) );`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
