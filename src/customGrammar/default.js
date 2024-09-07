@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "::|\\[\\[|\\]\\]|\\[|\\]|\\.\\.\\.|\\|=|=|is|in|for|defined|contained|not";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|=|=|is|in|for|defined|contained|not";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
@@ -50,7 +50,7 @@ frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>
  
 declaration                          ::=  metavariable "::" statement ;
 
-substitution                         ::=  <NO_WHITESPACE>( ( "[" term "for" variable "]" ) | ( "[[" statement "for" metavariable "]]" ) );`;
+substitution                         ::=  ( ( "[" term "for" variable "]" ) | ( "[" "[" statement "]" "for" "[" metavariable "]" "]" ) );`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
