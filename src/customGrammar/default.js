@@ -38,9 +38,9 @@ equality                             ::=  term "=" term ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  ( term | ( "[" statement "]" ) ) "is" "not"? "defined" ;
+definedAssertion                     ::=  ( variable | ( "[" metavariable "]" ) ) "is" "not"? "defined" ;
 
-containedAssertion                   ::=  ( term | ( "[" statement "]" ) ) "is" "not"? "contained" "in" statement ;
+containedAssertion                   ::=  ( variable | ( "[" metavariable "]" ) ) "is" "not"? "contained" "in" statement ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
