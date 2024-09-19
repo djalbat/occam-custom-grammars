@@ -38,17 +38,17 @@ equality                             ::=  term "=" term ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  ( variable | ( "[" metavariable "]" ) ) "is" "not"? "defined" ;
+definedAssertion                     ::=  ( term | ( "[" statement "]" ) ) "is" "not"? "defined" ;
 
-containedAssertion                   ::=  ( variable | ( "[" metavariable "]" ) ) "is" "not"? "contained" "in" statement ;
+containedAssertion                   ::=  ( term | ( "[" statement "]" ) ) "is" "not"? "contained" "in" statement ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-judgement                            ::=  metavariable "|=" frame ;
+judgement                            ::=  statement "|=" frame ;
 
 frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
  
-declaration                          ::=  metavariable "::" statement ;
+declaration                          ::=  statement "::" statement ;
 
 substitution                         ::=  ( ( "[" term "for" variable "]" ) | ( "[" "[" statement "]" "for" "[" metavariable "]" "]" ) );`;
 
