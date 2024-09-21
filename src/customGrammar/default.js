@@ -54,8 +54,6 @@ declaration                          ::=  metavariable "::" statement
 
                                        ;
 
-declaration                          ::=  statement "::" statement ;
-
 substitution                         ::=  ( ( "[" term "for" variable "]" ) | ( "[" "[" statement "]" "for" "[" metavariable "]" "]" ) );`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
