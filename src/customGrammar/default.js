@@ -44,10 +44,16 @@ containedAssertion                   ::=  ( term | ( "[" statement "]" ) ) "is" 
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-judgement                            ::=  statement "|=" frame ;
+judgement                            ::=  frame "|=" declaration ;
 
-frame                                ::=  ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) ( "," ( declaration | ( "..."<NO_WHITESPACE>metavariable ) ) )* ;
+frame                                ::=  declaration ( "," declaration )* ;
  
+declaration                          ::=  metavariable "::" statement 
+
+                                       |  "..."<NO_WHITESPACE>metavariable
+
+                                       ;
+
 declaration                          ::=  statement "::" statement ;
 
 substitution                         ::=  ( ( "[" term "for" variable "]" ) | ( "[" "[" statement "]" "for" "[" metavariable "]" "]" ) );`;
