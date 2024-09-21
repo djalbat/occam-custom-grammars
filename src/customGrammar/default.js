@@ -48,11 +48,7 @@ judgement                            ::=  frame "|=" declaration ;
 
 frame                                ::=  declaration ( "," declaration )* ;
  
-declaration                          ::=  metavariable "::" statement 
-
-                                       |  "..."<NO_WHITESPACE>metavariable
-
-                                       ;
+declaration                          ::=  metavariable ( "::" statement )? ;
 
 substitution                         ::=  ( ( "[" term "for" variable "]" ) | ( "[" "[" statement "]" "for" "[" metavariable "]" "]" ) );`;
 
