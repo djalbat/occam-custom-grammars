@@ -44,7 +44,7 @@ containedAssertion                   ::=  ( term | ( "[" frame "]" ) ) "is" "not
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-judgement                            ::=  frame "|=" frame ;
+judgement                            ::=  frame "|=" declaration ;
 
 frame                                ::=  ( metavariable | declaration ) ( "," ( metavariable | declaration ) )* ;
  
