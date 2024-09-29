@@ -7,34 +7,34 @@ import CombinedCustomGrammar from "../customGrammar/combined";
 
 const { lexerFromRules, rulesFromEntries } = lexerUtilities;
 
-export function NominalLexerFromNothing() {
+export function nominalLexerFromNothing() {
   const { entries } = NominalLexer,
         combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
         rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        NominalLexer = lexerFromRules(NominalLexer, rules);
+        nominalLexer = lexerFromRules(NominalLexer, rules);
 
-  return NominalLexer;
+  return nominalLexer;
 }
 
-export function NominalLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
+export function nominalLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
   const { entries } = NominalLexer,
         rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        NominalLexer = lexerFromRules(NominalLexer, rules);
+        nominalLexer = lexerFromRules(NominalLexer, rules);
 
-  return NominalLexer;
+  return nominalLexer;
 }
 
-export function NominalLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
+export function nominalLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
   const rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        NominalLexer = lexerFromRules(NominalLexer, rules);
+        nominalLexer = lexerFromRules(NominalLexer, rules);
 
-  return NominalLexer;
+  return nominalLexer;
 }
 
 export default {
-  NominalLexerFromNothing,
-  NominalLexerFromCombinedCustomGrammar,
-  NominalLexerFromEntriesAndCombinedCustomGrammar
+  nominalLexerFromNothing,
+  nominalLexerFromCombinedCustomGrammar,
+  nominalLexerFromEntriesAndCombinedCustomGrammar
 };
 
 function rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
