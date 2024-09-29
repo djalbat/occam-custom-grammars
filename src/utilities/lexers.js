@@ -1,40 +1,40 @@
 "use strict";
 
-import { FlorenceLexer } from "occam-grammars";
+import { NominalLexer } from "occam-grammars";
 import { lexerUtilities } from "occam-lexers";
 
 import CombinedCustomGrammar from "../customGrammar/combined";
 
 const { lexerFromRules, rulesFromEntries } = lexerUtilities;
 
-export function florenceLexerFromNothing() {
-  const { entries } = FlorenceLexer,
+export function NominalLexerFromNothing() {
+  const { entries } = NominalLexer,
         combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
         rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        florenceLexer = lexerFromRules(FlorenceLexer, rules);
+        NominalLexer = lexerFromRules(NominalLexer, rules);
 
-  return florenceLexer;
+  return NominalLexer;
 }
 
-export function florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
-  const { entries } = FlorenceLexer,
+export function NominalLexerFromCombinedCustomGrammar(combinedCustomGrammar) {
+  const { entries } = NominalLexer,
         rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        florenceLexer = lexerFromRules(FlorenceLexer, rules);
+        NominalLexer = lexerFromRules(NominalLexer, rules);
 
-  return florenceLexer;
+  return NominalLexer;
 }
 
-export function florenceLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
+export function NominalLexerFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {
   const rules = rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar),
-        florenceLexer = lexerFromRules(FlorenceLexer, rules);
+        NominalLexer = lexerFromRules(NominalLexer, rules);
 
-  return florenceLexer;
+  return NominalLexer;
 }
 
 export default {
-  florenceLexerFromNothing,
-  florenceLexerFromCombinedCustomGrammar,
-  florenceLexerFromEntriesAndCombinedCustomGrammar
+  NominalLexerFromNothing,
+  NominalLexerFromCombinedCustomGrammar,
+  NominalLexerFromEntriesAndCombinedCustomGrammar
 };
 
 function rulesFromEntriesAndCombinedCustomGrammar(entries, combinedCustomGrammar) {

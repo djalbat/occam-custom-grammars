@@ -1,6 +1,6 @@
 "use strict";
 
-import { FlorenceParser } from "occam-grammars";
+import { NominalParser } from "occam-grammars";
 import { parserUtilities } from "occam-parsers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
@@ -8,42 +8,42 @@ import CombinedCustomGrammar from "../customGrammar/combined";
 
 const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
 
-export function florenceParserFromNothing() {
-  const { bnf } = FlorenceParser,
+export function nominalParserFromNothing() {
+  const { bnf } = NominalParser,
         combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
         rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        florenceParser = parserFromRules(FlorenceParser, rules);
+        nominalParser = parserFromRules(NominalParser, rules);
 
-  return florenceParser;
+  return nominalParser;
 }
 
-export function florenceParserFromCombinedCustomGrammar(combinedCustomGrammar) {
-  const { bnf } = FlorenceParser,
+export function nominalParserFromCombinedCustomGrammar(combinedCustomGrammar) {
+  const { bnf } = NominalParser,
         rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        florenceParser = parserFromRules(FlorenceParser, rules);
+        nominalParser = parserFromRules(NominalParser, rules);
 
-  return florenceParser;
+  return nominalParser;
 }
 
-export function florenceParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
+export function nominalParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
   const rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        florenceParser = parserFromRules(FlorenceParser, rules);
+        nominalParser = parserFromRules(NominalParser, rules);
 
-  return florenceParser;
+  return nominalParser;
 }
 
-export function florenceParserFromBNFStartRuleNameAndCombinedCustomGrammar(bnf, startRuleName, combinedCustomGrammar) {
+export function nominalParserFromBNFStartRuleNameAndCombinedCustomGrammar(bnf, startRuleName, combinedCustomGrammar) {
   const rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        florenceParser = parserFromRulesAndStartRuleName(FlorenceParser, rules, startRuleName);
+        nominalParser = parserFromRulesAndStartRuleName(NominalParser, rules, startRuleName);
 
-  return florenceParser;
+  return nominalParser;
 }
 
 export default {
-  florenceParserFromNothing,
-  florenceParserFromCombinedCustomGrammar,
-  florenceParserFromBNFAndCombinedCustomGrammar,
-  florenceParserFromBNFStartRuleNameAndCombinedCustomGrammar
+  nominalParserFromNothing,
+  nominalParserFromCombinedCustomGrammar,
+  nominalParserFromBNFAndCombinedCustomGrammar,
+  nominalParserFromBNFStartRuleNameAndCombinedCustomGrammar
 };
 
 function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {

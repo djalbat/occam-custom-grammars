@@ -17,7 +17,7 @@ import ContentTextarea from "./textarea/content";
 import PatternNameSelect from "./select/patternName";
 import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
-import FlorenceBNFTextarea from "./textarea/florenceBNF";
+import NominalBNFTextarea from "./textarea/nominalBNF";
 import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
 import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
 
@@ -25,8 +25,8 @@ import { rulesFromParser } from "./utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "./grammarNames";
 
 const { rulesAsString } = rulesUtilities,
-      { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
-      { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
+      { nominalLexerFromCombinedCustomGrammar } = lexersUtilities,
+      { nominalParserFromCombinedCustomGrammar } = parsersUtilities;
 
 class View extends Element {
   keyUpHandler = (event, element) => {
@@ -52,15 +52,15 @@ class View extends Element {
               userDefinedCustomGrammar2
             ],
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-            florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-            florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
+            nominalLexer = nominalLexerFromCombinedCustomGrammar(combinedCustomGrammar),
+            nominalParser = nominalParserFromCombinedCustomGrammar(combinedCustomGrammar);
 
-      const ruleMap = florenceParser.getRuleMap(),
+      const ruleMap = nominalParser.getRuleMap(),
             startRuleName = this.getStartRuleName(),
             startRule = ruleMap[startRuleName], ///
             content = this.getContent(),
-            tokens = florenceLexer.tokenise(content),
-            node = florenceParser.parse(tokens, startRule);
+            tokens = nominalLexer.tokenise(content),
+            node = nominalParser.parse(tokens, startRule);
 
       let parseTree = null;
 
@@ -70,18 +70,18 @@ class View extends Element {
 
       this.setParseTree(parseTree);
 
-      const florenceRules = rulesFromParser(florenceParser),
+      const nominalRules = rulesFromParser(nominalParser),
             multiLine = true,
-            rulesString = rulesAsString(florenceRules, multiLine),
-            florenceBNF = rulesString;  ///
+            rulesString = rulesAsString(nominalRules, multiLine),
+            nominalBNF = rulesString;  ///
 
-      this.setFlorenceBNF(florenceBNF);
+      this.setNominalBNF(nominalBNF);
     } catch (error) {
       console.log(error);
 
       this.clearParseTree();
 
-      this.clearFlorenceBNF();
+      this.clearNominalBNF();
     }
   }
 
@@ -158,9 +158,9 @@ class View extends Element {
             </SubHeading>
             <ParseTreeTextarea />
             <SubHeading>
-              Florence BNF
+              Nominal BNF
             </SubHeading>
-            <FlorenceBNFTextarea />
+            <NominalBNFTextarea />
           </RowsDiv>
         </ColumnDiv>
       </ColumnsDiv>
