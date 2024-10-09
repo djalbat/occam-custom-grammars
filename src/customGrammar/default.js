@@ -10,13 +10,13 @@ export const symbolPattern = "";
 
 export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|=|=|is|in|for|defined|contained|not";
 
-export const termBNF = `term                                 ::=  "(" argument ")"
+export const termBNF = `term.                                ::=  "(" argument ")"
 
                                        |  variable 
                                        
                                        ;`;
 
-export const statementBNF = `statement                            ::=  "(" metaArgument ")" 
+export const statementBNF = `statement.                           ::=  "(" metaArgument ")" 
                                                   
                                        |  equality
 
