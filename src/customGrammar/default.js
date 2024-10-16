@@ -52,11 +52,11 @@ declaration                          ::=  reference "::" statement ;
 
 substitution                         ::=  ( 
 
-                                            ( "[" term "for" variable "]" ) 
+                                            ( "[" term "for" term "]" ) 
                                             
                                             | 
                                             
-                                            ( "[" "[" frame "]" "for" "[" metavariable "]" "]" ) 
+                                            ( "[" "[" frame "]" "for" "[" frame "]" "]" ) 
                                             
                                           );`;
 
