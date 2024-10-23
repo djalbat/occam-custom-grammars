@@ -40,9 +40,9 @@ equality                             ::=  term "=" term ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  ( term | ( frame ) ) "is" "not"? "defined" ;
+definedAssertion                     ::=  ( frame | term ) "is" "not"? "defined" ;
 
-containedAssertion                   ::=  ( term | ( frame ) ) "is" "not"? "contained" "in" statement ;
+containedAssertion                   ::=  ( frame | term ) "is" "not"? "contained" "in" statement ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
@@ -52,15 +52,7 @@ frame                                ::=  "[" ( ( metavariable | declaration ) (
  
 declaration                          ::=  reference "::" statement ;
 
-substitution                         ::=  ( 
-
-                                            ( "[" term "for" term "]" ) 
-                                            
-                                            | 
-                                            
-                                            ( "[" frame "for" frame "]" ) 
-                                            
-                                          );`;
+substitution                         ::=  "[" ( ( frame "for" frame ) | ( term "for" term ) ) "]";`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
