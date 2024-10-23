@@ -48,7 +48,7 @@ subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "
 
 judgement                            ::=  frame "|=" declaration ;
 
-frame                                ::=  ( metavariable | declaration ) ( "," ( metavariable | declaration ) )* ;
+frame                                ::=  "[" ( ( metavariable | declaration ) ( "," ( metavariable | declaration ) )* )? "]" ;
  
 declaration                          ::=  reference "::" statement ;
 
