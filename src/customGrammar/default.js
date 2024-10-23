@@ -40,9 +40,9 @@ equality                             ::=  term "=" term ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  ( term | ( "[" frame "]" ) ) "is" "not"? "defined" ;
+definedAssertion                     ::=  ( term | ( frame ) ) "is" "not"? "defined" ;
 
-containedAssertion                   ::=  ( term | ( "[" frame "]" ) ) "is" "not"? "contained" "in" statement ;
+containedAssertion                   ::=  ( term | ( frame ) ) "is" "not"? "contained" "in" statement ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
@@ -58,7 +58,7 @@ substitution                         ::=  (
                                             
                                             | 
                                             
-                                            ( "[" "[" frame "]" "for" "[" frame "]" "]" ) 
+                                            ( "[" frame "for" frame "]" ) 
                                             
                                           );`;
 
