@@ -28,6 +28,8 @@ export const statementBNF = `statement.                           ::=  "(" metaA
                                                   
                                        |  subproofAssertion         
        
+                                       |  declaration
+
                                        |  judgement
 
                                        |  metavariable substitution?
