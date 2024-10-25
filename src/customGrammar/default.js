@@ -30,7 +30,7 @@ export const statementBNF = `statement.                           ::=  "(" metaA
        
                                        |  judgement
 
-                                       |  metavariable substitution?
+                                       |  metavariable ( frameSubstitution | termSubstitution )?
 
                                        ;
 
@@ -50,7 +50,11 @@ frame                                ::=  "[" ( ( metavariable | declaration ) (
  
 declaration                          ::=  reference "::" statement ;
 
-substitution                         ::=  "[" ( ( statement "for" statement ) | ( frame "for" frame ) | ( term "for" term ) ) "]";`;
+termSubstitution                     ::=  "[" term "for" term "]";
+
+frameSubstitution                    ::=  "[" frame "for" frame "]";
+
+statementSubstitution                ::=  "[" statement "for" statement "]";`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
