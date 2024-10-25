@@ -50,7 +50,7 @@ frame                                ::=  "[" ( ( metavariable | declaration ) (
  
 declaration                          ::=  reference "::" statement ;
 
-substitution                         ::=  "[" ( ( frame "for" frame ) | ( term "for" term ) ) "]";`;
+substitution                         ::=  "[" ( ( statement "for" statement ) | ( frame "for" frame ) | ( term "for" term ) ) "]";`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
