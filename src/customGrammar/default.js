@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|=|=|is|in|for|defined|contained|not";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|is|in|for|defined|contained|not";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
@@ -44,7 +44,7 @@ containedAssertion                   ::=  ( frame | term ) "is" "not"? "containe
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-judgement                            ::=  frame "|=" declaration ;
+judgement                            ::=  frame "|-" declaration ;
 
 frame                                ::=  "[" ( ( metavariable | declaration ) ( "," ( metavariable | declaration ) )* )? "]" ;
  
