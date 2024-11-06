@@ -54,6 +54,8 @@ termSubstitution                     ::=  "[" term "for" term "]";
 
 frameSubstitution                    ::=  "[" frame "for" frame "]";
 
+referenceSubstitution                ::=  "[" reference "for" reference "]";
+
 statementSubstitution                ::=  "[" statement "for" statement "]";`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
