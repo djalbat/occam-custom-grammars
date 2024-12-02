@@ -36,9 +36,9 @@ export const statementBNF = `statement.                           ::=  "(" metaA
 
                                        ;
 
-functionCall                         ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" arguments... ")" ;
+functionCall                         ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" arguments ")" ;
 
-arguments                            ::=  ( term | frame | statement )+ ;
+arguments                            ::=  ( term | frame | statement ) ( "," ( term | frame | statement ) )* ;
 
 equality                             ::=  term "=" term ;
 
