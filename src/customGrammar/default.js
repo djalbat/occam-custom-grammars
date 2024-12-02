@@ -8,7 +8,7 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|is|in|for|defined|contained|not";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|is|in|for|defined|contained|not";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
@@ -28,11 +28,17 @@ export const statementBNF = `statement.                           ::=  "(" metaA
                                                   
                                        |  subproofAssertion         
        
+                                       |  functionCall         
+
                                        |  judgement
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
 
                                        ;
+
+functionCall                         ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" arguments... ")" ;
+
+arguments                            ::=  ( term | frame | statement )+ ;
 
 equality                             ::=  term "=" term ;
 
