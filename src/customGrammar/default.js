@@ -27,9 +27,9 @@ export const statementBNF = `statement.                           ::=  "(" metaA
                                        |  containedAssertion   
                                                   
                                        |  subproofAssertion         
-       
-                                       |  procedureCall         
 
+                                       |  procedureCall         
+       
                                        |  judgement
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
@@ -46,7 +46,7 @@ containedAssertion                   ::=  ( frame | term ) "not"? "contained" "i
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-procedureCall                        ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" arguments ")" ;
+procedureCall                        ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" parameters ")" ;
 
 judgement                            ::=  frame "|-" declaration ;
 
@@ -62,14 +62,14 @@ referenceSubstitution                ::=  "[" reference "for" reference "]";
 
 statementSubstitution                ::=  "[" statement "for" statement "]";
 
-arguments                            ::=  argument ( "," argument )* ;
+parameters                           ::=  parameter ( "," parameter )* ;
 
-argument                             ::=  term 
+parameter                            ::=  statement 
 
                                        |  frame 
-                                       
-                                       |  statement 
-                                       
+                                        
+                                       |  term 
+                                        
                                        ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
