@@ -46,7 +46,7 @@ containedAssertion                   ::=  ( frame | term ) "not"? "contained" "i
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-procedureCall                        ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" parameters ")" ;
+procedureCall                        ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" parameter ( "," parameter )* ")" ;
 
 judgement                            ::=  frame "|-" declaration ;
 
@@ -61,8 +61,6 @@ frameSubstitution                    ::=  "[" frame "for" frame "]";
 referenceSubstitution                ::=  "[" reference "for" reference "]";
 
 statementSubstitution                ::=  "[" statement "for" statement "]";
-
-parameters                           ::=  parameter ( "," parameter )* ;
 
 parameter                            ::=  statement 
 
