@@ -62,13 +62,7 @@ referenceSubstitution                ::=  "[" reference "for" reference "]";
 
 statementSubstitution                ::=  "[" statement "for" statement "]";
 
-parameter                            ::=  statement 
-
-                                       |  frame 
-                                        
-                                       |  term 
-                                        
-                                       ;`;
+parameter                            ::=  [name] ;`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
