@@ -11,7 +11,7 @@ import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from ".
 const { unshift } = arrayUtilities,
       { rulesFromBNF } = parserUtilities;
 
-export default class Combined {
+export default class CombinedCustomGrammar {
   constructor(rules, entries) {
     this.rules = rules;
     this.entries = entries;
@@ -34,7 +34,7 @@ export default class Combined {
 
     const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
-          combinedCustomGrammar = new Combined(rules, entries);
+          combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
 
     return combinedCustomGrammar;
   }
@@ -46,7 +46,7 @@ export default class Combined {
 
     const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
-          combinedCustomGrammar = new Combined(rules, entries);
+          combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
     
     return combinedCustomGrammar;
   }
