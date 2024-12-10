@@ -32,6 +32,14 @@ export function nominalParserFromBNFAndCombinedCustomGrammar(bnf, combinedCustom
   return nominalParser;
 }
 
+export function nominalParserFromStartRuleNameAndCombinedCustomGrammar(startRuleName, combinedCustomGrammar) {
+  const { bnf } = NominalParser,
+        rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
+        nominalParser = parserFromRulesAndStartRuleName(NominalParser, rules, startRuleName);
+
+  return nominalParser;
+}
+
 export function nominalParserFromBNFStartRuleNameAndCombinedCustomGrammar(bnf, startRuleName, combinedCustomGrammar) {
   const rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
         nominalParser = parserFromRulesAndStartRuleName(NominalParser, rules, startRuleName);
@@ -43,6 +51,7 @@ export default {
   nominalParserFromNothing,
   nominalParserFromCombinedCustomGrammar,
   nominalParserFromBNFAndCombinedCustomGrammar,
+  nominalParserFromStartRuleNameAndCombinedCustomGrammar,
   nominalParserFromBNFStartRuleNameAndCombinedCustomGrammar
 };
 
