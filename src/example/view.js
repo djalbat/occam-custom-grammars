@@ -18,8 +18,8 @@ import PatternNameSelect from "./select/patternName";
 import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
 import NominalBNFTextarea from "./textarea/nominalBNF";
-import userDefinedCustomGrammar1 from "./userDefinedCustomGrammar1";
-import userDefinedCustomGrammar2 from "./userDefinedCustomGrammar2";
+import userDefinedCustomGrammar1 from "./customGrammar/userDefined1";
+import userDefinedCustomGrammar2 from "./customGrammar/userDefined2";
 
 import { rulesFromParser } from "./utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "./grammarNames";
@@ -39,11 +39,13 @@ class View extends Element {
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
         userDefinedCustomGrammar1.setBNF(ruleName, bnf);
+
         userDefinedCustomGrammar1.setPattern(patternName, pattern);
       }
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
         userDefinedCustomGrammar2.setBNF(ruleName, bnf);
+
         userDefinedCustomGrammar2.setPattern(patternName, pattern);
       }
 
