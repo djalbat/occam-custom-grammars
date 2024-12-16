@@ -187,12 +187,12 @@ class View extends Element {
 
   static initialStartRuleName = "";
 
-  static initialContent = `Rule (blah)
+  static initialContent = `Rule (foo)
   Conclusion
-    u omitted from P
+    u is contained in P
   
-Axiom (blah)
-  x = x contained in x
+Axiom (bar)
+  x is defined
 `;
 
   static tagName = "div";
