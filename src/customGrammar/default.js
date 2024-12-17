@@ -10,7 +10,7 @@ export const symbolPattern = "";
 
 export const propertyPattern = "";
 
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|not\\b|is\\b|in\\b|for\\b|defined|contained";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|contained";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
