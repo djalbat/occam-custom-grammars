@@ -30,8 +30,6 @@ export const statementBNF = `statement.                           ::=  "(" metaA
                                                   
                                        |  subproofAssertion         
 
-                                       |  procedureCall         
-       
                                        |  judgement
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
@@ -48,23 +46,19 @@ containedAssertion                   ::=  ( frame | term ) "is" "not"? "containe
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-procedureCall                        ::=  "@"<NO_WHITESPACE>reference<NO_WHITESPACE>"(" parameter ( "," parameter )* ")" ;
-
 judgement                            ::=  frame "|-" declaration ;
 
 frame                                ::=  "[" ( ( declaration | metavariable ) ( "," ( declaration | metavariable ) )* )? "]" ;
  
-declaration                          ::=  reference "::" statement ;
+declaration                          ::=  metavariable "::" statement ;
 
 termSubstitution                     ::=  "[" term "for" term "]";
 
 frameSubstitution                    ::=  "[" frame "for" frame "]";
 
-referenceSubstitution                ::=  "[" reference "for" reference "]";
-
 statementSubstitution                ::=  "[" statement "for" statement "]";
 
-parameter                            ::=  [name] ;`;
+metavariableSubstitution             ::=  "[" metavariable "for" metavariable "]";`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
