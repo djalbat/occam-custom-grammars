@@ -10,7 +10,7 @@ export const symbolPattern = "";
 
 export const propertyPattern = "";
 
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
@@ -40,7 +40,7 @@ judgement                            ::=  frame "|-" declaration ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  ( frame | term ) "is" "not"? "defined" ;
+definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "undefined" );
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
