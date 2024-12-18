@@ -10,7 +10,7 @@ export const symbolPattern = "";
 
 export const propertyPattern = "";
 
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|contained";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
@@ -22,15 +22,13 @@ export const statementBNF = `statement.                           ::=  "(" metaA
                                                   
                                        |  equality
 
+                                       |  judgement
+
                                        |  typeAssertion 
                                                   
                                        |  definedAssertion  
 
-                                       |  containedAssertion   
-                                                  
                                        |  subproofAssertion         
-
-                                       |  judgement
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
 
@@ -38,15 +36,13 @@ export const statementBNF = `statement.                           ::=  "(" metaA
 
 equality                             ::=  term "=" term ;
 
+judgement                            ::=  frame "|-" declaration ;
+
 typeAssertion                        ::=  term ":" type ;
 
 definedAssertion                     ::=  ( frame | term ) "is" "not"? "defined" ;
 
-containedAssertion                   ::=  ( frame | term ) "is" "not"? "contained" "in" statement ;
-
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
-
-judgement                            ::=  frame "|-" declaration ;
 
 frame                                ::=  "[" ( ( declaration | metavariable ) ( "," ( declaration | metavariable ) )* )? "]" ;
  
@@ -58,7 +54,7 @@ frameSubstitution                    ::=  "[" frame "for" frame "]";
 
 statementSubstitution                ::=  "[" statement "for" statement "]";
 
-metavariableSubstitution             ::=  "[" metavariable "for" metavariable "]";`;
+referenceSubstitution                ::=  "[" reference "for" reference "]";`;
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
