@@ -10,7 +10,7 @@ export const symbolPattern = "";
 
 export const propertyPattern = "";
 
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined";
+export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined|missing|present";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
@@ -28,6 +28,8 @@ export const statementBNF = `statement.                           ::=  "(" metaA
                                                   
                                        |  definedAssertion  
 
+                                       |  containedAssertion  
+
                                        |  subproofAssertion         
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
@@ -41,6 +43,8 @@ judgement                            ::=  frame "|-" declaration ;
 typeAssertion                        ::=  term ":" type ;
 
 definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "undefined" );
+
+containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
