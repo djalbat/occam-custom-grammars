@@ -2,16 +2,15 @@
 
 import { EMPTY_STRING } from "./constants";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "./ruleNames";
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, PROPERTY_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
+import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "./patternNames";
 
 export default class CustomGrammar {
-  constructor(name, termBNF, statementBNF, typePattern, symbolPattern, propertyPattern, operatorPattern) {
+  constructor(name, termBNF, statementBNF, typePattern, symbolPattern, operatorPattern) {
     this.name = name;
     this.termBNF = termBNF;
     this.statementBNF = statementBNF;
     this.typePattern = typePattern;
     this.symbolPattern = symbolPattern;
-    this.propertyPattern = propertyPattern;
     this.operatorPattern = operatorPattern;
   }
   
@@ -58,7 +57,6 @@ ${bnf}`;
     switch (patternName) {
       case TYPE_PATTERN_NAME: pattern = this.typePattern; break;
       case SYMBOL_PATTERN_NAME: pattern = this.symbolPattern; break;
-      case PROPERTY_PATTERN_NAME: pattern = this.propertyPattern; break;
       case OPERATOR_PATTERN_NAME: pattern = this.operatorPattern; break;
     }
 
@@ -69,7 +67,6 @@ ${bnf}`;
     const patterns = [
       this.typePattern,
       this.symbolPattern,
-      this.propertyPattern,
       this.operatorPattern
     ];
 
@@ -106,11 +103,6 @@ ${bnf}`;
 
         break;
 
-      case PROPERTY_PATTERN_NAME:
-        this.propertyPattern = pattern;
-
-        break;
-
       case OPERATOR_PATTERN_NAME:
         this.operatorPattern = pattern;
 
@@ -142,7 +134,6 @@ ${bnf}`;
           statementBNF = this.statementBNF,
           typePattern = this.typePattern,
           symbolPattern = this.symbolPattern,
-          propertyPattern = this.propertyPattern,
           operatorPattern = this.operatorPattern,
           json = {
             name,
@@ -150,7 +141,6 @@ ${bnf}`;
             statementBNF,
             typePattern,
             symbolPattern,
-            propertyPattern,
             operatorPattern
           };
     
@@ -158,8 +148,8 @@ ${bnf}`;
   }
 
   static fromJSON(json) {
-    const { name, termBNF, statementBNF, typePattern, symbolPattern, propertyPattern, operatorPattern } = json,
-          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern, propertyPattern, operatorPattern);
+    const { name, termBNF, statementBNF, typePattern, symbolPattern, operatorPattern } = json,
+          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern, operatorPattern);
 
     return customGrammar;
   }
@@ -169,15 +159,14 @@ ${bnf}`;
           statementBNF = EMPTY_STRING,
           typePattern = EMPTY_STRING,
           symbolPattern = EMPTY_STRING,
-          propertyPattern = EMPTY_STRING,
           operatorPattern = EMPTY_STRING,
-          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern, propertyPattern, operatorPattern);
+          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern, operatorPattern);
 
     return customGrammar;
   }
 
-  static fromNameTermBNFStatementBNFTypePatternSymbolPatternPropertyPatternAndOperatorPattern(name, termBNF, statementBNF, typePattern, symbolPattern, propertyPattern, operatorPattern) {
-    const customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern, propertyPattern, operatorPattern);
+  static fromNameTermBNFStatementBNFTypePatternSymbolPatternAndOperatorPattern(name, termBNF, statementBNF, typePattern, symbolPattern, operatorPattern) {
+    const customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern, operatorPattern);
 
     return customGrammar;
   }

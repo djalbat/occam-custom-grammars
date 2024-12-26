@@ -9,7 +9,6 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
       statementBNF = ``,
       typePattern = "",
       symbolPattern = "",
-      propertyPattern = "",
       operatorPattern = "",
       json = {
         name,
@@ -17,7 +16,6 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
         statementBNF,
         typePattern,
         symbolPattern,
-        propertyPattern,
         operatorPattern
       },
       userDefinedCustomGrammar2 = CustomGrammar.fromJSON(json);

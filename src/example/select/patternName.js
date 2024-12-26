@@ -2,7 +2,7 @@
 
 import Select from "../select";
 
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, PROPERTY_PATTERN_NAME, OPERATOR_PATTERN_NAME }  from "../../patternNames";
+import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME }  from "../../patternNames";
 
 export default class PatternNameSelect extends Select {
   getPatternName() {
@@ -16,7 +16,6 @@ export default class PatternNameSelect extends Select {
     const patternNames = [
             TYPE_PATTERN_NAME,
             SYMBOL_PATTERN_NAME,
-            PROPERTY_PATTERN_NAME,
             OPERATOR_PATTERN_NAME
           ],
           options  = patternNames.map((patternName, index) => {

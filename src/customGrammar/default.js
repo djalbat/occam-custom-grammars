@@ -8,8 +8,6 @@ export const typePattern = "Object";
 
 export const symbolPattern = "";
 
-export const propertyPattern = "";
-
 export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined|missing|present";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
@@ -65,7 +63,6 @@ const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
         name,
         typePattern,
         symbolPattern,
-        propertyPattern,
         operatorPattern,
         termBNF,
         statementBNF
