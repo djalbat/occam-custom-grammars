@@ -12,9 +12,13 @@ export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined|
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
+                                       |  propertyRelation 
+
                                        |  variable 
                                        
-                                       ;`;
+                                       ;
+
+propertyRelation                     ::=  property "of" term ;`;
 
 export const statementBNF = `statement.                           ::=  "(" metaArgument ")" 
                                                   
