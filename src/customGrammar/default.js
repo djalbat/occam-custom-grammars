@@ -10,13 +10,9 @@ export const symbolPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined|mi
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
-                                       |  propertyRelation 
-
                                        |  variable 
                                        
-                                       ;
-
-propertyRelation                     ::=  property "of" term ;`;
+                                       ;`;
 
 export const statementBNF = `statement.                           ::=  "(" metaArgument ")" 
                                                   
@@ -48,9 +44,11 @@ definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "u
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
-propertyAssertion                    ::=  variable "is" ( "a" | "an" ) property "of" term ;
+propertyAssertion                    ::=  variable "is" ( "a" | "an" ) propertyRelation ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
+
+propertyRelation                     ::=  property "of" term ;
 
 frame                                ::=  "[" ( ( declaration | metavariable ) ( "," ( declaration | metavariable ) )* )? "]" ;
  
