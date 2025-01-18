@@ -48,7 +48,7 @@ definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "u
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
-propertyAssertion                    ::=  term "is" ( "a" | "an" ) property "of" term ;
+propertyAssertion                    ::=  variable "is" ( "a" | "an" ) property "of" term ;
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
