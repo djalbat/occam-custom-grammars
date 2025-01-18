@@ -9,14 +9,12 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
       statementBNF = ``,
       typePattern = "Integer",
       symbolPattern = "",
-      operatorPattern = "",
       json = {
         name,
         termBNF,
         statementBNF,
         typePattern,
-        symbolPattern,
-        operatorPattern
+        symbolPattern
       },
       userDefinedCustomGrammar1 = CustomGrammar.fromJSON(json);
 

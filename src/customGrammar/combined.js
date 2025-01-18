@@ -6,7 +6,7 @@ import { parserUtilities } from "occam-parsers";
 import defaultCustomGrammar from "../customGrammar/default";
 
 import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME, OPERATOR_PATTERN_NAME } from "../patternNames";
+import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "../patternNames";
 
 const { unshift } = arrayUtilities,
       { rulesFromBNF } = parserUtilities;
@@ -69,8 +69,7 @@ function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
 function entriesFromCustomGrammars(customGrammars) {
   const patternNames = [
           TYPE_PATTERN_NAME,
-          SYMBOL_PATTERN_NAME,
-          OPERATOR_PATTERN_NAME
+          SYMBOL_PATTERN_NAME
         ],
         entries = patternNames.map((patternName) => {
           const entry = entryFromCustomGrammars(customGrammars, patternName);

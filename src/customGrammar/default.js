@@ -6,9 +6,7 @@ import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
 export const typePattern = "Object";
 
-export const symbolPattern = "";
-
-export const operatorPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined|missing|present";
+export const symbolPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|@|defined|undefined|missing|present";
 
 export const termBNF = `term.                                ::=  "(" argument ")"
 
@@ -71,7 +69,6 @@ const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
         name,
         typePattern,
         symbolPattern,
-        operatorPattern,
         termBNF,
         statementBNF
       };
