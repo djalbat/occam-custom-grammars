@@ -26,9 +26,9 @@ export const statementBNF = `statement.                           ::=  "(" metaA
 
                                        |  containedAssertion  
 
-                                       |  propertyAssertion  
-
                                        |  subproofAssertion         
+
+                                       |  propertyAssertion  
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
 
@@ -44,11 +44,11 @@ definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "u
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
-propertyAssertion                    ::=  variable "is" ( "a" | "an" ) propertyRelation ;
-
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-propertyRelation                     ::=  property "of" term ;
+propertyAssertion                    ::=  variable "is" ( "a" | "an" ) propertyRelation ;
+
+propertyRelation                     ::=  property "of" variable ;
 
 frame                                ::=  "[" ( ( declaration | metavariable ) ( "," ( declaration | metavariable ) )* )? "]" ;
  
