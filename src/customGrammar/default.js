@@ -46,7 +46,7 @@ containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "m
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
-propertyAssertion                    ::=  variable "is" ( "a" | "an" ) propertyRelation ;
+propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelation ;
 
 propertyRelation                     ::=  property "of" variable ;
 
