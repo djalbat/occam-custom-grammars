@@ -48,7 +48,7 @@ subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "
 
 propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelation ;
 
-propertyRelation                     ::=  property "of" variable ;
+propertyRelation                     ::=  property "of" term ;
 
 frame                                ::=  "[" ( ( declaration | metavariable ) ( "," ( declaration | metavariable ) )* )? "]" ;
  
