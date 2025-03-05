@@ -4,8 +4,6 @@ import CustomGrammar from "../customGrammar";
 
 import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
-export const typeBNF = `type.                                ::=  [type] ;`;
-
 export const termBNF = `term.                                ::=  "(" argument ")"
 
                                        |  variable 
@@ -71,7 +69,6 @@ export const symbolPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|defined|undefined|miss
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
         name,
-        typeBNF,
         termBNF,
         statementBNF,
         typePattern,
