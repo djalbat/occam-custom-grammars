@@ -1,12 +1,13 @@
 "use strict";
 
 import { EMPTY_STRING } from "./constants";
-import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "./ruleNames";
 import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "./patternNames";
+import { TYPE_RULE_NAME, TERM_RULE_NAME, STATEMENT_RULE_NAME } from "./ruleNames";
 
 export default class CustomGrammar {
-  constructor(name, termBNF, statementBNF, typePattern, symbolPattern) {
+  constructor(name, typeBNF, termBNF, statementBNF, typePattern, symbolPattern) {
     this.name = name;
+    this.typeBNF = typeBNF;
     this.termBNF = termBNF;
     this.statementBNF = statementBNF;
     this.typePattern = typePattern;
@@ -17,15 +18,37 @@ export default class CustomGrammar {
     return this.name;
   }
 
+  getTypeBNF() {
+    return this.typeBNF;
+  }
+
+  getTermBNF() {
+    return this.termBNF;
+  }
+
+  getStatementBNF() {
+    return this.statementBNF;
+  }
+
+  getTypePattern() {
+    return this.typePattern;
+  }
+
+  getSymbolPattern() {
+    return this.symbolPattern;
+  }
+
   getBNF(ruleName = null) {
     let bnf;
 
     switch (ruleName) {
+      case TYPE_RULE_NAME: bnf = this.typeBNF; break;
       case TERM_RULE_NAME: bnf = this.termBNF; break;
       case STATEMENT_RULE_NAME: bnf = this.statementBNF; break;
 
       default: {
         const ruleNames = [
+                TYPE_RULE_NAME,
                 TERM_RULE_NAME,
                 STATEMENT_RULE_NAME
               ],
@@ -76,6 +99,11 @@ ${bnf}`;
 
   setBNF(ruleName, bnf) {
     switch (ruleName) {
+      case TYPE_RULE_NAME:
+        this.typeBNF = bnf;
+
+        break;
+
       case TERM_RULE_NAME:
         this.termBNF = bnf;
 
@@ -122,12 +150,14 @@ ${bnf}`;
 
   toJSON() {
     const name = this.name,
+          typeBNF = this.typeBNF,
           termBNF = this.termBNF,
           statementBNF = this.statementBNF,
           typePattern = this.typePattern,
           symbolPattern = this.symbolPattern,
           json = {
             name,
+            typeBNF,
             termBNF,
             statementBNF,
             typePattern,
@@ -138,24 +168,25 @@ ${bnf}`;
   }
 
   static fromJSON(json) {
-    const { name, termBNF, statementBNF, typePattern, symbolPattern } = json,
-          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern);
+    const { name, typeBNF, termBNF, statementBNF, typePattern, symbolPattern } = json,
+          customGrammar = new CustomGrammar(name, typeBNF, termBNF, statementBNF, typePattern, symbolPattern);
 
     return customGrammar;
   }
 
   static fromName(name) {
-    const termBNF = EMPTY_STRING,
+    const typeBNF = EMPTY_STRING,
+          termBNF = EMPTY_STRING,
           statementBNF = EMPTY_STRING,
           typePattern = EMPTY_STRING,
           symbolPattern = EMPTY_STRING,
-          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern);
+          customGrammar = new CustomGrammar(name, typeBNF, termBNF, statementBNF, typePattern, symbolPattern);
 
     return customGrammar;
   }
 
-  static fromNameTermBNFStatementBNFTypePatternAndSymbolPattern(name, termBNF, statementBNF, typePattern, symbolPattern) {
-    const customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern);
+  static fromNameTypeBNFTermBNFStatementBNFTypePatternAndSymbolPattern(name, typeGNF, termBNF, statementBNF, typePattern, symbolPattern) {
+    const customGrammar = new CustomGrammar(name, typeGNF, termBNF, statementBNF, typePattern, symbolPattern);
 
     return customGrammar;
   }
