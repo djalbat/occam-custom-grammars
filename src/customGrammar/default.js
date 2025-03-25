@@ -22,7 +22,7 @@ export const statementBNF = `statement.                           ::=  "(" metaA
 
                                        |  containedAssertion  
                                        
-                                       |  satisfyingAssertion
+                                       |  satisfiesAssertion
 
                                        |  subproofAssertion         
 
@@ -42,7 +42,7 @@ definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "u
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
-satisfyingAssertion                  ::=  ( ( term "satisfies" ) | ( term ( "," term )+ "satisfy" ) ) metavariable ;  
+satisfiesAssertion                   ::=  ( ( term "satisfies" ) | ( term ( "," term )+ "satisfy" ) ) metavariable ;  
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
