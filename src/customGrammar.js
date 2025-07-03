@@ -1,8 +1,8 @@
 "use strict";
 
 import { EMPTY_STRING } from "./constants";
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "./patternNames";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "./ruleNames";
+import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "./patternNames";
 
 export default class CustomGrammar {
   constructor(name, termBNF, statementBNF, typePattern, symbolPattern) {
