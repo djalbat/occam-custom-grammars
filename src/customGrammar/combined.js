@@ -82,9 +82,15 @@ function entriesFromCustomGrammars(customGrammars) {
 
 function entryFromCustomGrammars(customGrammars, patternName) {
   const patterns = customGrammars.reduce((patterns, customGrammar) => {
-    const pattern = customGrammar.getPattern(patternName);
+    let pattern;
+
+    pattern = customGrammar.getPattern(patternName);
 
     if (pattern) {  ///
+      if (patternName === TYPE_PATTERN_NAME) {
+        pattern = `(?<!\\w)${pattern}(?!\\w)`;
+      }
+
       patterns.push(pattern);
     }
 
@@ -94,11 +100,8 @@ function entryFromCustomGrammars(customGrammars, patternName) {
   patterns.reverse();
 
   const patternsString = patterns.join(VERTICAL_BAR),
-        pattern = (patternName === TYPE_PATTERN_NAME) ?
-                   `^(?:${patternsString})\\b` :
-                     `^(?:${patternsString})`,
         entry = {
-          [patternName]: pattern
+          [patternName]: `^(?:${patternsString})`
         };
 
   return entry;
