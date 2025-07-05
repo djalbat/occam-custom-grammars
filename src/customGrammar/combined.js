@@ -86,9 +86,9 @@ function entryFromCustomGrammars(customGrammars, patternName) {
 
     pattern = customGrammar.getPattern(patternName);
 
-    if (pattern) {  ///
+    if ((pattern !== null) && (pattern !== EMPTY_STRING)) {
       if (patternName === TYPE_PATTERN_NAME) {
-        pattern = `(?<!\\w)${pattern}(?!\\w)`;
+        pattern = `${pattern}(?!\\w)`;
       }
 
       patterns.push(pattern);

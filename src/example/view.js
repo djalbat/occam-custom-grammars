@@ -189,12 +189,9 @@ class View extends Element {
 
   static initialStartRuleName = "";
 
-  static initialContent = `Rule (foo)
+  static initialContent = `Rule (Groups)
   Conclusion
-    u is contained in P
-  
-Axiom (bar)
-  x is defined
+    A
 `;
 
   static tagName = "div";
