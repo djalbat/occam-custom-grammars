@@ -8,8 +8,8 @@ import defaultCustomGrammar from "../customGrammar/default";
 import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
 import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "../patternNames";
 
-const { unshift } = arrayUtilities,
-      { rulesFromBNF } = parserUtilities;
+const { rulesFromBNF } = parserUtilities,
+      { unshift, backwardsForEach } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(rules, entries) {
@@ -81,27 +81,29 @@ function entriesFromCustomGrammars(customGrammars) {
 }
 
 function entryFromCustomGrammars(customGrammars, patternName) {
-  const patterns = customGrammars.reduce((patterns, customGrammar) => {
-    let pattern;
+  const patterns = [];
 
-    pattern = customGrammar.getPattern(patternName);
+  backwardsForEach(customGrammars, (customGrammar) => {
+    const pattern = customGrammar.getPattern(patternName);
 
     if ((pattern !== null) && (pattern !== EMPTY_STRING)) {
-      if (patternName === TYPE_PATTERN_NAME) {
-        pattern = `${pattern}(?!\\w)`;
-      }
+      const subPatterns = pattern.split(VERTICAL_BAR);
 
-      patterns.push(pattern);
+      subPatterns.forEach((subPattern) => {
+        const pattern = (patternName === TYPE_PATTERN_NAME) ?
+                          `${subPattern}(?!\\w)` :
+                             subPattern; ///
+
+        patterns.push(pattern);
+      });
     }
-
-    return patterns;
-  }, []);
-
-  patterns.reverse();
+  });
 
   const patternsString = patterns.join(VERTICAL_BAR),
+        entryName = patternName,  ///
+        entryValue = `^(?:${patternsString})`,
         entry = {
-          [patternName]: `^(?:${patternsString})`
+          [entryName]: entryValue
         };
 
   return entry;
