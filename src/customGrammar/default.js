@@ -62,7 +62,7 @@ statementSubstitution                ::=  "[" statement "for" statement "]";
 
 referenceSubstitution                ::=  "[" reference "for" reference "]";`;
 
-export const typePattern = "Base";
+export const typePattern = "Object";
 
 export const symbolPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|defined|undefined|missing|present";
 
