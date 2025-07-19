@@ -67,13 +67,6 @@ export default {
 function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
   let rules = rulesFromBNF(bnf);
 
-  const combinedCustomGrammarRules = combinedCustomGrammar.getRules();
-
-  rules = [ ///
-    ...rules,
-    ...combinedCustomGrammarRules
-  ];
-
   rules = combinedCustomGrammar.postProcess(rules);
 
   return rules;

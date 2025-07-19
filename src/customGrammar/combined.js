@@ -27,6 +27,11 @@ export default class CombinedCustomGrammar {
   }
 
   postProcess(rules) {
+    rules = [ ///
+      ...rules,
+      ...this.rules
+    ];
+
     rules = eliminateLeftRecursion(rules);  ///
 
     return rules;
