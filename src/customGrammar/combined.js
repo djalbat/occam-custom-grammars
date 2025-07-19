@@ -2,6 +2,7 @@
 
 import { arrayUtilities } from "necessary";
 import { parserUtilities } from "occam-parsers";
+import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "../customGrammar/default";
 
@@ -23,6 +24,12 @@ export default class CombinedCustomGrammar {
 
   getEntries() {
     return this.entries;
+  }
+
+  postProcess(rules) {
+    rules = eliminateLeftRecursion(rules);  ///
+
+    return rules;
   }
 
   static fromNothing(includeDefault = true) {

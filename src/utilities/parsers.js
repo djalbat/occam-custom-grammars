@@ -2,7 +2,6 @@
 
 import { NominalParser } from "occam-grammars";
 import { parserUtilities } from "occam-parsers";
-import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import CombinedCustomGrammar from "../customGrammar/combined";
 
@@ -75,7 +74,7 @@ function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {
     ...combinedCustomGrammarRules
   ];
 
-  rules = eliminateLeftRecursion(rules);  ///
+  rules = combinedCustomGrammar.postProcess(rules);
 
   return rules;
 }
