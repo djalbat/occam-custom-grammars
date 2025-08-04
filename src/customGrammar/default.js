@@ -42,7 +42,7 @@ definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "u
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
-satisfiesAssertion                   ::=  ( ( term "satisfies" ) | ( term ( "," term )+ "satisfy" ) ) metavariable ;  
+satisfiesAssertion                   ::=  ( ( argument "satisfies" ) | ( argument ( "," argument )+ "satisfy" ) ) metavariable ;  
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
