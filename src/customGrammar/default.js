@@ -64,7 +64,7 @@ referenceSubstitution                ::=  "[" reference "for" reference "]";`;
 
 export const typePattern = "_";
 
-export const symbolPattern = "::|\\[|\\]|\\.\\.\\.|\\|-|=|defined|undefined|missing|present";
+export const symbolPattern = "";
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
