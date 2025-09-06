@@ -62,17 +62,17 @@ statementSubstitution                ::=  "[" statement "for" statement "]";
 
 referenceSubstitution                ::=  "[" reference "for" reference "]";`;
 
-export const typePattern = "_";
+export const typeVocabulary = "_";
 
-export const symbolPattern = "";
+export const symbolVocabulary = "";
 
 const name = DEFAULT_CUSTOM_GRAMMAR_NAME,
       json = {
         name,
         termBNF,
         statementBNF,
-        typePattern,
-        symbolPattern
+        typeVocabulary,
+        symbolVocabulary
       };
 
 const defaultCustomGrammar = CustomGrammar.fromJSON(json);

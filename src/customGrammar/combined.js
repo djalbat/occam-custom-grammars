@@ -7,7 +7,7 @@ import { eliminateLeftRecursion } from "occam-grammar-utilities";
 import defaultCustomGrammar from "../customGrammar/default";
 
 import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "../patternNames";
+import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "../vocabularyNames";
 
 const { rulesFromBNF } = parserUtilities,
       { unshift, backwardsForEach } = arrayUtilities;
@@ -79,12 +79,12 @@ function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
 }
 
 function entriesFromCustomGrammars(customGrammars) {
-  const patternNames = [
-          TYPE_PATTERN_NAME,
-          SYMBOL_PATTERN_NAME
+  const vocabularyNames = [
+          TYPE_VOCABULARY_NAME,
+          SYMBOL_VOCABULARY_NAME
         ],
-        entries = patternNames.map((patternName) => {
-          const entry = entryFromCustomGrammars(customGrammars, patternName);
+        entries = vocabularyNames.map((vocabularyName) => {
+          const entry = entryFromCustomGrammars(customGrammars, vocabularyName);
 
           return entry;
         });
@@ -92,28 +92,30 @@ function entriesFromCustomGrammars(customGrammars) {
   return entries;
 }
 
-function entryFromCustomGrammars(customGrammars, patternName) {
-  const patterns = [];
+function entryFromCustomGrammars(customGrammars, vocabularyName) {
+  const vocabularies = [];
 
   backwardsForEach(customGrammars, (customGrammar) => {
-    const pattern = customGrammar.getPattern(patternName);
+    const vocabulary = customGrammar.getVocabulary(vocabularyName);
 
-    if ((pattern !== null) && (pattern !== EMPTY_STRING)) {
-      const subPatterns = pattern.split(VERTICAL_BAR);
+    if ((vocabulary !== null) && (vocabulary !== EMPTY_STRING)) {
+      debugger
 
-      subPatterns.forEach((subPattern) => {
-        const pattern = (patternName === TYPE_PATTERN_NAME) ?
-                          `${subPattern}(?!\\w)` :
-                             subPattern; ///
+      const subVocabularies = vocabulary.split(VERTICAL_BAR);
 
-        patterns.push(pattern);
+      subVocabularies.forEach((subVocabulary) => {
+        const vocabulary = (vocabularyName === TYPE_VOCABULARY_NAME) ?
+                          `${subVocabulary}(?!\\w)` :
+                             subVocabulary; ///
+
+        vocabularies.push(vocabulary);
       });
     }
   });
 
-  const patternsString = patterns.join(VERTICAL_BAR),
-        entryName = patternName,  ///
-        entryValue = `^(?:${patternsString})`,
+  const vocabulariesString = vocabularies.join(VERTICAL_BAR),
+        entryName = vocabularyName,  ///
+        entryValue = `^(?:${vocabulariesString})`,
         entry = {
           [entryName]: entryValue
         };

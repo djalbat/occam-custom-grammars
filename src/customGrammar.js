@@ -2,15 +2,15 @@
 
 import { EMPTY_STRING } from "./constants";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "./ruleNames";
-import { TYPE_PATTERN_NAME, SYMBOL_PATTERN_NAME } from "./patternNames";
+import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "./vocabularyNames";
 
 export default class CustomGrammar {
-  constructor(name, termBNF, statementBNF, typePattern, symbolPattern) {
+  constructor(name, termBNF, statementBNF, typeVocabulary, symbolVocabulary) {
     this.name = name;
     this.termBNF = termBNF;
     this.statementBNF = statementBNF;
-    this.typePattern = typePattern;
-    this.symbolPattern = symbolPattern;
+    this.typeVocabulary = typeVocabulary;
+    this.symbolVocabulary = symbolVocabulary;
   }
   
   getName() {
@@ -25,12 +25,12 @@ export default class CustomGrammar {
     return this.statementBNF;
   }
 
-  getTypePattern() {
-    return this.typePattern;
+  getTypeVocabulary() {
+    return this.typeVocabulary;
   }
 
-  getSymbolPattern() {
-    return this.symbolPattern;
+  getSymbolVocabulary() {
+    return this.symbolVocabulary;
   }
 
   getBNF(ruleName = null) {
@@ -66,24 +66,24 @@ ${bnf}`;
     return bnf;
   }
 
-  getPattern(patternName) {
-    let pattern;
+  getVocabulary(vocabularyName) {
+    let vocabulary;
 
-    switch (patternName) {
-      case TYPE_PATTERN_NAME: pattern = this.typePattern; break;
-      case SYMBOL_PATTERN_NAME: pattern = this.symbolPattern; break;
+    switch (vocabularyName) {
+      case TYPE_VOCABULARY_NAME: vocabulary = this.typeVocabulary; break;
+      case SYMBOL_VOCABULARY_NAME: vocabulary = this.symbolVocabulary; break;
     }
 
-    return pattern;
+    return vocabulary;
   }
 
-  getPatterns() {
-    const patterns = [
-      this.typePattern,
-      this.symbolPattern
+  getVocabularies() {
+    const vocabularies = [
+      this.typeVocabulary,
+      this.symbolVocabulary
     ];
 
-    return patterns;
+    return vocabularies;
   }
 
   setName(name) {
@@ -104,15 +104,15 @@ ${bnf}`;
     }
   }
 
-  setPattern(patternName, pattern) {
-    switch (patternName) {
-      case TYPE_PATTERN_NAME:
-        this.typePattern = pattern;
+  setVocabulary(vocabularyName, vocabulary) {
+    switch (vocabularyName) {
+      case TYPE_VOCABULARY_NAME:
+        this.typeVocabulary = vocabulary;
 
         break;
 
-      case SYMBOL_PATTERN_NAME:
-        this.symbolPattern = pattern;
+      case SYMBOL_VOCABULARY_NAME:
+        this.symbolVocabulary = vocabulary;
 
         break;
     }
@@ -124,38 +124,38 @@ ${bnf}`;
     this.setBNF(ruleName, bnf);
   }
 
-  resetPattern(patternName) {
-    const pattern = EMPTY_STRING;
+  resetVocabulary(vocabularyName) {
+    const vocabulary = EMPTY_STRING;
 
-    this.setPattern(patternName, pattern);
+    this.setVocabulary(vocabularyName, vocabulary);
   }
 
-  update(ruleName, bnf, patternName, pattern) {
+  update(ruleName, bnf, vocabularyName, vocabulary) {
     this.setBNF(ruleName, bnf);
 
-    this.setPattern(patternName, pattern);
+    this.setVocabulary(vocabularyName, vocabulary);
   }
 
   toJSON() {
     const name = this.name,
           termBNF = this.termBNF,
           statementBNF = this.statementBNF,
-          typePattern = this.typePattern,
-          symbolPattern = this.symbolPattern,
+          typeVocabulary = this.typeVocabulary,
+          symbolVocabulary = this.symbolVocabulary,
           json = {
             name,
             termBNF,
             statementBNF,
-            typePattern,
-            symbolPattern
+            typeVocabulary,
+            symbolVocabulary
           };
     
     return json;
   }
 
   static fromJSON(json) {
-    const { name, termBNF, statementBNF, typePattern, symbolPattern } = json,
-          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern);
+    const { name, termBNF, statementBNF, typeVocabulary, symbolVocabulary } = json,
+          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typeVocabulary, symbolVocabulary);
 
     return customGrammar;
   }
@@ -163,15 +163,15 @@ ${bnf}`;
   static fromName(name) {
     const termBNF = EMPTY_STRING,
           statementBNF = EMPTY_STRING,
-          typePattern = EMPTY_STRING,
-          symbolPattern = EMPTY_STRING,
-          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern);
+          typeVocabulary = EMPTY_STRING,
+          symbolVocabulary = EMPTY_STRING,
+          customGrammar = new CustomGrammar(name, termBNF, statementBNF, typeVocabulary, symbolVocabulary);
 
     return customGrammar;
   }
 
-  static fromNameTermBNFStatementBNFTypePatternAndSymbolPattern(name, termBNF, statementBNF, typePattern, symbolPattern) {
-    const customGrammar = new CustomGrammar(name, termBNF, statementBNF, typePattern, symbolPattern);
+  static fromNameTermBNFStatementBNFTypeVocabularyAndSymbolVocabulary(name, termBNF, statementBNF, typeVocabulary, symbolVocabulary) {
+    const customGrammar = new CustomGrammar(name, termBNF, statementBNF, typeVocabulary, symbolVocabulary);
 
     return customGrammar;
   }

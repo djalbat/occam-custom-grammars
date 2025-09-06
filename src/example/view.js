@@ -11,13 +11,13 @@ import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
 import SizeableDiv from "./div/sizeable";
 import BNFTextarea from "./textarea/bnf";
-import PatternInput from "./input/pattern";
 import RuleNameSelect from "./select/ruleName";
 import ContentTextarea from "./textarea/content";
-import PatternNameSelect from "./select/patternName";
 import ParseTreeTextarea from "./textarea/parseTree";
 import StartRuleNameInput from "./input/startRuleName";
 import NominalBNFTextarea from "./textarea/nominalBNF";
+import VocabularyTextarea from "./textarea/vocabulary";
+import VocabularyNameSelect from "./select/vocabularyName";
 import userDefinedCustomGrammar1 from "./customGrammar/userDefined1";
 import userDefinedCustomGrammar2 from "./customGrammar/userDefined2";
 
@@ -31,22 +31,22 @@ const { rulesAsString } = rulesUtilities,
 class View extends Element {
   keyUpHandler = (event, element) => {
     try {
-      const name = this.getName(),
-            bnf = this.getBNF(),
-            pattern = this.getPattern(),
+      const bnf = this.getBNF(),
+            name = this.getName(),
             ruleName = this.getRuleName(),
-            patternName = this.getPatternName();
+            vocabulary = this.getVocabulary(),
+            vocabularyName = this.getVocabularyName();
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
         userDefinedCustomGrammar1.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar1.setPattern(patternName, pattern);
+        userDefinedCustomGrammar1.setVocabulary(vocabularyName, vocabulary);
       }
 
       if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
         userDefinedCustomGrammar2.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar2.setPattern(patternName, pattern);
+        userDefinedCustomGrammar2.setVocabulary(vocabularyName, vocabulary);
       }
 
       const customGrammars = [
@@ -92,7 +92,7 @@ class View extends Element {
 
     const name = this.getName(),
           ruleName = this.getRuleName(),
-          patternName = this.getPatternName();
+          vocabularyName = this.getVocabularyName();
 
     switch (name) {
       case DEFAULT_CUSTOM_GRAMMAR_NAME:
@@ -112,11 +112,11 @@ class View extends Element {
     }
 
     const bnf = customGrammar.getBNF(ruleName),
-          pattern = customGrammar.getPattern(patternName);
+          vocabulary = customGrammar.getVocabulary(vocabularyName);
 
     this.setBNF(bnf);
 
-    this.setPattern(pattern);
+    this.setVocabulary(vocabulary);
   }
 
   childElements() {
@@ -138,10 +138,10 @@ class View extends Element {
             <RuleNameSelect onChange={changeHandler} />
             <BNFTextarea onKeyUp={keyUpHandler} />
             <SubHeading>
-              Pattern
+              Vocabulary
             </SubHeading>
-            <PatternNameSelect onChange={changeHandler} />
-            <PatternInput onKeyUp={keyUpHandler} />
+            <VocabularyNameSelect onChange={changeHandler} />
+            <VocabularyTextarea onKeyUp={keyUpHandler} />
             <SubHeading>
               Start rule
             </SubHeading>

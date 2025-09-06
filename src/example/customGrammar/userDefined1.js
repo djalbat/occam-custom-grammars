@@ -7,14 +7,14 @@ import { USER_DEFINED_CUSTOM_GRAMMAR_NAME_1 } from "../grammarNames";
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
       termBNF = ``,
       statementBNF = ``,
-      typePattern = "Group",
-      symbolPattern = "",
+      typeVocabulary = "Group",
+      symbolVocabulary = "",
       json = {
         name,
         termBNF,
         statementBNF,
-        typePattern,
-        symbolPattern
+        typeVocabulary,
+        symbolVocabulary
       },
       userDefinedCustomGrammar1 = CustomGrammar.fromJSON(json);
 
