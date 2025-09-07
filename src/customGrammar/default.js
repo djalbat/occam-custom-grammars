@@ -62,7 +62,8 @@ statementSubstitution                ::=  "[" statement "for" statement "]";
 
 referenceSubstitution                ::=  "[" reference "for" reference "]";`;
 
-export const typeVocabulary = "_";
+export const typeVocabulary = `_
+`;
 
 export const symbolVocabulary = "";
 

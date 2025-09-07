@@ -14,7 +14,8 @@
     "occam-grammar-utilities": "^8.0.345",
     "occam-grammars": "^1.3.309",
     "occam-lexers": "^23.1.1",
-    "occam-parsers": "^23.1.1"
+    "occam-parsers": "^23.1.1",
+    "occam-query": "^4.1.109"
   },
   "devDependencies": {
     "@swc/core": "^1.5.6",

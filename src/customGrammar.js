@@ -1,6 +1,7 @@
 "use strict";
 
 import { EMPTY_STRING } from "./constants";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "./ruleNames";
 import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "./vocabularyNames";
 
@@ -84,6 +85,12 @@ ${bnf}`;
     ];
 
     return vocabularies;
+  }
+
+  isDefaultCustomGrammar() {
+    const defaultCustomGrammar = (this.name === DEFAULT_CUSTOM_GRAMMAR_NAME);
+
+    return defaultCustomGrammar;
   }
 
   setName(name) {

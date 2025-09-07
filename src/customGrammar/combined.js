@@ -7,6 +7,7 @@ import { eliminateLeftRecursion } from "occam-grammar-utilities";
 import defaultCustomGrammar from "../customGrammar/default";
 
 import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
+import { validateVocabulary, expressionsFromVocabulary } from "../utilities/vocabulary";
 import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "../vocabularyNames";
 
 const { rulesFromBNF } = parserUtilities,
@@ -93,29 +94,22 @@ function entriesFromCustomGrammars(customGrammars) {
 }
 
 function entryFromCustomGrammars(customGrammars, vocabularyName) {
-  const vocabularies = [];
+  const expressions = [];
 
   backwardsForEach(customGrammars, (customGrammar) => {
-    const vocabulary = customGrammar.getVocabulary(vocabularyName);
+    const vocabulary = customGrammar.getVocabulary(vocabularyName),
+          customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
 
-    if ((vocabulary !== null) && (vocabulary !== EMPTY_STRING)) {
-      debugger
-
-      const subVocabularies = vocabulary.split(VERTICAL_BAR);
-
-      subVocabularies.forEach((subVocabulary) => {
-        const vocabulary = (vocabularyName === TYPE_VOCABULARY_NAME) ?
-                          `${subVocabulary}(?!\\w)` :
-                             subVocabulary; ///
-
-        vocabularies.push(vocabulary);
-      });
+    if (!customGrammarDefaultCustomGrammar) {
+      validateVocabulary(vocabulary);
     }
+
+    expressionsFromVocabulary(vocabulary, expressions);
   });
 
-  const vocabulariesString = vocabularies.join(VERTICAL_BAR),
+  const pattern = expressions.join(VERTICAL_BAR),
         entryName = vocabularyName,  ///
-        entryValue = `^(?:${vocabulariesString})`,
+        entryValue = `^(?:${pattern})`,
         entry = {
           [entryName]: entryValue
         };
@@ -159,3 +153,5 @@ function combineRules(rules) {
     length = rules.length;
   }
 }
+
+
