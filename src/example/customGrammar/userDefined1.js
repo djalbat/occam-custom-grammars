@@ -5,11 +5,7 @@ import { CustomGrammar } from "../../index"; ///
 import { USER_DEFINED_CUSTOM_GRAMMAR_NAME_1 } from "../grammarNames";
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
-      termBNF = `
-
-        term  ::=  [type] "stuff" ;
-        
-      `,
+      termBNF = "",
       statementBNF = "",
       typeVocabulary = "",
       symbolVocabulary = "",

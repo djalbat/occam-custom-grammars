@@ -1,19 +1,21 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
+import { specialSymbols } from "occam-lexers";
 import { parserUtilities } from "occam-parsers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "../customGrammar/default";
 
-import { validateBNF } from "../utilities/bnf";
-import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
+import { expressionsFromVocabulary } from "../utilities/vocabulary";
+import { VERTICAL_BAR, VERTICAL_SPACE } from "../constants";
+import { validateBNF, validateVocabulary } from "../utilities/validate";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "../ruleNames";
-import { validateVocabulary, expressionsFromVocabulary } from "../utilities/vocabulary";
 import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "../vocabularyNames";
 
-const { rulesFromBNF } = parserUtilities,
-      { unshift, backwardsForEach } = arrayUtilities;
+const { opaque  } = specialSymbols,
+      { rulesFromBNF } = parserUtilities,
+      { unshift, forwardsForEach, backwardsForEach } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(rules, entries) {
@@ -77,10 +79,24 @@ function rulesFromCustomGrammars(customGrammars) {
 
           return bnf;
         }),
-        bnf = bnfs.join(EMPTY_STRING),
+        bnf = bnfs.join(VERTICAL_SPACE),
         rules = rulesFromBNF(bnf);
 
-  combineRules(rules)
+  combineRules(rules);
+
+  const opacity = opaque; ///
+
+  ruleNames.forEach((ruleName) => {
+    const rule = rules.find((rule) => {
+      const name = rule.getName();
+
+      if (name === ruleName) {
+        return true;
+      }
+    });
+
+    rule.setOpacity(opacity);
+  });
 
   return rules;
 }
@@ -97,25 +113,6 @@ function entriesFromCustomGrammars(customGrammars) {
         });
 
   return entries;
-}
-
-function bnfFromCustomGrammars(customGrammars, ruleName) {
-  const bnfs = [];
-
-  backwardsForEach(customGrammars, (customGrammar) => {
-    const bnf = customGrammar.getBNF(ruleName),
-          customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
-
-    if (!customGrammarDefaultCustomGrammar) {
-      validateBNF(bnf, ruleName);
-    }
-
-    bnfs.push(bnf);
-  });
-
-  const bnf = bnfs.join(EMPTY_STRING);
-
-  return bnf;
 }
 
 function entryFromCustomGrammars(customGrammars, vocabularyName) {
@@ -140,6 +137,25 @@ function entryFromCustomGrammars(customGrammars, vocabularyName) {
         };
 
   return entry;
+}
+
+function bnfFromCustomGrammars(customGrammars, ruleName) {
+  const bnfs = [];
+
+  forwardsForEach(customGrammars, (customGrammar) => {
+    const bnf = customGrammar.getBNF(ruleName),
+          customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
+
+    if (!customGrammarDefaultCustomGrammar) {
+      validateBNF(bnf, ruleName);
+    }
+
+    bnfs.push(bnf);
+  });
+
+  const bnf = bnfs.join(VERTICAL_SPACE);
+
+  return bnf;
 }
 
 function combineRules(rules) {

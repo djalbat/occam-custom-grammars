@@ -4,13 +4,13 @@ import CustomGrammar from "../customGrammar";
 
 import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
-export const termBNF = `term.                                ::=  "(" argument ")"
+export const termBNF = `term                                 ::=  "(" argument ")"
 
                                        |  variable 
                                        
                                        ;`;
 
-export const statementBNF = `statement.                           ::=  "(" metaArgument ")" 
+export const statementBNF = `statement                            ::=  "(" metaArgument ")" 
                                                   
                                        |  equality
 

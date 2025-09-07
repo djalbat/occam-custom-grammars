@@ -4,24 +4,36 @@ import { arrayUtilities } from "necessary";
 
 import typesMap from "../typesMap";
 
-import { nodesQuery } from "../utilities/query";
 import { nominalLexer } from "../utilities/nominal";
-import { EMPTY_STRING, UNDERSCORE_CHARACTER } from "../constants";
-import { customGrammarBNFLexer, customGrammarBNFParser } from "../utilities/grammar";
+import { UNDERSCORE_CHARACTER } from "../constants";
+import { nodeQuery, nodesQuery } from "../utilities/query";
+import { customGrammarBNFLexer, customGrammarBNFParser, customGrammarVocabularyLexer, customGrammarVocabularyParser } from "../utilities/grammar";
 
 const { first, second } = arrayUtilities;
 
-const stringLiteralTerminalNodesQuery = nodesQuery("//stringLiteral/@*!"),
+const expressionNodesQuery = nodesQuery("//expression"),
+      ruleNameTerminalNodeQuery = nodeQuery("/document/rule/name/@*!"),
+      stringLiteralTerminalNodesQuery = nodesQuery("//stringLiteral/@*!"),
       significantTokenTypeTerminalNodesQuery = nodesQuery("//significantTokenType/@*!");
 
 export function validateBNF(bnf, ruleName) {
-  if ((bnf === null) || (bnf === EMPTY_STRING)) {
-    return;
-  }
-
   const content = bnf,
         tokens = customGrammarBNFLexer.tokenise(content),
         node = customGrammarBNFParser.parse(tokens);
+
+  if (node === null) {
+    return;
+  }
+
+  const ruleNameTerminalNode = ruleNameTerminalNodeQuery(node);
+
+  if (ruleNameTerminalNode !== null) {
+    const name = nameFromRuleNameTerminalNode(ruleNameTerminalNode);
+
+    if (name !== ruleName) {
+      throw new Error(`The '${name}' rule should be named '${ruleName}'.`);
+    }
+  }
 
   const types = typesMap[ruleName],
         significantTokenTypeTerminalNodes = significantTokenTypeTerminalNodesQuery(node);
@@ -62,12 +74,56 @@ export function validateBNF(bnf, ruleName) {
   });
 }
 
+export function validateVocabulary(vocabulary) {
+  const content = vocabulary, ///
+        tokens = customGrammarVocabularyLexer.tokenise(content),
+        node = customGrammarVocabularyParser.parse(tokens);
+
+  if (node === null) {
+    return;
+  }
+
+  const expressionNodes = expressionNodesQuery(node);
+
+  expressionNodes.forEach((expressionNode) => {
+    const content = contentFromExpressionNode(expressionNode),
+          tokens = nominalLexer.tokenise(content),
+          tokensLength = tokens.length;
+
+    if (tokensLength > 1) {
+      throw new Error(`Tokenising the '${content}' content results in more than one token.`);
+    }
+
+    const firstToken = first(tokens),
+          token = firstToken,
+          type = token.getType();
+
+    if (type !== UNASSIGNED_TYPE) {
+      throw new Error(`The '${type}' type of the '${content}' token is not 'unassigned'.`);
+    }
+
+    if (content === UNDERSCORE_CHARACTER) {
+      throw new Error(`The '${content}' token cannot be an underscore.`);
+    }
+  });
+}
+
+function nameFromRuleNameTerminalNode(ruleNameTerminalNode) {
+  let name;
+
+  const content = ruleNameTerminalNode.getContent();
+
+  name = content; ///
+
+  return name;
+}
+
 function contentFromStringLiteralTerminalNode(stringLiteralTerminalNode) {
   let content;
 
   content = stringLiteralTerminalNode.getContent();
 
-  const matches = content.match(/"([^"]+)"/),
+  const matches = content.match(/"([^"]*)"/),
         secondMatch = second(matches);
 
   content = secondMatch; ///
@@ -79,7 +135,7 @@ function typeFromSignificantTokenTypeTerminalNode(significantTokenTypeTerminalNo
   let type;
 
   const content = significantTokenTypeTerminalNode.getContent(),
-        matches = content.match(/\[([^\]]+)\]/),
+        matches = content.match(/\[([^\]]*)\]/),
         secondMatch = second(matches);
 
   type = secondMatch; ///

@@ -30,7 +30,7 @@ const { rulesAsString } = rulesUtilities,
 
 class View extends Element {
   keyUpHandler = (event, element) => {
-    try {
+    // try {
       const bnf = this.getBNF(),
             name = this.getName(),
             ruleName = this.getRuleName(),
@@ -78,13 +78,13 @@ class View extends Element {
             nominalBNF = rulesString;  ///
 
       this.setNominalBNF(nominalBNF);
-    } catch (error) {
-      console.log(error);
-
-      this.clearParseTree();
-
-      this.clearNominalBNF();
-    }
+    // } catch (error) {
+    //   console.log(error);
+    //
+    //   this.clearParseTree();
+    //
+    //   this.clearNominalBNF();
+    // }
   }
 
   changeHandler = (event, element) => {
