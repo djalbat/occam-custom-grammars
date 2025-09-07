@@ -133,15 +133,15 @@ class View extends Element {
             </SubHeading>
             <NameSelect onChange={changeHandler} />
             <SubHeading>
-              BNF
-            </SubHeading>
-            <RuleNameSelect onChange={changeHandler} />
-            <BNFTextarea onKeyUp={keyUpHandler} />
-            <SubHeading>
               Vocabulary
             </SubHeading>
             <VocabularyNameSelect onChange={changeHandler} />
             <VocabularyTextarea onKeyUp={keyUpHandler} />
+            <SubHeading>
+              BNF
+            </SubHeading>
+            <RuleNameSelect onChange={changeHandler} />
+            <BNFTextarea onKeyUp={keyUpHandler} />
             <SubHeading>
               Start rule
             </SubHeading>

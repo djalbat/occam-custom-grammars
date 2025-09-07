@@ -34,34 +34,12 @@ export default class CustomGrammar {
     return this.symbolVocabulary;
   }
 
-  getBNF(ruleName = null) {
+  getBNF(ruleName) {
     let bnf;
 
     switch (ruleName) {
       case TERM_RULE_NAME: bnf = this.termBNF; break;
       case STATEMENT_RULE_NAME: bnf = this.statementBNF; break;
-
-      default: {
-        const ruleNames = [
-                TERM_RULE_NAME,
-                STATEMENT_RULE_NAME
-              ],
-              combinedBNF = ruleNames.reduce((combinedBNF, ruleName) => {
-                const bnf = this.getBNF(ruleName);
-
-                if (bnf !== EMPTY_STRING) {
-                  combinedBNF = `${combinedBNF}
-            
-${bnf}`;
-                }
-
-                return combinedBNF;
-              }, EMPTY_STRING);
-
-        bnf = combinedBNF;  ///
-
-        break;
-      }
     }
 
     return bnf;

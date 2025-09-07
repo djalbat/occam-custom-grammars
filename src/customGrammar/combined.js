@@ -6,7 +6,9 @@ import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "../customGrammar/default";
 
+import { validateBNF } from "../utilities/bnf";
 import { EMPTY_STRING, VERTICAL_BAR } from "../constants";
+import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "../ruleNames";
 import { validateVocabulary, expressionsFromVocabulary } from "../utilities/vocabulary";
 import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "../vocabularyNames";
 
@@ -45,7 +47,7 @@ export default class CombinedCustomGrammar {
       customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
     }
 
-    const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
+    const rules = rulesFromCustomGrammars(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
           combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
 
@@ -57,7 +59,7 @@ export default class CombinedCustomGrammar {
       customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
     }
 
-    const rules = rulesFromCustomGrammarsAndDefaultBNF(customGrammars),
+    const rules = rulesFromCustomGrammars(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
           combinedCustomGrammar = new CombinedCustomGrammar(rules, entries);
     
@@ -65,9 +67,13 @@ export default class CombinedCustomGrammar {
   }
 }
 
-function rulesFromCustomGrammarsAndDefaultBNF(customGrammars) {
-  const bnfs = customGrammars.map((customGrammar) => {
-          const bnf = customGrammar.getBNF();
+function rulesFromCustomGrammars(customGrammars) {
+  const ruleNames = [
+          TERM_RULE_NAME,
+          STATEMENT_RULE_NAME,
+        ],
+        bnfs = ruleNames.map((ruleName) => {
+          const bnf = bnfFromCustomGrammars(customGrammars, ruleName);
 
           return bnf;
         }),
@@ -91,6 +97,25 @@ function entriesFromCustomGrammars(customGrammars) {
         });
 
   return entries;
+}
+
+function bnfFromCustomGrammars(customGrammars, ruleName) {
+  const bnfs = [];
+
+  backwardsForEach(customGrammars, (customGrammar) => {
+    const bnf = customGrammar.getBNF(ruleName),
+          customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
+
+    if (!customGrammarDefaultCustomGrammar) {
+      validateBNF(bnf, ruleName);
+    }
+
+    bnfs.push(bnf);
+  });
+
+  const bnf = bnfs.join(EMPTY_STRING);
+
+  return bnf;
 }
 
 function entryFromCustomGrammars(customGrammars, vocabularyName) {
