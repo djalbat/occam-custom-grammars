@@ -153,5 +153,3 @@ function combineRules(rules) {
     length = rules.length;
   }
 }
-
-
