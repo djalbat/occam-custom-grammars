@@ -5,14 +5,15 @@ import { arrayUtilities } from "necessary";
 import typesMap from "../typesMap";
 
 import { nominalLexer } from "../utilities/nominal";
-import { UNDERSCORE_CHARACTER } from "../constants";
 import { nodeQuery, nodesQuery } from "../utilities/query";
+import { UNASSIGNED_TYPE, UNDERSCORE_CHARACTER } from "../constants";
 import { customGrammarBNFLexer, customGrammarBNFParser, customGrammarVocabularyLexer, customGrammarVocabularyParser } from "../utilities/grammar";
 
 const { first, second } = arrayUtilities;
 
 const expressionNodesQuery = nodesQuery("//expression"),
       ruleNameTerminalNodeQuery = nodeQuery("/document/rule/name/@*!"),
+      unassignedTerminalNodeQuery = nodeQuery("/expression/@unassigned"),
       stringLiteralTerminalNodesQuery = nodesQuery("//stringLiteral/@*!"),
       significantTokenTypeTerminalNodesQuery = nodesQuery("//significantTokenType/@*!");
 
@@ -106,6 +107,16 @@ export function validateVocabulary(vocabulary) {
       throw new Error(`The '${content}' token cannot be an underscore.`);
     }
   });
+}
+
+function contentFromExpressionNode(expressionNode) {
+  let content;
+
+  const unassignedTerminalNode = unassignedTerminalNodeQuery(expressionNode);
+
+  content = unassignedTerminalNode.getContent();
+
+  return content;;
 }
 
 function nameFromRuleNameTerminalNode(ruleNameTerminalNode) {
