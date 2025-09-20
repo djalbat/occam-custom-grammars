@@ -22,7 +22,7 @@ export function expressionsFromVocabulary(vocabulary, expressions) {
 
   expressionNodes.forEach((expressionNode) => {
     const content = contentFromExpressionNode(expressionNode),
-          expression = content; ///
+          expression = escape(content);
 
     expressions.push(expression);
   });
@@ -36,4 +36,8 @@ function contentFromExpressionNode(expressionNode) {
         content = unassignedTerminalNode.getContent();
 
   return content;
+}
+
+function escape(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
