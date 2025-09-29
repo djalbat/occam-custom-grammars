@@ -16,7 +16,7 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_1,
 
 `,
       typeVocabulary = "",
-      symbolVocabulary = `iff
+      symbolVocabulary = `𝘪𝘧𝘧
 ⇒
 ∧
 ∨
