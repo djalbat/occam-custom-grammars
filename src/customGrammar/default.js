@@ -50,9 +50,9 @@ propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelat
 
 propertyRelation                     ::=  property "of" term ;
 
-frame                                ::=  "[" ( ( declaration | metavariable ) ( "," ( declaration | metavariable ) )* )? "]" ;
+frame                                ::=  "[" declaration ( "," declaration )* "]" ;
  
-declaration                          ::=  metavariable "::" statement ;
+declaration                          ::=  metavariable ( "::" statement )? ;
 
 termSubstitution                     ::=  "[" term "for" term "]";
 
