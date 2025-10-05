@@ -58,9 +58,7 @@ termSubstitution                     ::=  "[" term "for" term "]";
 
 frameSubstitution                    ::=  "[" frame "for" frame "]";
 
-statementSubstitution                ::=  "[" statement "for" statement "]";
-
-referenceSubstitution                ::=  "[" reference "for" reference "]";`;
+statementSubstitution                ::=  "[" statement "for" statement "]";`;
 
 export const typeVocabulary = `_
 `;
