@@ -34,8 +34,6 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
 equality                             ::=  term "=" term ;
 
-judgement                            ::=  frame "|-" declaration ;
-
 typeAssertion                        ::=  term ":" type ;
 
 definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "undefined" );
@@ -49,6 +47,8 @@ subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "
 propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelation ;
 
 propertyRelation                     ::=  property "of" term ;
+
+judgement                            ::=  frame "|-" declaration ;
 
 frame                                ::=  "[" declaration ( "," declaration )* "]" ;
  
