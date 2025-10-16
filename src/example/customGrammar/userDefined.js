@@ -2,9 +2,9 @@
 
 import { CustomGrammar } from "../../index"; ///
 
-import { USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "../grammarNames";
+import { USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
-const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
+const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,
       termBNF = "",
       statementBNF = "",
       typeVocabulary = "",
@@ -16,6 +16,6 @@ const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME_2,
         typeVocabulary,
         symbolVocabulary
       },
-      userDefinedCustomGrammar2 = CustomGrammar.fromJSON(json);
+      userDefinedCustomGrammar = CustomGrammar.fromJSON(json);
 
-export default userDefinedCustomGrammar2;
+export default userDefinedCustomGrammar;

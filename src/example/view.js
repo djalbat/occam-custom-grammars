@@ -18,11 +18,10 @@ import StartRuleNameInput from "./input/startRuleName";
 import NominalBNFTextarea from "./textarea/nominalBNF";
 import VocabularyTextarea from "./textarea/vocabulary";
 import VocabularyNameSelect from "./select/vocabularyName";
-import userDefinedCustomGrammar1 from "./customGrammar/userDefined1";
-import userDefinedCustomGrammar2 from "./customGrammar/userDefined2";
+import userDefinedCustomGrammar from "./customGrammar/userDefined";
 
 import { rulesFromParser } from "./utilities/rules";
-import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME_1, USER_DEFINED_CUSTOM_GRAMMAR_NAME_2 } from "./grammarNames";
+import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
 
 const { rulesAsString } = rulesUtilities,
       { nominalLexerFromCombinedCustomGrammar } = lexersUtilities,
@@ -37,21 +36,14 @@ class View extends Element {
             vocabulary = this.getVocabulary(),
             vocabularyName = this.getVocabularyName();
 
-      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_1) {
-        userDefinedCustomGrammar1.setBNF(ruleName, bnf);
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+        userDefinedCustomGrammar.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar1.setVocabulary(vocabularyName, vocabulary);
-      }
-
-      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME_2) {
-        userDefinedCustomGrammar2.setBNF(ruleName, bnf);
-
-        userDefinedCustomGrammar2.setVocabulary(vocabularyName, vocabulary);
+        userDefinedCustomGrammar.setVocabulary(vocabularyName, vocabulary);
       }
 
       const customGrammars = [
-              userDefinedCustomGrammar1,
-              userDefinedCustomGrammar2
+              userDefinedCustomGrammar
             ],
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
             nominalLexer = nominalLexerFromCombinedCustomGrammar(combinedCustomGrammar),
@@ -100,13 +92,8 @@ class View extends Element {
 
         break;
 
-      case USER_DEFINED_CUSTOM_GRAMMAR_NAME_1:
-        customGrammar = userDefinedCustomGrammar1;
-
-        break;
-
-      case USER_DEFINED_CUSTOM_GRAMMAR_NAME_2:
-        customGrammar = userDefinedCustomGrammar2;
+      case USER_DEFINED_CUSTOM_GRAMMAR_NAME:
+        customGrammar = userDefinedCustomGrammar;
 
         break;
     }
