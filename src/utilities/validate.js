@@ -6,7 +6,7 @@ import typesMap from "../typesMap";
 
 import { nominalLexer } from "../utilities/nominal";
 import { nodeQuery, nodesQuery } from "../utilities/query";
-import { UNASSIGNED_TYPE, UNDERSCORE_CHARACTER } from "../constants";
+import { UNASSIGNED_TYPE, BASE_TYPE_SYMBOL } from "../constants";
 import { customGrammarBNFLexer, customGrammarBNFParser, customGrammarVocabularyLexer, customGrammarVocabularyParser } from "../utilities/grammar";
 
 const { first, second } = arrayUtilities;
@@ -53,8 +53,8 @@ export function validateBNF(bnf, ruleName) {
   stringLiteralTerminalNodes.forEach((stringLiteralTerminalNode) => {
     const content = contentFromStringLiteralTerminalNode(stringLiteralTerminalNode);
 
-    if (content === UNDERSCORE_CHARACTER) {
-      throw new Error(`The "${content}" string literal cannot be an underscore.`);
+    if (content === BASE_TYPE_SYMBOL) {
+      throw new Error(`The "${content}" string literal cannot be the same as the base type symbol.`);
     }
 
     const tokens = nominalLexer.tokenise(content),
@@ -103,8 +103,8 @@ export function validateVocabulary(vocabulary) {
       throw new Error(`The '${type}' type of the '${content}' token is not 'unassigned'.`);
     }
 
-    if (content === UNDERSCORE_CHARACTER) {
-      throw new Error(`The '${content}' token cannot be an underscore.`);
+    if (content === BASE_TYPE_SYMBOL) {
+      throw new Error(`The '${content}' token cannot be the same as the base type symbol.`);
     }
   });
 }
