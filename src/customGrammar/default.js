@@ -48,7 +48,7 @@ propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelat
 
 propertyRelation                     ::=  property "of" term ;
 
-judgement                            ::=  frame "|-" declaration ;
+judgement                            ::=  frame "|"<NO_WHITESPACE>"-" declaration ;
 
 frame                                ::=  "[" declaration ( "," declaration )* "]" ;
  
