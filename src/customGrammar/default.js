@@ -40,7 +40,7 @@ definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "u
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
-satisfiesAssertion                   ::=  signature "satisfies" metavariable ;  
+satisfiesAssertion                   ::=  signature "satisfies" simpleReference ;  
 
 subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
 
@@ -52,7 +52,7 @@ judgement                            ::=  frame "|"<NO_WHITESPACE>"-" declaratio
 
 frame                                ::=  "[" declaration ( "," declaration )* "]" ;
  
-declaration                          ::=  metavariable ( "::" statement )? ;
+declaration                          ::=  simpleReference ( "::" statement )? ;
 
 termSubstitution                     ::=  "[" term "for" term "]";
 
