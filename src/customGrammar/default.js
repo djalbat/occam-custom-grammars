@@ -48,11 +48,11 @@ propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelat
 
 propertyRelation                     ::=  property "of" term ;
 
-judgement                            ::=  frame "|"<NO_WHITESPACE>"-" declaration ;
+judgement                            ::=  frame "|"<NO_WHITESPACE>"-" assumption ;
 
-frame                                ::=  "[" declaration ( "," declaration )* "]" ;
+frame                                ::=  "[" assumption ( "," assumption )* "]" ;
  
-declaration                          ::=  metavariable ( "::" statement )? ;
+assumption                           ::=  metavariable ( "::" statement )? ;
 
 termSubstitution                     ::=  "[" term "for" term "]";
 
