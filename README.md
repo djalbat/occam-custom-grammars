@@ -13,9 +13,11 @@
 
 ## Introduction
 
-In Occam parlance, a grammar is a combination of lexical entries for a lexer and BNF for a parser. On the other hand, a custom grammar is a single lexical entry together with four BNF snippets for terms, expressions, statements and metastatements.
+In Occam parlance, a grammar is a combination of lexical entries for a lexer and BNF for a parser. 
+On the other hand, a custom grammar is a single lexical entry together with four BNF snippets for terms, expressions, statements and metastatements.
 
-Custom grammars augment the Florence grammar, specifically its [lexical entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. This package exports the means to combine custom grammars as well as supplying factory functions to create Florence lexers and parsers that make use of them.
+Custom grammars augment the Florence grammar, specifically its [lexical entries](https://raw.githubusercontent.com/occam-proof-assistant/Lexers/master/es6/florence/entries.js) and [BNF](https://raw.githubusercontent.com/occam-proof-assistant/Parsers/master/es6/florence/bnf.js), to allow for custom terms, expressions, statements and metastatements. 
+This package exports the means to combine custom grammars as well as supplying factory functions to create Florence lexers and parsers that make use of them.
 
 ## Installation
 
@@ -43,13 +45,15 @@ The example will then be available at the following URL:
 
 http://localhost:8888
 
-The source for the example can be found in the `src/example.js` file and corresponding `src/example` folder. You are encouraged to try the example whilst reading what follows. You can rebuild it on the fly with the following command:
+The source for the example can be found in the `src/example.js` file and corresponding `src/example` folder. You are encouraged to try the example whilst reading what follows. 
+You can rebuild it on the fly with the following command:
 
     npm run watch-debug
 
 The development server will reload the page whenever you make changes.
 
-One last thing to bear in mind is that this package is included by way of a relative rather than a package import. If you are importing it into your own application, however, you should use the standard package import.
+One last thing to bear in mind is that this package is included by way of a relative rather than a package import. 
+If you are importing it into your own application, however, you should use the standard package import.
 
 ## Usage
 
