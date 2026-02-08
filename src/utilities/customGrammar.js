@@ -5,7 +5,7 @@ import CombinedCustomGrammar from "../customGrammar/combined";
 
 export function combinedCustomGrammarFromJSON(json) {
   const customGrammarsJSON = json,  ///
-        customGrammars = customGrammarsJSON.mao((customGrammarJSON) => {
+        customGrammars = customGrammarsJSON.map((customGrammarJSON) => {
           const json = customGrammarJSON, ///
                 customGrammar = CustomGrammar.fromJSON(json);
 
