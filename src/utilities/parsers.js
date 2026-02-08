@@ -7,103 +7,61 @@ import CombinedCustomGrammar from "../customGrammar/combined";
 
 const { rulesFromBNF, parserFromRules, parserFromRulesAndStartRuleName } = parserUtilities;
 
-export function nominalParserFromNothing(Class) {
-  if (Class === undefined) {
-    Class = NominalParser;  ///
-  }
-
+export function parserFromNothing(Class) {
   const { bnf } = Class,
         combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
         rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        nominalParser = parserFromRules(Class, rules);
+        parser = parserFromRules(Class, rules);
 
-  return nominalParser;
+  return parser;
 }
 
-export function nominalParserFromStartRuleName(Class, startRuleName) {
-  if (startRuleName === undefined) {
-    startRuleName = Class;  ///
-
-    Class = NominalParser;  ///
-  }
-
+export function parserFromStartRuleName(Class, startRuleName) {
   const { bnf } = Class,
         combinedCustomGrammar = CombinedCustomGrammar.fromNothing(),
         rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        nominalParser = parserFromRulesAndStartRuleName(Class, rules, startRuleName);
+        parser = parserFromRulesAndStartRuleName(Class, rules, startRuleName);
 
-  return nominalParser;
+  return parser;
 }
 
-export function nominalParserFromCombinedCustomGrammar(Class, combinedCustomGrammar) {
-  if (combinedCustomGrammar === undefined) {
-    combinedCustomGrammar = Class;  ///
-
-    Class = NominalParser;  ///
-  }
-
+export function parserFromCombinedCustomGrammar(Class, combinedCustomGrammar) {
   const { bnf } = Class,
         rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        nominalParser = parserFromRules(Class, rules);
+        parser = parserFromRules(Class, rules);
 
-  return nominalParser;
+  return parser;
 }
 
-export function nominalParserFromBNFAndCombinedCustomGrammar(Class, bnf, combinedCustomGrammar) {
-  if (combinedCustomGrammar === undefined) {
-    combinedCustomGrammar = bnf;  ///
-
-    bnf = Class;  ///
-
-    Class = NominalParser;  ///
-  }
-
+export function parserFromBNFAndCombinedCustomGrammar(Class, bnf, combinedCustomGrammar) {
   const rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        nominalParser = parserFromRules(Class, rules);
+        parser = parserFromRules(Class, rules);
 
-  return nominalParser;
+  return parser;
 }
 
-export function nominalParserFromStartRuleNameAndCombinedCustomGrammar(Class, startRuleName, combinedCustomGrammar) {
-  if (combinedCustomGrammar === undefined) {
-    combinedCustomGrammar = startRuleName;  ///
-
-    startRuleName = Class;  ///
-
-    Class = NominalParser;  ///
-  }
-
+export function parserFromStartRuleNameAndCombinedCustomGrammar(Class, startRuleName, combinedCustomGrammar) {
   const { bnf } = Class,
         rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        nominalParser = parserFromRulesAndStartRuleName(Class, rules, startRuleName);
+        parser = parserFromRulesAndStartRuleName(Class, rules, startRuleName);
 
-  return nominalParser;
+  return parser;
 }
 
-export function nominalParserFromBNFStartRuleNameAndCombinedCustomGrammar(Class, bnf, startRuleName, combinedCustomGrammar) {
-  if (combinedCustomGrammar === undefined) {
-    combinedCustomGrammar = startRuleName;  ///
-
-    startRuleName = bnf;  ///
-
-    bnf = Class;  ///
-
-    Class = NominalParser;  ///
-  }
-
+export function parserFromBNFStartRuleNameAndCombinedCustomGrammar(Class, bnf, startRuleName, combinedCustomGrammar) {
   const rules = rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar),
-        nominalParser = parserFromRulesAndStartRuleName(Class, rules, startRuleName);
+        parser = parserFromRulesAndStartRuleName(Class, rules, startRuleName);
 
-  return nominalParser;
+  return parser;
 }
 
 export default {
-  nominalParserFromNothing,
-  nominalParserFromStartRuleName,
-  nominalParserFromCombinedCustomGrammar,
-  nominalParserFromBNFAndCombinedCustomGrammar,
-  nominalParserFromStartRuleNameAndCombinedCustomGrammar,
-  nominalParserFromBNFStartRuleNameAndCombinedCustomGrammar
+  parserFromNothing,
+  parserFromStartRuleName,
+  parserFromCombinedCustomGrammar,
+  parserFromBNFAndCombinedCustomGrammar,
+  parserFromStartRuleNameAndCombinedCustomGrammar,
+  parserFromBNFStartRuleNameAndCombinedCustomGrammar
 };
 
 function rulesFromBNFAndCombinedCustomGrammar(bnf, combinedCustomGrammar) {

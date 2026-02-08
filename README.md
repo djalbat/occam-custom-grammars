@@ -77,7 +77,9 @@ customGrammar.setBNF(ruleName, bnf);
 customGrammar.setLexicalPattern(lexicalPattern);
 ...
 ```
+
 Arrays of Custom grammars can then be combined:
+
 ```
 import { CombinedCustomGrammar } from "occam-custom-grammars";
 
@@ -88,15 +90,17 @@ const customGrammars = [
       ],
       combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars);
 ```
+
 Once combined, custom grammars can be passed to utility functions in order to create lexers and parsers:
+
 ```
 const { lexersUtilities, parsersUtilities } = customGrammars,
-      { florenceLexerFromCombinedCustomGrammar } = lexersUtilities,
-      { florenceParserFromCombinedCustomGrammar } = parsersUtilities;
+      { lexerFromCombinedCustomGrammar } = lexersUtilities,
+      { parserFromCombinedCustomGrammar } = parsersUtilities;
 
 const combinedCustomGrammar = ...
-      florenceLexer = florenceLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-      florenceParser = florenceParserFromCombinedCustomGrammar(combinedCustomGrammar);
+      lexer = lexerFromCombinedCustomGrammar(combinedCustomGrammar),
+      parser = parserFromCombinedCustomGrammar(combinedCustomGrammar);
 ```
 
 Custom grammars should be provided in topological order, with dependencies coming before dependents.
