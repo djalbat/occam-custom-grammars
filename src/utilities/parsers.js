@@ -1,6 +1,5 @@
 "use strict";
 
-import { NominalParser } from "occam-grammars";
 import { parserUtilities } from "occam-parsers";
 
 import CombinedCustomGrammar from "../customGrammar/combined";
