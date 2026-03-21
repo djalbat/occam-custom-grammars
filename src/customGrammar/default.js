@@ -60,9 +60,7 @@ frameSubstitution                    ::=  "[" frame "for" frame "]";
 
 statementSubstitution                ::=  "[" statement "for" statement "]";
 
-referenceSubstitution                ::=  "[" reference "for" reference "]";
-
-metaLevelSubstitution                ::=  "[" statement "for" reference "]";`;
+referenceSubstitution                ::=  "[" reference "for" reference "]";`;
 
 export const typeVocabulary = "";
 
