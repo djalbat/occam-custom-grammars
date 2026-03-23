@@ -36,7 +36,7 @@ equality                             ::=  term "=" term ;
 
 typeAssertion                        ::=  term ":" type ;
 
-definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "undefined" );
+definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "undefined" ) ;
 
 containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
 
@@ -54,13 +54,15 @@ frame                                ::=  "[" ( ( assumption ( "," assumption )*
  
 assumption                           ::=  metavariable "::" statement ;
 
-termSubstitution                     ::=  "[" term "for" term "]";
+metaLevelAssumption                  ::=  reference "::" statement ;
 
-frameSubstitution                    ::=  "[" frame "for" frame "]";
+termSubstitution                     ::=  "[" term "for" term "]" ;
 
-statementSubstitution                ::=  "[" statement "for" statement "]";
+frameSubstitution                    ::=  "[" frame "for" frame "]" ;
 
-referenceSubstitution                ::=  "[" reference "for" reference "]";`;
+statementSubstitution                ::=  "[" statement "for" statement "]" ;
+
+referenceSubstitution                ::=  "[" reference "for" reference "]" ;`;
 
 export const typeVocabulary = "";
 
