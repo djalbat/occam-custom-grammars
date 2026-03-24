@@ -50,7 +50,7 @@ propertyRelation                     ::=  property "of" term ;
 
 judgement                            ::=  frame "|"<NO_WHITESPACE>"-" assumption ;
 
-frame                                ::=  "[" ( ( assumption ( "," assumption )* ) | metavariable ) "]" ;
+frame                                ::=  "[" ( ( metavariable | assumption ) ( "," assumption )* ) "]" ;
  
 assumption                           ::=  metavariable "::" statement ;
 
