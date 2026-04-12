@@ -22,7 +22,7 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  containedAssertion  
                                        
-                                       |  satisfiesAssertion
+                                       |  signatureAssertion
 
                                        |  subproofAssertion         
 
