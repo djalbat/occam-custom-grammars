@@ -1,11 +1,12 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
+import { queryUtilities } from "occam-dom";
 
-import { nodesQuery } from "../utilities/query";
 import { customGrammarVocabularyLexer, customGrammarVocabularyParser } from "../utilities/grammar"
 
-const { second } = arrayUtilities;
+const { second } = arrayUtilities,
+      { nodesQuery } = queryUtilities;
 
 const expressionNodesQuery = nodesQuery("//expression");
 

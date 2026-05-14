@@ -1,15 +1,16 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
+import { queryUtilities } from "occam-dom";
 
 import typesMap from "../typesMap";
 
 import { nominalLexer } from "../utilities/nominal";
-import { nodeQuery, nodesQuery } from "../utilities/query";
 import { UNASSIGNED_TYPE, BASE_TYPE_SYMBOL } from "../constants";
 import { customGrammarBNFLexer, customGrammarBNFParser, customGrammarVocabularyLexer, customGrammarVocabularyParser } from "../utilities/grammar";
 
-const { first, second } = arrayUtilities;
+const { first, second } = arrayUtilities,
+      { nodeQuery, nodesQuery } = queryUtilities;
 
 const expressionNodesQuery = nodesQuery("//expression"),
       ruleNameTerminalNodeQuery = nodeQuery("/document/rule/name/@*!"),
