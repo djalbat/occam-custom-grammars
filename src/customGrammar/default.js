@@ -52,7 +52,7 @@ judgement                            ::=  frame "|"<NO_WHITESPACE>"-" assumption
 
 frame                                ::=  "[" ( ( metavariable | assumption ) ( "," assumption )* ) "]" ;
  
-assumption                           ::=  metavariable "::" statement ;
+assumption                           ::=  ( "." | metavariable ) "::" statement ;
 
 metaLevelAssumption                  ::=  reference "::" statement ;
 
