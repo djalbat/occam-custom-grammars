@@ -48,13 +48,17 @@ propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelat
 
 propertyRelation                     ::=  property "of" term ;
 
-judgement                            ::=  frame "|"<NO_WHITESPACE>"-" assumption ;
+judgement                            ::=  frame "|"<NO_WHITESPACE>"-" goal ;
 
 frame                                ::=  "[" ( ( metavariable | assumption ) ( "," assumption )* ) "]" ;
  
-assumption                           ::=  ( "." | metavariable ) "::" statement ;
+goal                                 ::=  metavariable "::" statement ;
 
-metaLevelAssumption                  ::=  reference "::" statement ;
+constraint                           ::=  reference "::" statement ;
+ 
+assumption                           ::=  metavariable "::" statement ;
+
+implicitAssumption                   ::=  "." "::" statement ;
 
 termSubstitution                     ::=  "[" term "for" term "]" ;
 
