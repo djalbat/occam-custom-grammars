@@ -30,43 +30,7 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  metavariable ( frameSubstitution | termSubstitution )?
 
-                                       ;
-
-equality                             ::=  term "=" term ;
-
-typeAssertion                        ::=  term ":" type ;
-
-definedAssertion                     ::=  ( frame | term ) "is" ( "defined" | "undefined" ) ;
-
-containedAssertion                   ::=  ( frame | term ) "is" ( "present" | "missing" ) "in" statement ;
-
-signatureAssertion                   ::=  signature "satisfies" metavariable ;  
-
-subproofAssertion                    ::=  "[" statement ( "," statement )* "]" "..." statement ;
-
-propertyAssertion                    ::=  term "is" ( "a" | "an" ) propertyRelation ;
-
-propertyRelation                     ::=  property "of" term ;
-
-judgement                            ::=  frame "|"<NO_WHITESPACE>"-" goal ;
-
-frame                                ::=  "[" ( ( metavariable | assumption ) ( "," assumption )* ) "]" ;
- 
-goal                                 ::=  metavariable "::" statement ;
-
-constraint                           ::=  reference "::" statement ;
- 
-assumption                           ::=  metavariable "::" statement ;
-
-implicitAssumption                   ::=  "." "::" statement ;
-
-termSubstitution                     ::=  "[" term "for" term "]" ;
-
-frameSubstitution                    ::=  "[" frame "for" frame "]" ;
-
-statementSubstitution                ::=  "[" statement "for" statement "]" ;
-
-referenceSubstitution                ::=  "[" reference "for" reference "]" ;`;
+                                       ;`;
 
 export const typeVocabulary = "";
 
