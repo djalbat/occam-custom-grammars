@@ -6,7 +6,7 @@ import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
-                                       |  variable 
+                                       |  variable termSubstitution?
                                        
                                        ;`;
 
