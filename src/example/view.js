@@ -4,6 +4,7 @@ import withStyle from "easy-with-style";  ///
 
 import { Element } from "easy";
 import { rulesUtilities } from "occam-parsers";
+import { NominalLexer, NominalParser } from "occam-grammars";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
 import { lexersUtilities, parsersUtilities, defaultCustomGrammar, CombinedCustomGrammar } from "../index";  ///
 
@@ -24,8 +25,8 @@ import { rulesFromParser } from "./utilities/rules";
 import { DEFAULT_CUSTOM_GRAMMAR_NAME, USER_DEFINED_CUSTOM_GRAMMAR_NAME } from "./grammarNames";
 
 const { rulesAsString } = rulesUtilities,
-      { nominalLexerFromCombinedCustomGrammar } = lexersUtilities,
-      { nominalParserFromCombinedCustomGrammar } = parsersUtilities;
+      { lexerFromCombinedCustomGrammar } = lexersUtilities,
+      { parserFromCombinedCustomGrammar } = parsersUtilities;
 
 class View extends Element {
   keyUpHandler = (event, element) => {
@@ -46,8 +47,8 @@ class View extends Element {
               userDefinedCustomGrammar
             ],
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
-            nominalLexer = nominalLexerFromCombinedCustomGrammar(combinedCustomGrammar),
-            nominalParser = nominalParserFromCombinedCustomGrammar(combinedCustomGrammar);
+            nominalLexer = lexerFromCombinedCustomGrammar(NominalLexer, combinedCustomGrammar),
+            nominalParser = parserFromCombinedCustomGrammar(NominalParser, combinedCustomGrammar);
 
       const ruleMap = nominalParser.getRuleMap(),
             startRuleName = this.getStartRuleName(),
@@ -174,11 +175,9 @@ class View extends Element {
     this.keyUpHandler();
   }
 
-  static initialStartRuleName = "";
+  static initialStartRuleName = "step";
 
-  static initialContent = `Rule (Groups)
-  Conclusion
-    A
+  static initialContent = `x^y = x_y
 `;
 
   static tagName = "div";
