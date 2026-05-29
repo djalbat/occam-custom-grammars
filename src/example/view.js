@@ -46,7 +46,8 @@ class View extends Element {
       const customGrammars = [
               userDefinedCustomGrammar
             ],
-            combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars),
+            includeDefault = true,
+            combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault),
             nominalLexer = lexerFromCombinedCustomGrammar(NominalLexer, combinedCustomGrammar),
             nominalParser = parserFromCombinedCustomGrammar(NominalParser, combinedCustomGrammar);
 

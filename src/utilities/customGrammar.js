@@ -3,7 +3,7 @@
 import CustomGrammar from "../customGrammar";
 import CombinedCustomGrammar from "../customGrammar/combined";
 
-export function combinedCustomGrammarFromJSON(json) {
+export function combinedCustomGrammarFromJSON(json, includeDefault = true) {
   const customGrammarsJSON = json,  ///
         customGrammars = customGrammarsJSON.map((customGrammarJSON) => {
           const json = customGrammarJSON, ///
@@ -14,26 +14,26 @@ export function combinedCustomGrammarFromJSON(json) {
 
   customGrammars.reverse(); //
 
-  const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars);
+  const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault);
 
   return combinedCustomGrammar;
 }
 
-export function combinedCustomGrammarFromNothing() {
+export function combinedCustomGrammarFromNothing(includeDefault = true) {
   const customGrammars = [],
-        combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars);
+        combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault);
 
   return combinedCustomGrammar;
 }
 
-export function combinedCustomGrammarFromCustomGrammars(customGrammars) {
+export function combinedCustomGrammarFromCustomGrammars(customGrammars, includeDefault = true) {
   customGrammars = [  ///
     ...customGrammars
   ];
 
   customGrammars.reverse(); ///
 
-  const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars);
+  const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault);
 
   return combinedCustomGrammar;
 }
