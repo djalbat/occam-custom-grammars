@@ -6,7 +6,7 @@ import { Element } from "easy";
 import { rulesUtilities } from "occam-parsers";
 import { NominalLexer, NominalParser } from "occam-grammars";
 import { RowsDiv, ColumnDiv, ColumnsDiv, VerticalSplitterDiv } from "easy-layout";
-import { lexersUtilities, parsersUtilities, defaultCustomGrammar, CombinedCustomGrammar } from "../index";  ///
+import { lexersUtilities, parsersUtilities, CombinedCustomGrammar } from "../index";  ///
 
 import SubHeading from "./subHeading";
 import NameSelect from "./select/name";
@@ -19,6 +19,7 @@ import StartRuleNameInput from "./input/startRuleName";
 import NominalBNFTextarea from "./textarea/nominalBNF";
 import VocabularyTextarea from "./textarea/vocabulary";
 import VocabularyNameSelect from "./select/vocabularyName";
+import defaultCustomGrammar from "./customGrammar/default";
 import userDefinedCustomGrammar from "./customGrammar/userDefined";
 
 import { rulesFromParser } from "./utilities/rules";
@@ -37,16 +38,23 @@ class View extends Element {
             vocabulary = this.getVocabulary(),
             vocabularyName = this.getVocabularyName();
 
-      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
-        userDefinedCustomGrammar.setBNF(ruleName, bnf);
+    if (name === DEFAULT_CUSTOM_GRAMMAR_NAME) {
+      defaultCustomGrammar.setBNF(ruleName, bnf);
 
-        userDefinedCustomGrammar.setVocabulary(vocabularyName, vocabulary);
-      }
+      defaultCustomGrammar.setVocabulary(vocabularyName, vocabulary);
+    }
 
-      const customGrammars = [
-              userDefinedCustomGrammar
+    if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+      userDefinedCustomGrammar.setBNF(ruleName, bnf);
+
+      userDefinedCustomGrammar.setVocabulary(vocabularyName, vocabulary);
+    }
+
+    const customGrammars = [
+              userDefinedCustomGrammar,
+              defaultCustomGrammar,
             ],
-            includeDefault = true,
+            includeDefault = false,
             combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault),
             nominalLexer = lexerFromCombinedCustomGrammar(NominalLexer, combinedCustomGrammar),
             nominalParser = parserFromCombinedCustomGrammar(NominalParser, combinedCustomGrammar);

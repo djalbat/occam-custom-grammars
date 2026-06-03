@@ -58,7 +58,10 @@ export default class CombinedCustomGrammar {
 
   static fromCustomGrammars(customGrammars, includeDefault = true) {
     if (includeDefault) {
-      customGrammars = [ ...customGrammars, defaultCustomGrammar ]; ///
+      customGrammars = [  ///
+        ...customGrammars,
+        defaultCustomGrammar
+      ];
     }
 
     const rules = rulesFromCustomGrammars(customGrammars),
@@ -118,7 +121,7 @@ function entriesFromCustomGrammars(customGrammars) {
 function entryFromCustomGrammars(customGrammars, vocabularyName) {
   const expressions = [];
 
-  backwardsForEach(customGrammars, (customGrammar) => {
+  forwardsForEach(customGrammars, (customGrammar) => {
     const vocabulary = customGrammar.getVocabulary(vocabularyName),
           customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
 
@@ -142,7 +145,7 @@ function entryFromCustomGrammars(customGrammars, vocabularyName) {
 function bnfFromCustomGrammars(customGrammars, ruleName) {
   const bnfs = [];
 
-  forwardsForEach(customGrammars, (customGrammar) => {
+  backwardsForEach(customGrammars, (customGrammar) => {
     const bnf = customGrammar.getBNF(ruleName),
           customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
 
