@@ -29,7 +29,7 @@ export default {
   combinedCustomGrammarFromCustomGrammars
 };
 
-export function customGrammarsFromJSON(json) {
+function customGrammarsFromJSON(json) {
   const customGrammarsJSON = json,  ///
         customGrammars = customGrammarsJSON.map((customGrammarJSON) => {
           const json = customGrammarJSON, ///
