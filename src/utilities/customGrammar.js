@@ -10,11 +10,8 @@ export function combinedCustomGrammarFromJSON(json, includeDefault = true) {
                 customGrammar = CustomGrammar.fromJSON(json);
 
           return customGrammar;
-        });
-
-  customGrammars.reverse(); //
-
-  const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault);
+        }),
+        combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault);
 
   return combinedCustomGrammar;
 }
@@ -27,12 +24,6 @@ export function combinedCustomGrammarFromNothing(includeDefault = true) {
 }
 
 export function combinedCustomGrammarFromCustomGrammars(customGrammars, includeDefault = true) {
-  customGrammars = [  ///
-    ...customGrammars
-  ];
-
-  customGrammars.reverse(); ///
-
   const combinedCustomGrammar = CombinedCustomGrammar.fromCustomGrammars(customGrammars, includeDefault);
 
   return combinedCustomGrammar;

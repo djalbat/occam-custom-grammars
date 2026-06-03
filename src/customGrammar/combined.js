@@ -58,7 +58,7 @@ export default class CombinedCustomGrammar {
 
   static fromCustomGrammars(customGrammars, includeDefault = true) {
     if (includeDefault) {
-      customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+      customGrammars = [ ...customGrammars, defaultCustomGrammar ]; ///
     }
 
     const rules = rulesFromCustomGrammars(customGrammars),

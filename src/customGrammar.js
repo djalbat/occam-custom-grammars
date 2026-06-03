@@ -38,8 +38,17 @@ export default class CustomGrammar {
     let bnf;
 
     switch (ruleName) {
-      case TERM_RULE_NAME: bnf = this.termBNF; break;
-      case STATEMENT_RULE_NAME: bnf = this.statementBNF; break;
+      case TERM_RULE_NAME: {
+        bnf = this.termBNF; ///
+
+        break;
+      }
+
+      case STATEMENT_RULE_NAME: {
+        bnf = this.statementBNF;  ///
+
+        break;
+      }
     }
 
     return bnf;
@@ -49,8 +58,17 @@ export default class CustomGrammar {
     let vocabulary;
 
     switch (vocabularyName) {
-      case TYPE_VOCABULARY_NAME: vocabulary = this.typeVocabulary; break;
-      case SYMBOL_VOCABULARY_NAME: vocabulary = this.symbolVocabulary; break;
+      case TYPE_VOCABULARY_NAME: {
+        vocabulary = this.typeVocabulary; ///
+
+        break;
+      }
+
+      case SYMBOL_VOCABULARY_NAME: {
+        vocabulary = this.symbolVocabulary; ///
+
+        break;
+      }
     }
 
     return vocabulary;
