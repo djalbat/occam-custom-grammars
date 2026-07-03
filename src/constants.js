@@ -9,3 +9,5 @@ export const UNASSIGNED_TYPE = "unassigned";
 export const STUFF_RULE_NAME = "stuff";
 export const BASE_TYPE_SYMBOL = "<>";
 export const NONSENSE_RULE_NAME = "nonsense";
+export const ESCAPE_WATCH_PATTERN = "\\$&";
+export const REGULAR_EXPRESSION_TYPE = "regular-expression";

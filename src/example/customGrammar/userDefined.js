@@ -8,9 +8,12 @@ export const termBNF = "term  ::=  argument<NO_WHITESPACE>( \"^\" | \"_\" )<NO_W
 
 export const statementBNF = ``;
 
-export const typeVocabulary = "";
+export const typeVocabulary = ``;
 
-export const symbolVocabulary = "^\n_\n";
+export const symbolVocabulary = `/(0|[1-9][0-9]*)/
+^
+_
+`;
 
 const name = USER_DEFINED_CUSTOM_GRAMMAR_NAME,
       json = {
