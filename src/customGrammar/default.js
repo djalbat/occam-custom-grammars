@@ -6,7 +6,7 @@ import { DEFAULT_CUSTOM_GRAMMAR_NAME } from "../grammarNames";
 
 export const termBNF = `term                                 ::=  "(" argument ")"
 
-                                       |  variable termSubstitution?
+                                       |  variable
                                        
                                        ;`;
 
@@ -28,7 +28,7 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  propertyAssertion  
 
-                                       |  metavariable ( frameSubstitution | termSubstitution )?
+                                       |  metavariable termSubstitution?
 
                                        ;`;
 
