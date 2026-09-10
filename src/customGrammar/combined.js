@@ -1,5 +1,6 @@
 "use strict";
 
+import { rulesUtilities } from "occam-parsers";
 import { arrayUtilities } from "necessary";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
@@ -12,7 +13,8 @@ import { validateBNF, validateVocabulary } from "../utilities/validate";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "../ruleNames";
 import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "../vocabularyNames";
 
-const { push, tail, first } = arrayUtilities;
+const { rulesAsString } = rulesUtilities,
+      { push, tail, first } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(rules, entries) {
@@ -34,7 +36,17 @@ export default class CombinedCustomGrammar {
       ...this.rules
     ];
 
+    let string;
+
+    string = rulesAsString(rules);
+
+    console.log(string)
+
     rules = eliminateLeftRecursion(rules);  ///
+
+    string = rulesAsString(rules);
+
+    console.log(string)
 
     return rules;
   }
@@ -63,6 +75,10 @@ export default class CombinedCustomGrammar {
         defaultCustomGrammar
       ];
     }
+
+    const json = toJSON(customGrammars);
+
+    console.log(json)
 
     const rules = rulesFromCustomGrammars(customGrammars),
           entries = entriesFromCustomGrammars(customGrammars),
@@ -158,4 +174,16 @@ function combineRules(rules) {
   const rule = firstRule; ///
 
   return rule;
+}
+
+function toJSON(customGrammars) {
+  const json = customGrammars.reduce((json, customGrammar) => {
+    const customGrammarJSON = customGrammar.toJSON();
+
+    json.push(customGrammarJSON);
+
+    return json;
+  }, []);
+
+  return json;
 }
