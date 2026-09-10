@@ -1,21 +1,18 @@
 "use strict";
 
 import { arrayUtilities } from "necessary";
-import { specialSymbols } from "occam-lexers";
-import { parserUtilities } from "occam-parsers";
 import { eliminateLeftRecursion } from "occam-grammar-utilities";
 
 import defaultCustomGrammar from "../customGrammar/default";
 
+import { ruleFromBNF } from "../utilities/bnf";
+import { VERTICAL_BAR } from "../constants";
 import { expressionsFromVocabulary } from "../utilities/vocabulary";
-import { VERTICAL_BAR, VERTICAL_SPACE } from "../constants";
 import { validateBNF, validateVocabulary } from "../utilities/validate";
 import { TERM_RULE_NAME, STATEMENT_RULE_NAME } from "../ruleNames";
 import { TYPE_VOCABULARY_NAME, SYMBOL_VOCABULARY_NAME } from "../vocabularyNames";
 
-const { opaque  } = specialSymbols,
-      { rulesFromBNF } = parserUtilities,
-      { unshift, forwardsForEach, backwardsForEach } = arrayUtilities;
+const { push, tail, first } = arrayUtilities;
 
 export default class CombinedCustomGrammar {
   constructor(rules, entries) {
@@ -46,7 +43,10 @@ export default class CombinedCustomGrammar {
     let customGrammars = [];
 
     if (includeDefault) {
-      customGrammars = [ defaultCustomGrammar, ...customGrammars ]; ///
+      customGrammars = [  ///
+        ...customGrammars,
+        defaultCustomGrammar
+      ];
     }
 
     const rules = rulesFromCustomGrammars(customGrammars),
@@ -72,38 +72,6 @@ export default class CombinedCustomGrammar {
   }
 }
 
-function rulesFromCustomGrammars(customGrammars) {
-  const ruleNames = [
-          TERM_RULE_NAME,
-          STATEMENT_RULE_NAME,
-        ],
-        bnfs = ruleNames.map((ruleName) => {
-          const bnf = bnfFromCustomGrammars(customGrammars, ruleName);
-
-          return bnf;
-        }),
-        bnf = bnfs.join(VERTICAL_SPACE),
-        rules = rulesFromBNF(bnf);
-
-  combineRules(rules);
-
-  const opacity = opaque; ///
-
-  ruleNames.forEach((ruleName) => {
-    const rule = rules.find((rule) => {
-      const name = rule.getName();
-
-      if (name === ruleName) {
-        return true;
-      }
-    });
-
-    rule.setOpacity(opacity);
-  });
-
-  return rules;
-}
-
 function entriesFromCustomGrammars(customGrammars) {
   const vocabularyNames = [
           TYPE_VOCABULARY_NAME,
@@ -118,20 +86,53 @@ function entriesFromCustomGrammars(customGrammars) {
   return entries;
 }
 
+function rulesFromCustomGrammars(customGrammars) {
+  const ruleNames = [
+          TERM_RULE_NAME,
+          STATEMENT_RULE_NAME,
+        ],
+        rules = ruleNames.map((ruleName) => {
+          const rule = ruleFromCustomGrammars(customGrammars, ruleName);
+
+          return rule;
+        });
+
+  return rules;
+}
+
 function entryFromCustomGrammars(customGrammars, vocabularyName) {
   const expressions = [];
 
-  forwardsForEach(customGrammars, (customGrammar) => {
-    const vocabulary = customGrammar.getVocabulary(vocabularyName),
-          customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
+  customGrammars.forEach((customGrammar) => {
+    const vocabulary = customGrammar.getVocabulary(vocabularyName);
 
-    if (!customGrammarDefaultCustomGrammar) {
-      validateVocabulary(vocabulary);
-    }
+    validateVocabulary(vocabulary);
 
     expressionsFromVocabulary(vocabulary, expressions);
   });
 
+  const entry = combineExpressions(expressions, vocabularyName);
+
+  return entry;
+}
+
+function ruleFromCustomGrammars(customGrammars, ruleName) {
+  const rules = [];
+
+  customGrammars.forEach((customGrammar) => {
+    const bnf = customGrammar.getBNF(ruleName);
+
+    validateBNF(bnf, ruleName);
+
+    ruleFromBNF(bnf, rules);
+  });
+
+  const rule = combineRules(rules);
+
+  return rule;
+}
+
+function combineExpressions(expressions, vocabularyName) {
   const pattern = expressions.join(VERTICAL_BAR),
         entryName = vocabularyName,  ///
         entryValue = `^(?:${pattern})`,
@@ -142,58 +143,19 @@ function entryFromCustomGrammars(customGrammars, vocabularyName) {
   return entry;
 }
 
-function bnfFromCustomGrammars(customGrammars, ruleName) {
-  const bnfs = [];
+function combineRules(rules) {
+  const firstRule = first(rules),
+        rulesTail = tail(rules),
+        definitions = firstRule.getDefinitions(),
+        remainingRules = rulesTail; ///
 
-  backwardsForEach(customGrammars, (customGrammar) => {
-    const bnf = customGrammar.getBNF(ruleName),
-          customGrammarDefaultCustomGrammar = customGrammar.isDefaultCustomGrammar();
+  remainingRules.forEach((remainingRule) => {
+    const remainingRuleDefinitions = remainingRule.getDefinitions();
 
-    if (!customGrammarDefaultCustomGrammar) {
-      validateBNF(bnf, ruleName);
-    }
-
-    bnfs.push(bnf);
+    push(definitions, remainingRuleDefinitions);
   });
 
-  const bnf = bnfs.join(VERTICAL_SPACE);
+  const rule = firstRule; ///
 
-  return bnf;
-}
-
-function combineRules(rules) {
-  let outerIndex = 0,
-      length = rules.length;
-
-  while (outerIndex < length) {
-    const outerRule = rules[outerIndex],
-          outerRuleName = outerRule.getName();
-
-    let innerIndex = outerIndex + 1;
-
-    while (innerIndex < length) {
-      const innerRule = rules[innerIndex],
-            innerRuleName = innerRule.getName();
-
-      if (innerRuleName === outerRuleName) {
-        const innerRuleDefinitions = innerRule.getDefinitions(),
-              outerRuleDefinitions = outerRule.getDefinitions();
-
-        unshift(outerRuleDefinitions, innerRuleDefinitions);
-
-        const start = innerIndex, ///
-              deleteCount = 1;
-
-        rules.splice(start, deleteCount);
-
-        length = rules.length;
-      } else {
-        innerIndex++;
-      }
-    }
-
-    outerIndex++;
-
-    length = rules.length;
-  }
+  return rule;
 }

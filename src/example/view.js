@@ -38,19 +38,19 @@ class View extends Element {
             vocabulary = this.getVocabulary(),
             vocabularyName = this.getVocabularyName();
 
-    if (name === DEFAULT_CUSTOM_GRAMMAR_NAME) {
-      defaultCustomGrammar.setBNF(ruleName, bnf);
+      if (name === DEFAULT_CUSTOM_GRAMMAR_NAME) {
+        defaultCustomGrammar.setBNF(ruleName, bnf);
 
-      defaultCustomGrammar.setVocabulary(vocabularyName, vocabulary);
-    }
+        defaultCustomGrammar.setVocabulary(vocabularyName, vocabulary);
+      }
 
-    if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
-      userDefinedCustomGrammar.setBNF(ruleName, bnf);
+      if (name === USER_DEFINED_CUSTOM_GRAMMAR_NAME) {
+        userDefinedCustomGrammar.setBNF(ruleName, bnf);
 
-      userDefinedCustomGrammar.setVocabulary(vocabularyName, vocabulary);
-    }
+        userDefinedCustomGrammar.setVocabulary(vocabularyName, vocabulary);
+      }
 
-    const customGrammars = [
+      const customGrammars = [
               userDefinedCustomGrammar,
               defaultCustomGrammar,
             ],

@@ -23,7 +23,7 @@ const expressionNodesQuery = nodesQuery("//expression"),
 const anchorsRegularExpression = /(?<!\\)\$/;
 
 export function validateBNF(bnf, ruleName) {
-  const content = bnf,
+  const content = bnf,  ///
         tokens = customGrammarBNFLexer.tokenise(content),
         node = customGrammarBNFParser.parse(tokens);
 
