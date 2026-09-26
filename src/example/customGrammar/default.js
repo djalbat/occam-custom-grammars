@@ -14,8 +14,6 @@ export const statementBNF = `statement                            ::=  "(" metaA
                                                   
                                        |  equality
 
-                                       |  judgement
-
                                        |  typeAssertion 
                                                   
                                        |  definedAssertion  
@@ -28,7 +26,7 @@ export const statementBNF = `statement                            ::=  "(" metaA
 
                                        |  propertyAssertion  
 
-                                       |  metavariable ( frameSubstitution | termSubstitution )?
+                                       |  metavariable termSubstitution?
 
                                        ;`;
 
