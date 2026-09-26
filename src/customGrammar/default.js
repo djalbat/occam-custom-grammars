@@ -14,8 +14,6 @@ export const statementBNF = `statement                            ::=  "(" metaA
                                                   
                                        |  equality
 
-                                       |  judgement
-
                                        |  typeAssertion 
                                                   
                                        |  definedAssertion  
