@@ -19,7 +19,7 @@ import StartRuleNameInput from "./input/startRuleName";
 import NominalBNFTextarea from "./textarea/nominalBNF";
 import VocabularyTextarea from "./textarea/vocabulary";
 import VocabularyNameSelect from "./select/vocabularyName";
-import defaultCustomGrammar from "./customGrammar/default";
+import defaultCustomGrammar from "../customGrammar/default";
 import userDefinedCustomGrammar from "./customGrammar/userDefined";
 
 import { rulesFromParser } from "./utilities/rules";
