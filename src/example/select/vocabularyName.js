@@ -33,7 +33,6 @@ export default class VocabularyNameSelect extends Select {
             ...options
           ];
 
-
     return childElements;
   }
 
